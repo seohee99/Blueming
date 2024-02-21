@@ -5,7 +5,11 @@ const commentReplySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  isAnonymous: { type: int, required: true },
+  depth: {
+    type: Number,
+    required: true,
+  },
+  isAnonymous: { type: Number, required: true },
   userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   commentReplys: [
     {
@@ -25,9 +29,12 @@ const commentSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  isAnonymous: { type: int, required: true },
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-
+  isAnonymous: { type: Number, required: true },
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" }, //required: true 추가해야함
+  depth: {
+    type: Number,
+    required: true,
+  },
   boardId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Board",
