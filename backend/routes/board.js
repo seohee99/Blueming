@@ -126,22 +126,14 @@ router.post("/:boardId/comment/:commentId", function (req, res, next) {
       createdCommentId = data._id; // 추가된 댓글의 ID 저장
       return Comment.findByIdAndUpdate(
         commentId,
-        { $push: { commentReplys: data } },
+        { $push: { commentReplys: createdCommentId } },
         { new: true }
       );
     })
-    .then(() => {
-      console.log(createdCommentId);
-      //create로 인해 그냥 댓글도 만들어지니까 댓글은 삭제
-      return Comment.deleteOne({
-        _id: createdCommentId,
-      });
+    .then((data2) => {
+      return res.json(data2);
     })
-    .then(() => {
-      res.json({
-        message: "대댓글 추가 및 불필요하게 추가되는 댓글 삭제 완료",
-      });
-    })
+
     .catch((err) => {
       next(err);
     });
@@ -150,20 +142,30 @@ router.post("/:boardId/comment/:commentId", function (req, res, next) {
 //게시글 대댓글 삭제하기
 router.delete(
   "/:boardId/comment/:commentId/commentReply/:commentReplyId",
-  function (req, res, next) {
+  async (req, res, next) => {
     const { commentId, commentReplyId } = req.params;
 
-    Comment.findByIdAndUpdate(
-      commentId,
-      { $pull: { commentReplys: { _id: commentReplyId } } },
-      { new: true }
-    )
-      .then(() => {
-        res.json({ message: "대댓글 삭제 완료" });
-      })
-      .catch((err) => {
-        next(err);
-      });
+    try {
+      await Comment.deleteOne({ _id: commentReplyId });
+
+      const updatedComment = await Comment.findByIdAndUpdate(
+        commentId,
+        { $pull: { commentReplys: commentReplyId } },
+        { new: true }
+      );
+
+      if (!updatedComment) {
+        return res
+          .status(404)
+          .json({ message: "댓글이나 댓글 답글을 찾을 수 없습니다." });
+      }
+
+      // 제거된 commentReplyId를 응답으로 전송
+      res.json({ message: "삭제 완료", updatedComment });
+    } catch (error) {
+      // 오류 발생 시 다음 미들웨어로 전달
+      next(error);
+    }
   }
 );
 
