@@ -14,6 +14,8 @@ import BoardApi from "~/lib/apis/board";
 export default function BoardWritePage() {
   const navigate = useNavigate();
   const params = useParams();
+  const boardId = params.boardId;
+
   const [newBoard, setNewBoard] = useState({
     title: "",
     content: "",
@@ -21,6 +23,22 @@ export default function BoardWritePage() {
   });
   const { title, content } = newBoard;
   const [anoymous, setAnoymous] = useState(false); // TODO
+
+  useEffect(() => {
+    // url에 boardId 있으면 board data 가져옴
+    if (boardId) {
+      fetchBoardData(boardId);
+    }
+  }, [boardId]);
+
+  const fetchBoardData = async (boardId) => {
+    try {
+      const boardData = await BoardApi.fetchBoardDetail(boardId);
+      setNewBoard(boardData);
+    } catch (err) {
+      console.error("Error fetching board data:", err);
+    }
+  };
 
   const onChangeAnoymous = (e) => {
     setAnoymous(e.target.checked);
@@ -36,10 +54,16 @@ export default function BoardWritePage() {
 
   const handleWriteBoard = async () => {
     try {
-      await BoardApi.fetchBoardWrite(newBoard);
+      if (!boardId) {
+        // 게시글 등록
+        await BoardApi.fetchBoardWrite(newBoard);
+      } else {
+        // 게시글 수정
+        await BoardApi.fetchBoardEdit(boardId, newBoard);
+      }
       navigate(-1);
     } catch (err) {
-      console.error("Error writing board:", err);
+      console.error("Error posting board:", err);
     }
   };
 
@@ -57,7 +81,7 @@ export default function BoardWritePage() {
 
   return (
     <Container className="min-vh-100">
-      <h1>게시글 작성</h1>
+      <h1>{boardId ? "게시글 수정" : "게시글 등록"}</h1>
       <Form>
         <fieldset>
           <Form.Group
@@ -139,7 +163,7 @@ export default function BoardWritePage() {
               onClick={handleWriteBoard}
               className="me-2 custom-btn"
             >
-              작성
+              {boardId ? "수정" : "등록"}
             </Button>
           </div>
         </fieldset>
