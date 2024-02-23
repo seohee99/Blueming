@@ -17,7 +17,7 @@ export async function fetchBoardWrite() {
 }
 
 export async function fetchBoardEdit(boardId) {
-  const response = await instance.put(`/board/write/${boardId}`);
+  const response = await instance.put(`/board/${boardId}/edit`);
   return response.data;
 }
 
@@ -27,6 +27,7 @@ export async function fetchBoardDelete(boardId) {
 }
 
 // 댓글
+// TODO
 export async function fetchBoardCommentList(boardId) {
   const response = await instance.get(`/board/${boardId}/comment`);
   return response.data;
