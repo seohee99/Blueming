@@ -32,22 +32,22 @@ export const router = createBrowserRouter([
         children: [
           {
             path: "login",
-            element: <LoginPage></LoginPage>,
+            element: <LoginPage />,
             index: true,
           },
           {
             path: "signup",
-            element: <SignupPage></SignupPage>,
+            element: <SignupPage />,
             index: true,
           },
           {
             path: "mypage",
-            element: <MyPage></MyPage>,
+            element: <MyPage />,
             index: true,
           },
           {
             path: "signup",
-            element: <SignupPage></SignupPage>,
+            element: <SignupPage />,
             index: true,
           },
         ],
@@ -58,17 +58,22 @@ export const router = createBrowserRouter([
           {
             path: "",
             index: true,
-            element: <AssignmentPage></AssignmentPage>,
+            element: <AssignmentPage />,
           },
           {
             path: "detail",
             index: true,
-            element: <AssignmentDetailPage></AssignmentDetailPage>,
+            element: <AssignmentDetailPage />,
           },
           {
             path: "write",
-            // index : true,
-            element: <AssignmentWritePage></AssignmentWritePage>,
+            index: true,
+            element: <AssignmentWritePage />,
+          },
+          {
+            path: ":boardId/edit",
+            index: true,
+            element: <AssignmentWritePage />,
           },
         ],
       },
@@ -78,17 +83,22 @@ export const router = createBrowserRouter([
           {
             path: "",
             index: true,
-            element: <BoardPage></BoardPage>,
+            element: <BoardPage />,
           },
           {
             path: "detail",
             index: true,
-            element: <BoardDetailPage></BoardDetailPage>,
+            element: <BoardDetailPage />,
           },
           {
             path: "write",
             index: true,
-            element: <BoardWritePage></BoardWritePage>,
+            element: <BoardWritePage />,
+          },
+          {
+            path: ":boardId/edit",
+            index: true,
+            element: <BoardWritePage />,
           },
         ],
       },
@@ -98,17 +108,22 @@ export const router = createBrowserRouter([
           {
             path: "",
             index: true,
-            element: <NoticePage></NoticePage>,
+            element: <NoticePage />,
           },
           {
             path: "detail",
             index: true,
-            element: <NoticeDetailPage></NoticeDetailPage>,
+            element: <NoticeDetailPage />,
           },
           {
             path: "write",
             index: true,
-            element: <NoticeWritePage></NoticeWritePage>,
+            element: <NoticeWritePage />,
+          },
+          {
+            path: ":boardId/edit",
+            index: true,
+            element: <NoticeWritePage />,
           },
         ],
       },

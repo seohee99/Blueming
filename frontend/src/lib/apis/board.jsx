@@ -16,8 +16,8 @@ export async function fetchBoardWrite() {
   return response.data;
 }
 
-export async function fetchBoardEdit(boardId) {
-  const response = await instance.put(`/board/${boardId}/edit`);
+export async function fetchBoardEdit(boardId, newBoardData) {
+  const response = await instance.put(`/board/${boardId}/edit`, newBoardData);
   return response.data;
 }
 
