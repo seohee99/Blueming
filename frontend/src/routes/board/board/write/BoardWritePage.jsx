@@ -79,27 +79,28 @@ export default function BoardWritePage() {
             </Col>
           </Form.Group>
 
-          <Stack direction="horizontal" gap={2}>
-            Tags:
-            {tags.map((tag) => (
-              <Badge
-                key={tag}
-                pill
-                bg={selectedTags.includes(tag) ? "primary" : "secondary"}
-                onClick={() => handleSelectTag(tag)}
-                style={{ cursor: "pointer" }}
-              >
-                {tag}
-              </Badge>
-            ))}
-          </Stack>
+          <div className="d-flex align-items-center justify-content-between mb-3">
+            <div>
+              <Stack direction="horizontal" gap={2}>
+                <span>Tags:</span>
+                {tags.map((tag) => (
+                  <Badge
+                    key={tag}
+                    pill
+                    bg={selectedTags.includes(tag) ? "primary" : "secondary"}
+                    onClick={() => handleSelectTag(tag)}
+                    style={{ cursor: "pointer" }}
+                  >
+                    {tag}
+                  </Badge>
+                ))}
+              </Stack>
+            </div>
+            <Form.Group controlId="formFile" className="mb-0">
+              <Form.Control type="file" size="sm" style={{ width: "200px" }} />
+            </Form.Group>
+          </div>
 
-          <Form.Group
-            className="mb-3 d-flex justify-content-end"
-            controlId="formFile"
-          >
-            <Form.Control type="file" size="sm" style={{ width: "200px" }} />
-          </Form.Group>
           <Form.Group className="mb-3" controlId="writeForm.content.input">
             <Form.Control
               as="textarea"
@@ -129,11 +130,15 @@ export default function BoardWritePage() {
               onClick={(e) => {
                 navigate(-1);
               }}
-              className="me-2"
+              className="me-2 custom-btn"
             >
               ◀◀️
             </Button>
-            <Button type="button" onClick={handleWriteBoard}>
+            <Button
+              type="button"
+              onClick={handleWriteBoard}
+              className="me-2 custom-btn"
+            >
               작성
             </Button>
           </div>
