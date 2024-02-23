@@ -278,6 +278,10 @@ export default function BoardWritePage() {
         </Button>
       </div>
 
+      <Button className="write-board-btn" onClick={() => {}}>
+        등록
+      </Button>
+
       <div className="board-list">
         {currentPosts.map((data, index) => (
           <div key={index} className="board">
