@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Container, Form, Button, Row, Col } from "react-bootstrap";
+import {
+  Container,
+  Form,
+  Button,
+  Row,
+  Col,
+  Stack,
+  Badge,
+} from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import BoardApi from "~/lib/apis/board";
 
@@ -35,6 +43,18 @@ export default function BoardWritePage() {
     }
   };
 
+  const tags = ["질문", "잡담"];
+  const [selectedTags, setSelectedTags] = useState([]);
+  const handleSelectTag = (tag) => {
+    if (selectedTags.includes(tag)) {
+      setSelectedTags(
+        selectedTags.filter((selectedTag) => selectedTag !== tag)
+      );
+    } else {
+      setSelectedTags([...selectedTags, tag]);
+    }
+  };
+
   return (
     <Container className="min-vh-100">
       <h1>게시글 작성</h1>
@@ -46,7 +66,7 @@ export default function BoardWritePage() {
             controlId="writeForm.title.input"
           >
             <Form.Label column sm={1}>
-              Title
+              Title:
             </Form.Label>
             <Col sm={11}>
               <Form.Control
@@ -58,6 +78,22 @@ export default function BoardWritePage() {
               />
             </Col>
           </Form.Group>
+
+          <Stack direction="horizontal" gap={2}>
+            Tags:
+            {tags.map((tag) => (
+              <Badge
+                key={tag}
+                pill
+                bg={selectedTags.includes(tag) ? "primary" : "secondary"}
+                onClick={() => handleSelectTag(tag)}
+                style={{ cursor: "pointer" }}
+              >
+                {tag}
+              </Badge>
+            ))}
+          </Stack>
+
           <Form.Group
             className="mb-3 d-flex justify-content-end"
             controlId="formFile"
