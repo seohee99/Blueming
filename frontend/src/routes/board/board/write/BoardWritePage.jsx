@@ -37,14 +37,6 @@ export default function BoardWritePage() {
 
   return (
     <Container className="min-vh-100">
-      <Button
-        onClick={(e) => {
-          navigate(-1);
-        }}
-      >
-        뒤로가기
-      </Button>
-
       <h1>게시글 작성</h1>
       <Form>
         <fieldset>
@@ -60,7 +52,7 @@ export default function BoardWritePage() {
               <Form.Control
                 type="text"
                 name="title"
-                value={newBoard.title}
+                value={title}
                 placeholder="제목을 입력해주세요."
                 onChange={handleInputChange}
               />
@@ -77,7 +69,7 @@ export default function BoardWritePage() {
               as="textarea"
               rows={3}
               name="content"
-              value={newBoard.content}
+              value={content}
               placeholder="내용을 입력해주세요."
               onChange={handleInputChange}
             />
@@ -96,9 +88,19 @@ export default function BoardWritePage() {
             />
           </Form.Group>
 
-          <Button variant="primary" type="button" onClick={handleWriteBoard}>
-            작성
-          </Button>
+          <div className="d-flex justify-content-end mb-3">
+            <Button
+              onClick={(e) => {
+                navigate(-1);
+              }}
+              className="me-2"
+            >
+              ◀◀️
+            </Button>
+            <Button type="button" onClick={handleWriteBoard}>
+              작성
+            </Button>
+          </div>
         </fieldset>
       </Form>
     </Container>
