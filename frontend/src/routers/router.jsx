@@ -61,7 +61,7 @@ export const router = createBrowserRouter([
             element: <AssignmentPage />,
           },
           {
-            path: "detail",
+            path: ":boardId",
             index: true,
             element: <AssignmentDetailPage />,
           },
@@ -86,7 +86,7 @@ export const router = createBrowserRouter([
             element: <BoardPage />,
           },
           {
-            path: "detail",
+            path: ":boardId",
             index: true,
             element: <BoardDetailPage />,
           },
@@ -111,7 +111,7 @@ export const router = createBrowserRouter([
             element: <NoticePage />,
           },
           {
-            path: "detail",
+            path: ":boardId",
             index: true,
             element: <NoticeDetailPage />,
           },
