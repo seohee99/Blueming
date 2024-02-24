@@ -274,13 +274,14 @@ export default function BoardWritePage() {
             setPage(1);
           }}
         >
-          Search
+          검색
         </Button>
       </div>
-
-      <Button className="write-board-btn" onClick={() => {}}>
-        등록
-      </Button>
+      <div className="write-board">
+        <Button className="write-board-btn" onClick={() => {}}>
+          등록
+        </Button>
+      </div>
 
       <div className="board-list">
         {currentPosts.map((data, index) => (
