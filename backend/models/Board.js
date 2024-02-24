@@ -5,7 +5,7 @@ const boardSchema = new mongoose.Schema({
   boardContent: { type: String, required: true },
   boardFile: { type: String },
   isAnonymous: { type: Number, required: true },
-  tag: { type: String, required: true },
+  tag: [{ type: String, required: true }],
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
