@@ -20,7 +20,7 @@ router.get("/", (req, res, next) => {
 
 //게시글 작성하기
 router.post("/", (req, res, next) => {
-  userId: req.user._id
+  //userId: req.user._id
   Board.create({ ...req.body })
     .then((data) => {
       res.send(data);
@@ -101,11 +101,30 @@ router.post("/:boardId/comment", (req, res, next) => {
 router.delete("/:boardId/comment/:commentId", function (req, res, next) {
   const { commentId } = req.params;
 
-  Comment.deleteOne({
-    _id: commentId,
-  })
-    .then(() => {
-      res.json({ message: "삭제 완료" });
+  Comment.findOne({ _id: commentId })
+    .then((comment) => {
+      if (comment.commentReplys.length > 0) {
+        // commentReplys의 length가 0보다 크면 내용을 "삭제된 댓글입니다."로 변경
+        Comment.updateOne(
+          { _id: commentId },
+          { $set: { commentContent: "삭제된 댓글입니다." } }
+        )
+          .then(() => {
+            res.json({ message: "댓글 내용 변경 완료" });
+          })
+          .catch((err) => {
+            next(err);
+          });
+      } else {
+        // commentReplys의 length가 0이면 댓글을 삭제
+        Comment.deleteOne({ _id: commentId })
+          .then(() => {
+            res.json({ message: "삭제 완료" });
+          })
+          .catch((err) => {
+            next(err);
+          });
+      }
     })
     .catch((err) => {
       next(err);
@@ -158,6 +177,14 @@ router.delete(
         return res
           .status(404)
           .json({ message: "댓글이나 댓글 답글을 찾을 수 없습니다." });
+      }
+
+      if (
+        updatedComment.commentContent === "삭제된 댓글입니다." &&
+        updatedComment.commentReplys.length === 0
+      ) {
+        await Comment.deleteOne({ _id: commentId });
+        return res.json({ message: "삭제 완료", deletedCommentId: commentId });
       }
 
       // 제거된 commentReplyId를 응답으로 전송
