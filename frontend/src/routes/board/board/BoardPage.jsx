@@ -106,9 +106,10 @@ export default function BoardWritePage() {
                     {data.boardTitle}{" "}
                     {data.commentCount ? "(" + data.commentCount + ")" : null}
                   </div>
-                  {data.tag.map((boardTag) => (
-                    <div className="board-tag">{boardTag}</div>
-                  ))}
+                  {data.tag &&
+                    data.tag.map((boardTag) => (
+                      <div className="board-tag">{boardTag}</div>
+                    ))}
                 </div>
               </div>
             </Link>
