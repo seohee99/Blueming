@@ -18,7 +18,7 @@
 }
 
 .write-board-btn {
-  margin: 20px;
+  margin: 10px !important;
 }
 
 .board {
@@ -28,20 +28,27 @@
   border-radius: 10px;
 }
 
+.board-title-comment {
+  font-size: 23px;
+}
+
 .board-title-tag {
   display: flex;
-  margin-bottom: 5px;
 }
 
 .board-tag {
   margin-left: 10px;
   background: white;
   border-radius: 5px;
-  padding: 0px 5px;
+  padding: 0px 6px;
+  font-size: 15px;
+  line-height: 33px;
 }
 
 .writer-date {
   text-align: left;
+  color: rgb(80, 78, 78);
+  font-size: 15px;
 }
 
 .board-pagination {

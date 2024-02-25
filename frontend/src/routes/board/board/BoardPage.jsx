@@ -4,6 +4,36 @@ import { PaginationControl } from "react-bootstrap-pagination-control";
 import { fetchBoardList, fetchBoardCommentList } from "~/lib/apis/board";
 import { Link } from "react-router-dom";
 
+export function timeAgo(updatedAt) {
+  const now = new Date();
+  const updatedTime = new Date(updatedAt);
+
+  const secondsPast = (now.getTime() - updatedTime.getTime()) / 1000;
+
+  if (secondsPast < 60) {
+    return parseInt(secondsPast) + "초 전";
+  }
+  if (secondsPast < 3600) {
+    return parseInt(secondsPast / 60) + "분 전";
+  }
+  if (secondsPast <= 86400) {
+    return parseInt(secondsPast / 3600) + "시간 전";
+  }
+  if (secondsPast > 86400) {
+    let month = (updatedTime.getMonth() + 1).toString();
+    let date = updatedTime.getDate().toString();
+    let hours = updatedTime.getHours().toString();
+    let minutes = updatedTime.getMinutes().toString();
+
+    month = month.length < 2 ? "0" + month : month;
+    date = date.length < 2 ? "0" + date : date;
+    hours = hours.length < 2 ? "0" + hours : hours;
+    minutes = minutes.length < 2 ? "0" + minutes : minutes;
+
+    return `${month}/${date} ${hours}:${minutes}`;
+  }
+}
+
 export default function BoardWritePage() {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
@@ -86,9 +116,13 @@ export default function BoardWritePage() {
         </Button>
       </div>
       <div className="write-board">
-        <Button className="write-board-btn" onClick={() => {}}>
-          등록
-        </Button>
+        <Link
+          to={`/board/write`}
+          preventScrollReset
+          className="text-decoration-none"
+        >
+          <Button className="write-board-btn">등록</Button>
+        </Link>
       </div>
 
       <div className="board-list">
@@ -106,9 +140,14 @@ export default function BoardWritePage() {
                     {data.boardTitle}{" "}
                     {data.commentCount ? "(" + data.commentCount + ")" : null}
                   </div>
-                  {data.tag.map((boardTag) => (
-                    <div className="board-tag">{boardTag}</div>
-                  ))}
+                  {data.tag &&
+                    data.tag.map((boardTag) => (
+                      <div className="board-tag">{boardTag}</div>
+                    ))}
+                </div>
+                <div className="writer-date">
+                  <strong>{data.isAnonymous ? "익명" : data.writer}</strong> /{" "}
+                  {timeAgo(data.updatedAt)}{" "}
                 </div>
               </div>
             </Link>
