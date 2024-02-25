@@ -12,7 +12,7 @@ export async function fetchBoardDetail(boardId) {
 }
 
 export async function fetchBoardWrite() {
-  const response = await instance.post(`/board/write`);
+  const response = await instance.post(`/board`); // TODO
   return response;
 }
 
