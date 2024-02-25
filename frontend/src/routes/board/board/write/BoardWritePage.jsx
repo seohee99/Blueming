@@ -17,6 +17,7 @@ export default function BoardWritePage() {
   const boardId = params.boardId;
 
   const [newBoard, setNewBoard] = useState({
+    boardType: "board",
     boardTitle: "",
     boardContent: "",
     boardFile: "",
@@ -24,11 +25,12 @@ export default function BoardWritePage() {
     tag: [],
   });
 
-  const { boardTitle, boardContent, boardFile, isAnonymous } = newBoard;
+  const { boardType, boardTitle, boardContent, boardFile, isAnonymous } =
+    newBoard;
 
   const fetchBoardData = async (boardId) => {
     try {
-      const boardData = await BoardApi.fetchBoardDetail(boardId);
+      const boardData = await BoardApi.fetchBoardDetail(boardType, boardId);
       setNewBoard(boardData);
     } catch (err) {
       console.error("Error fetching board data:", err);
@@ -63,10 +65,10 @@ export default function BoardWritePage() {
       }
       if (!boardId) {
         // 게시글 등록
-        await BoardApi.fetchBoardWrite(newBoard);
+        await BoardApi.fetchBoardWrite(boardType, newBoard);
       } else {
         // 게시글 수정
-        await BoardApi.fetchBoardEdit(boardId, newBoard);
+        await BoardApi.fetchBoardEdit(boardType, boardId, newBoard);
       }
       navigate(-1);
     } catch (err) {

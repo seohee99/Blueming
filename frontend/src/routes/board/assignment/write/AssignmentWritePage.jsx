@@ -11,37 +11,37 @@ import {
 import { useNavigate, useParams } from "react-router-dom";
 import BoardApi from "~/lib/apis/board";
 
-export default function AssignmentWritePage() {
+export default function BoardWritePage() {
   const navigate = useNavigate();
   const params = useParams();
   const boardId = params.boardId;
 
   const [newBoard, setNewBoard] = useState({
-    title: "",
-    content: "",
-    anoymous: false,
+    boardType: "assignment",
+    boardTitle: "",
+    boardContent: "",
+    boardFile: "",
+    isAnonymous: 0,
+    tag: [],
   });
-  const { title, content } = newBoard;
-  const [anoymous, setAnoymous] = useState(false); // TODO
 
-  useEffect(() => {
-    // url에 boardId 있으면 board data 가져옴
-    if (boardId) {
-      fetchBoardData(boardId);
-    }
-  }, [boardId]);
+  const { boardType, boardTitle, boardContent, boardFile, isAnonymous } =
+    newBoard;
 
   const fetchBoardData = async (boardId) => {
     try {
-      const boardData = await BoardApi.fetchBoardDetail(boardId);
+      const boardData = await BoardApi.fetchBoardDetail(boardType, boardId);
       setNewBoard(boardData);
     } catch (err) {
       console.error("Error fetching board data:", err);
     }
   };
 
-  const onChangeAnoymous = (e) => {
-    setAnoymous(e.target.checked);
+  const toggleAnoymous = () => {
+    setNewBoard((prev) => ({
+      ...prev,
+      isAnonymous: prev.isAnonymous ? 0 : 1,
+    }));
   };
 
   const handleInputChange = (e) => {
@@ -54,12 +54,21 @@ export default function AssignmentWritePage() {
 
   const handleWriteBoard = async () => {
     try {
+      if (boardTitle.trim() === "") {
+        alert("제목을 입력해주세요.");
+        return;
+      } else if (boardContent.trim() === "") {
+        alert("내용을 입력해주세요.");
+      } else if (selectedTags.length === 0) {
+        alert("태그를 선택해주세요.");
+        return;
+      }
       if (!boardId) {
-        // 게시글 등록
-        await BoardApi.fetchBoardWrite(newBoard);
+        // 과제 등록
+        await BoardApi.fetchBoardWrite(boardType, newBoard);
       } else {
-        // 게시글 수정
-        await BoardApi.fetchBoardEdit(boardId, newBoard);
+        // 과제 수정
+        await BoardApi.fetchBoardEdit(boardType, boardId, newBoard);
       }
       navigate(-1);
     } catch (err) {
@@ -79,6 +88,20 @@ export default function AssignmentWritePage() {
     }
   };
 
+  useEffect(() => {
+    // url에 boardId 있으면 board data 가져옴
+    if (boardId) {
+      fetchBoardData(boardType, boardId);
+    }
+  }, [boardId]);
+
+  useEffect(() => {
+    setNewBoard((prev) => ({
+      ...prev,
+      tag: selectedTags,
+    }));
+  }, [selectedTags]);
+
   return (
     <Container className="min-vh-100">
       <h1>{boardId ? "과제 수정" : "과제 등록"}</h1>
@@ -95,8 +118,8 @@ export default function AssignmentWritePage() {
             <Col sm={11}>
               <Form.Control
                 type="text"
-                name="title"
-                value={title}
+                name="boardTitle"
+                value={boardTitle}
                 placeholder="제목을 입력해주세요."
                 onChange={handleInputChange}
               />
@@ -129,8 +152,8 @@ export default function AssignmentWritePage() {
             <Form.Control
               as="textarea"
               rows={3}
-              name="content"
-              value={content}
+              name="boardContent"
+              value={boardContent}
               placeholder="내용을 입력해주세요."
               onChange={handleInputChange}
             />
@@ -142,8 +165,8 @@ export default function AssignmentWritePage() {
             <Form.Check
               type="checkbox"
               label="익명"
-              checked={anoymous}
-              onChange={onChangeAnoymous}
+              checked={isAnonymous === 1}
+              onChange={toggleAnoymous}
               size="sm"
               style={{ width: "60px" }}
             />

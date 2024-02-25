@@ -42,11 +42,12 @@ export default function BoardWritePage() {
   const [filteredBoardData, setFilteredBoardData] = useState([]);
   const navigate = useNavigate();
   const postsPerPage = 5;
+  const boardType = "board";
 
   const callCommentData = async (boardId) => {
     try {
       if (boardId !== undefined) {
-        const comments = await fetchBoardCommentList(boardId);
+        const comments = await fetchBoardCommentList(boardType, boardId);
 
         const filteredComments = comments.comments.filter(
           (comment) => comment.commentContent !== "삭제된 댓글입니다."
@@ -60,7 +61,7 @@ export default function BoardWritePage() {
 
   const callBoardData = async () => {
     try {
-      const response = await fetchBoardList();
+      const response = await fetchBoardList(boardType);
       const boardDataWithComments = await Promise.all(
         response.reverse().map(async (board) => {
           const commentCount = await callCommentData(board._id);
