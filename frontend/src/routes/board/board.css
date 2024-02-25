@@ -22,10 +22,11 @@
 }
 
 .board {
-  background: #f2f0f0;
+  /* background: #dbeaff; */
   margin: 20px;
   padding: 30px;
   border-radius: 10px;
+  border: medium solid #dbeaff;
 }
 
 .board-title-comment {
@@ -38,7 +39,7 @@
 
 .board-tag {
   margin-left: 10px;
-  background: white;
+  background: #dbeaff;
   border-radius: 5px;
   padding: 0px 6px;
   font-size: 15px;
