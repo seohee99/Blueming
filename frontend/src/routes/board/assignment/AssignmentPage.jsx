@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Container, Form, Button } from "react-bootstrap";
 import { PaginationControl } from "react-bootstrap-pagination-control";
-import { fetchBoardList, fetchBoardCommentList } from "~/lib/apis/assignment";
+import { fetchBoardList, fetchBoardCommentList } from "~/lib/apis/board";
 import { Link } from "react-router-dom";
 
 export function timeAgo(updatedAt) {
@@ -40,11 +40,12 @@ export default function BoardWritePage() {
   const [boardData, setBoardData] = useState([]);
   const [filteredBoardData, setFilteredBoardData] = useState([]);
   const postsPerPage = 5;
+  const boardType = "assignment";
 
   const callCommentData = async (boardId) => {
     try {
       if (boardId !== undefined) {
-        const comments = await fetchBoardCommentList(boardId);
+        const comments = await fetchBoardCommentList(boardType, boardId);
 
         const filteredComments = comments.comments.filter(
           (comment) => comment.commentContent !== "삭제된 댓글입니다."
@@ -58,7 +59,7 @@ export default function BoardWritePage() {
 
   const callBoardData = async () => {
     try {
-      const response = await fetchBoardList();
+      const response = await fetchBoardList(boardType);
       const boardDataWithComments = await Promise.all(
         response.reverse().map(async (board) => {
           const commentCount = await callCommentData(board._id);

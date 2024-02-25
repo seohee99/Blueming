@@ -8,7 +8,7 @@ import {
   fetchBoardCommentDelete,
   fetchBoardCommentReplyWrite,
   fetchBoardCommentReplyDelete,
-} from "~/lib/apis/assignment";
+} from "~/lib/apis/board";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { timeAgo } from "../AssignmentPage";
 
@@ -20,13 +20,14 @@ export default function BoardDetailPage() {
   const [anonymous, setAnonymous] = useState(0);
   const [replyAnonymous, setReplyAnonymous] = useState(0);
   const [replyTo, setReplyTo] = useState(null);
+  const boardType = "assignment";
 
   const params = useParams();
   const navigate = useNavigate();
 
   const callCommentData = async () => {
     try {
-      const response = await fetchBoardCommentList(params.boardId);
+      const response = await fetchBoardCommentList(boardType, params.boardId);
       setCommentData(response.comments);
     } catch (error) {
       console.error("상세 페이지 댓글 데이터 호출 중 에러:", error);
@@ -35,7 +36,7 @@ export default function BoardDetailPage() {
 
   const callBoardData = async () => {
     try {
-      const response = await fetchBoardDetail(params.boardId);
+      const response = await fetchBoardDetail(boardType, params.boardId);
       setBoardData(response);
     } catch (error) {
       console.error("상세 페이지 보드 데이터 호출 중 에러:", error);
@@ -44,7 +45,7 @@ export default function BoardDetailPage() {
 
   const handleDelete = async () => {
     try {
-      fetchBoardDelete(params.boardId);
+      fetchBoardDelete(boardType, params.boardId);
       navigate(-1);
       alert("삭제 완료");
     } catch (error) {
@@ -62,7 +63,7 @@ export default function BoardDetailPage() {
 
   const handleCommentWrite = async () => {
     try {
-      fetchBoardCommentWrite(params.boardId, {
+      fetchBoardCommentWrite(boardType, params.boardId, {
         commentContent: writeComment,
         isAnonymous: anonymous,
         depth: 0,
@@ -75,7 +76,7 @@ export default function BoardDetailPage() {
 
   const handleCommentReplyWrite = async (commentId) => {
     try {
-      fetchBoardCommentReplyWrite(params.boardId, commentId, {
+      fetchBoardCommentReplyWrite(boardType, params.boardId, commentId, {
         commentContent: writeCommentReply,
         isAnonymous: replyAnonymous,
         depth: 1,
@@ -91,7 +92,7 @@ export default function BoardDetailPage() {
 
   const handleCommentDelete = async (commentId) => {
     try {
-      fetchBoardCommentDelete(params.boardId, commentId);
+      fetchBoardCommentDelete(boardType, params.boardId, commentId);
       window.location.reload(true);
     } catch (error) {
       console.error("댓글 삭제 중 에러 발생:", error);
@@ -99,7 +100,12 @@ export default function BoardDetailPage() {
   };
   const handleCommentReplyDelete = async (commentId, commentReplyId) => {
     try {
-      fetchBoardCommentReplyDelete(params.boardId, commentId, commentReplyId);
+      fetchBoardCommentReplyDelete(
+        boardType,
+        params.boardId,
+        commentId,
+        commentReplyId
+      );
       window.location.reload(true);
     } catch (error) {
       console.error("대댓글 삭제 중 에러 발생:", error);
