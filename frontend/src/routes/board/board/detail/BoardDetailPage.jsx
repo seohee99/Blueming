@@ -4,6 +4,10 @@ import {
   fetchBoardDetail,
   fetchBoardCommentList,
   fetchBoardDelete,
+  fetchBoardCommentWrite,
+  fetchBoardCommentDelete,
+  fetchBoardCommentReplyWrite,
+  fetchBoardCommentReplyDelete,
 } from "~/lib/apis/board";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { timeAgo } from "../BoardPage";
@@ -11,7 +15,12 @@ import { timeAgo } from "../BoardPage";
 export default function BoardDetailPage() {
   const [commentData, setCommentData] = useState([]);
   const [writeComment, setWriteComment] = useState("");
+  const [writeCommentReply, setWriteCommentReply] = useState("");
   const [boardData, setBoardData] = useState([]);
+  const [anonymous, setAnonymous] = useState(0);
+  const [replyAnonymous, setReplyAnonymous] = useState(0);
+  const [replyTo, setReplyTo] = useState(null);
+
   const params = useParams();
   const navigate = useNavigate();
 
@@ -42,6 +51,72 @@ export default function BoardDetailPage() {
       console.error("글 삭제 중 에러 발생:", error);
     }
   };
+
+  const handleAnonymous = (e) => {
+    setAnonymous(e.target.checked);
+  };
+
+  const handleReplyAnonymous = (e) => {
+    setReplyAnonymous(e.target.checked);
+  };
+
+  const handleCommentWrite = async () => {
+    try {
+      fetchBoardCommentWrite(params.boardId, {
+        commentContent: writeComment,
+        isAnonymous: anonymous,
+        depth: 0,
+      });
+      window.location.reload(true);
+    } catch (error) {
+      console.error("댓글 작성 중 에러 발생:", error);
+    }
+  };
+
+  const handleCommentReplyWrite = async (commentId) => {
+    try {
+      fetchBoardCommentReplyWrite(params.boardId, commentId, {
+        commentContent: writeCommentReply,
+        isAnonymous: replyAnonymous,
+        depth: 1,
+      });
+
+      setWriteCommentReply("");
+      setReplyAnonymous(0);
+      window.location.reload(true);
+    } catch (error) {
+      console.error("대댓글 작성 중 에러 발생:", error);
+    }
+  };
+
+  const handleCommentDelete = async (commentId) => {
+    try {
+      fetchBoardCommentDelete(params.boardId, commentId);
+      window.location.reload(true);
+    } catch (error) {
+      console.error("댓글 삭제 중 에러 발생:", error);
+    }
+  };
+  const handleCommentReplyDelete = async (commentId, commentReplyId) => {
+    try {
+      fetchBoardCommentReplyDelete(params.boardId, commentId, commentReplyId);
+      window.location.reload(true);
+    } catch (error) {
+      console.error("대댓글 삭제 중 에러 발생:", error);
+    }
+  };
+
+  function onKeyUp(e) {
+    if (e.key == "Enter") {
+      handleCommentWrite();
+    }
+  }
+
+  function onKeyUpReply(e) {
+    if (e.key == "Enter") {
+      handleCommentReplyWrite();
+    }
+  }
 
   useEffect(() => {
     callBoardData();
@@ -90,8 +165,25 @@ export default function BoardDetailPage() {
       <hr className="line"></hr>
       <div className="board-comment-all">
         <div className="board-comment-num">
-          <h5>{commentData.length}개의 댓글</h5>
+          <h5>
+            {
+              commentData.filter(
+                (comment) => comment.commentContent !== "삭제된 댓글입니다."
+              ).length
+            }
+            개의 댓글
+          </h5>
         </div>
+        <Form.Check
+          type="checkbox"
+          label="익명"
+          className="comment-anonymous-check"
+          checked={anonymous}
+          onChange={handleAnonymous}
+          size="sm"
+          style={{ width: "60px" }}
+        />
+
         <div className="board-comment-write">
           <Form.Control
             className="comment-write-form"
@@ -100,11 +192,15 @@ export default function BoardDetailPage() {
             onChange={(e) => setWriteComment(e.target.value)}
             onKeyUp={(e) => onKeyUp(e)}
           />
-          <Button className="comment-write-btn" onClick={() => {}}>
+          <Button
+            className="comment-write-btn"
+            onClick={() => {
+              handleCommentWrite();
+            }}
+          >
             작성
           </Button>
         </div>
-
         <div className="board-comment-view">
           {commentData.map((data) =>
             data.depth !== 0 ? (
@@ -113,20 +209,64 @@ export default function BoardDetailPage() {
               <div className="board-comment-each">
                 <div className="board-comment-writer">
                   <strong>{data.isAnonymous ? "익명" : data.writer}</strong>
+
                   <div className="comment-btns">
-                    <button className="comment-btn-reply" onClick={() => {}}>
+                    <button
+                      className="comment-btn-reply"
+                      onClick={() => {
+                        setReplyTo(replyTo === data._id ? null : data._id);
+                        setReplyAnonymous(0);
+                      }}
+                    >
                       답글
                     </button>
 
-                    <button className="comment-btn-del" onClick={() => {}}>
+                    <button
+                      className="comment-btn-del"
+                      onClick={() => {
+                        handleCommentDelete(data._id);
+                      }}
+                    >
                       삭제
                     </button>
                   </div>
                 </div>
-                <div className="board-comment-date">{data.date}</div>
+                <div className="board-comment-date">
+                  {timeAgo(data.commentUpdatedAt)}
+                </div>
                 <div className="board-comment-content">
                   {data.commentContent}
                 </div>
+                {replyTo === data._id && (
+                  <>
+                    <Form.Check
+                      type="checkbox"
+                      label="익명"
+                      className="comment-anonymous-check comment-reply-anonymous-check"
+                      checked={replyAnonymous}
+                      onChange={handleReplyAnonymous}
+                      size="sm"
+                      style={{ width: "60px" }}
+                    />
+                    <div className="board-comment-write board-comment-reply-write">
+                      <Form.Control
+                        className="comment-write-form comment-reply-write-form"
+                        placeholder="대댓글을 작성하세요"
+                        value={writeCommentReply}
+                        onChange={(e) => setWriteCommentReply(e.target.value)}
+                        onKeyUp={(e) => onKeyUpReply(e)}
+                      />
+                      <Button
+                        className="comment-write-btn comment-reply-write-btn"
+                        onClick={() => {
+                          handleCommentReplyWrite(data._id);
+                        }}
+                      >
+                        작성
+                      </Button>
+                    </div>
+                  </>
+                )}
                 <hr className="line" />
                 {data.commentReplys.length <= 0
                   ? ""
@@ -141,14 +281,19 @@ export default function BoardDetailPage() {
                           <div className="comment-btns">
                             <button
                               className="comment-btn-del"
-                              onClick={() => {}}
+                              onClick={() => {
+                                handleCommentReplyDelete(
+                                  data._id,
+                                  commentReply._id
+                                );
+                              }}
                             >
                               삭제
                             </button>
                           </div>
                         </div>
                         <div className="board-comment-date">
-                          {commentReply.date}
+                          {timeAgo(commentReply.commentUpdatedAt)}
                         </div>
                         <div className="board-comment-content">
                           {commentReply.commentContent}

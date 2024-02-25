@@ -121,6 +121,10 @@
   margin: 20px;
 }
 
+.comment-anonymous-check {
+  margin-left: 20px;
+}
+
 .board-comment-write {
   display: flex;
   margin-bottom: 20px;
@@ -187,6 +191,19 @@
 .board-comment-content {
   padding-top: 10px;
   text-align: left;
+}
+
+.board-comment-reply-write {
+  margin: 0px;
+}
+
+.comment-reply-anonymous-check {
+  margin-left: 0px;
+  margin-top: 10px;
+}
+
+.comment-reply-write-form {
+  margin-left: 0px;
 }
 
 .text-decoration-none {
