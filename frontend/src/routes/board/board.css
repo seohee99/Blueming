@@ -52,7 +52,6 @@
 .board-detail-title {
   text-align: left;
   margin: 10px;
-  margin-top: 30px;
 }
 
 .board-detail-tag-container {
@@ -85,7 +84,6 @@
   border: none;
   outline: none;
   background-color: inherit;
-  justify-content: flex-end;
   color: gray;
 }
 
@@ -93,7 +91,6 @@
   border: none;
   outline: none;
   background-color: inherit;
-  justify-content: flex-end;
   color: gray;
 }
 
@@ -109,7 +106,6 @@
   text-align: left;
   padding: 30px 30px;
   margin: 30px 10px;
-
   border-radius: 10px;
 }
 
@@ -120,6 +116,7 @@
 
 .board-comment-write {
   display: flex;
+  margin-bottom: 20px;
 }
 
 .comment-write-form {
@@ -132,7 +129,7 @@
 }
 
 .board-comment-view {
-  margin: 30px 10px;
+  margin: 10px 10px;
 }
 
 .board-comment-each {
@@ -142,7 +139,36 @@
 
 .board-comment-writer {
   font-size: 15px;
-  text-align: left;
+  display: flex;
+  justify-content: space-between;
+}
+
+.comment-btns {
+  text-align: right;
+}
+
+.comment-btn-reply {
+  border: none;
+  outline: none;
+  background-color: inherit;
+  justify-content: flex-end;
+  color: gray;
+}
+
+.comment-btn-edit {
+  border: none;
+  outline: none;
+  background-color: inherit;
+  justify-content: flex-end;
+  color: gray;
+}
+
+.comment-btn-del {
+  border: none;
+  outline: none;
+  background-color: inherit;
+  justify-content: flex-end;
+  color: gray;
 }
 
 .board-comment-date {
@@ -154,10 +180,6 @@
 .board-comment-content {
   padding-top: 10px;
   text-align: left;
-}
-
-.line {
-  margin-bottom: 30px;
 }
 
 .text-decoration-none {

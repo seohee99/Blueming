@@ -8,12 +8,12 @@ export async function fetchBoardList() {
 
 export async function fetchBoardDetail(boardId) {
   const response = await instance.get(`/board/${boardId}`);
-  return response.data;
+  return response;
 }
 
 export async function fetchBoardWrite() {
   const response = await instance.post(`/board/write`);
-  return response.data;
+  return response;
 }
 
 export async function fetchBoardEdit(boardId, newBoardData) {
