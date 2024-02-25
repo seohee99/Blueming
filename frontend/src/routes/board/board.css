@@ -18,7 +18,7 @@
 }
 
 .write-board-btn {
-  margin: 20px;
+  margin: 10px !important;
 }
 
 .board {
@@ -28,20 +28,27 @@
   border-radius: 10px;
 }
 
+.board-title-comment {
+  font-size: 23px;
+}
+
 .board-title-tag {
   display: flex;
-  margin-bottom: 5px;
 }
 
 .board-tag {
   margin-left: 10px;
   background: white;
   border-radius: 5px;
-  padding: 0px 5px;
+  padding: 0px 6px;
+  font-size: 15px;
+  line-height: 33px;
 }
 
 .writer-date {
   text-align: left;
+  color: rgb(80, 78, 78);
+  font-size: 15px;
 }
 
 .board-pagination {
@@ -74,6 +81,7 @@
 .board-writer-date {
   margin: 1px 10px;
   text-align: left;
+  color: gray;
 }
 
 .board-detail-btns {
@@ -112,6 +120,10 @@
 .board-comment-num {
   text-align: left;
   margin: 20px;
+}
+
+.comment-anonymous-check {
+  margin-left: 20px;
 }
 
 .board-comment-write {
@@ -180,6 +192,19 @@
 .board-comment-content {
   padding-top: 10px;
   text-align: left;
+}
+
+.board-comment-reply-write {
+  margin: 0px;
+}
+
+.comment-reply-anonymous-check {
+  margin-left: 0px;
+  margin-top: 10px;
+}
+
+.comment-reply-write-form {
+  margin-left: 0px;
 }
 
 .text-decoration-none {
