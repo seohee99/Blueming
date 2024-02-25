@@ -3,6 +3,7 @@ import { Container, Form, Button } from "react-bootstrap";
 import { PaginationControl } from "react-bootstrap-pagination-control";
 import { fetchBoardList, fetchBoardCommentList } from "~/lib/apis/board";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export function timeAgo(updatedAt) {
   const now = new Date();
@@ -39,6 +40,7 @@ export default function BoardWritePage() {
   const [page, setPage] = useState(1);
   const [boardData, setBoardData] = useState([]);
   const [filteredBoardData, setFilteredBoardData] = useState([]);
+  const navigate = useNavigate();
   const postsPerPage = 5;
 
   const callCommentData = async (boardId) => {

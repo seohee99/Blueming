@@ -17,12 +17,17 @@ export default function BoardWritePage() {
   const boardId = params.boardId;
 
   const [newBoard, setNewBoard] = useState({
-    title: "",
-    content: "",
-    anoymous: false,
+    boardTitle: "",
+    boardContent: "",
+    boardFile: "",
+    isAnonymous: 0,
+    tag: "",
+    userId: "",
   });
-  const { title, content } = newBoard;
-  const [anoymous, setAnoymous] = useState(false); // TODO
+
+  const { boardTitle, boardContent, boardFile, isAnonymous, tag, userId } =
+    newBoard;
+  const [anoymous, setAnoymous] = useState(0); // TODO
 
   useEffect(() => {
     // url에 boardId 있으면 board data 가져옴
@@ -96,7 +101,7 @@ export default function BoardWritePage() {
               <Form.Control
                 type="text"
                 name="title"
-                value={title}
+                value={boardTitle}
                 placeholder="제목을 입력해주세요."
                 onChange={handleInputChange}
               />
@@ -130,7 +135,7 @@ export default function BoardWritePage() {
               as="textarea"
               rows={3}
               name="content"
-              value={content}
+              value={boardContent}
               placeholder="내용을 입력해주세요."
               onChange={handleInputChange}
             />
