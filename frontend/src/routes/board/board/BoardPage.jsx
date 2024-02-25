@@ -30,7 +30,7 @@ export function timeAgo(updatedAt) {
     hours = hours.length < 2 ? "0" + hours : hours;
     minutes = minutes.length < 2 ? "0" + minutes : minutes;
 
-    return `${month}/${date} ${hours}:${minutes}`;
+    return `${month}.${date} ${hours}:${minutes}`;
   }
 }
 
@@ -43,12 +43,19 @@ export default function BoardWritePage() {
 
   const callCommentData = async (boardId) => {
     try {
-      const response = await fetchBoardCommentList(boardId);
-      return response.comments.length ? response.comments.length : 0;
+      if (boardId !== undefined) {
+        const comments = await fetchBoardCommentList(boardId);
+
+        const filteredComments = comments.comments.filter(
+          (comment) => comment.commentContent !== "삭제된 댓글입니다."
+        );
+        return filteredComments.length;
+      }
     } catch (error) {
       console.error("댓글 데이터 호출 중 에러:", error);
     }
   };
+
   const callBoardData = async () => {
     try {
       const response = await fetchBoardList();
