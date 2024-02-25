@@ -159,6 +159,11 @@
 .line {
   margin-bottom: 30px;
 }
+
+.text-decoration-none {
+  text-decoration: none;
+  color: black;
+}
 .me-2.custom-btn {
   background: #696969;
   border: none;

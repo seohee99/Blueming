@@ -1,249 +1,60 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Form, Button } from "react-bootstrap";
 import { PaginationControl } from "react-bootstrap-pagination-control";
+import { fetchBoardList, fetchBoardCommentList } from "~/lib/apis/board";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 
 export default function BoardWritePage() {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
+  const [boardData, setBoardData] = useState([]);
+  const [filteredBoardData, setFilteredBoardData] = useState([]);
+  const [commentData, setCommentData] = useState([]);
   const postsPerPage = 5;
 
-  const boardData = [
-    {
-      title: "안녕하세용 오늘부터 시작이죠?",
-      comment: 3,
-      tag: ["잡담", "질문"],
-      writer: "김투자",
-      date: "2024.02.19",
-    },
-    {
-      title: "이거 그냥 쓰면 되나요?",
-      comment: 1,
-      tag: ["질문"],
-      writer: "김신한",
-      date: "2024.02.19",
-    },
-    {
-      title: "안녕하세용 오늘부터 시작이죠?",
-      comment: 3,
-      tag: ["잡담", "질문"],
-      writer: "김투자",
-      date: "2024.02.19",
-    },
-    {
-      title: "이거 그냥 쓰면 되나요?",
-      comment: 1,
-      tag: ["질문"],
-      writer: "김신한",
-      date: "2024.02.19",
-    },
-    {
-      title: "안녕하세용 오늘부터 시작이죠?",
-      comment: 3,
-      tag: ["잡담", "질문"],
-      writer: "김투자",
-      date: "2024.02.19",
-    },
-    {
-      title: "이거 그냥 쓰면 되나요?",
-      comment: 1,
-      tag: ["질문"],
-      writer: "김신한",
-      date: "2024.02.19",
-    },
-    {
-      title: "안녕하세용 오늘부터 시작이죠?",
-      comment: 3,
-      tag: ["잡담", "질문"],
-      writer: "김투자",
-      date: "2024.02.19",
-    },
-    {
-      title: "이거 그냥 쓰면 되나요?",
-      comment: 1,
-      tag: ["질문"],
-      writer: "김신한",
-      date: "2024.02.19",
-    },
-    {
-      title: "안녕하세용 오늘부터 시작이죠?",
-      comment: 3,
-      tag: ["잡담", "질문"],
-      writer: "김투자",
-      date: "2024.02.19",
-    },
-    {
-      title: "이거 그냥 쓰면 되나요?",
-      comment: 1,
-      tag: ["질문"],
-      writer: "김신한",
-      date: "2024.02.19",
-    },
-    {
-      title: "안녕하세용 오늘부터 시작이죠?",
-      comment: 3,
-      tag: ["잡담", "질문"],
-      writer: "김투자",
-      date: "2024.02.19",
-    },
-    {
-      title: "이거 그냥 쓰면 되나요?",
-      comment: 1,
-      tag: ["질문"],
-      writer: "김신한",
-      date: "2024.02.19",
-    },
-    {
-      title: "안녕하세용 오늘부터 시작이죠?",
-      comment: 3,
-      tag: ["잡담", "질문"],
-      writer: "김투자",
-      date: "2024.02.19",
-    },
-    {
-      title: "이거 그냥 쓰면 되나요?",
-      comment: 1,
-      tag: ["질문"],
-      writer: "김신한",
-      date: "2024.02.19",
-    },
-    {
-      title: "안녕하세용 오늘부터 시작이죠?",
-      comment: 3,
-      tag: ["잡담", "질문"],
-      writer: "김투자",
-      date: "2024.02.19",
-    },
-    {
-      title: "이거 그냥 쓰면 되나요?",
-      comment: 1,
-      tag: ["질문"],
-      writer: "김신한",
-      date: "2024.02.19",
-    },
-    {
-      title: "안녕하세용 오늘부터 시작이죠?",
-      comment: 3,
-      tag: ["잡담", "질문"],
-      writer: "김투자",
-      date: "2024.02.19",
-    },
-    {
-      title: "이거 그냥 쓰면 되나요?",
-      comment: 1,
-      tag: ["질문"],
-      writer: "김신한",
-      date: "2024.02.19",
-    },
-    {
-      title: "안녕하세용 오늘부터 시작이죠?",
-      comment: 3,
-      tag: ["잡담", "질문"],
-      writer: "김투자",
-      date: "2024.02.19",
-    },
-    {
-      title: "이거 그냥 쓰면 되나요?",
-      comment: 1,
-      tag: ["질문"],
-      writer: "김신한",
-      date: "2024.02.19",
-    },
-    {
-      title: "안녕하세용 오늘부터 시작이죠?",
-      comment: 3,
-      tag: ["잡담", "질문"],
-      writer: "김투자",
-      date: "2024.02.19",
-    },
-    {
-      title: "이거 그냥 쓰면 되나요?",
-      comment: 1,
-      tag: ["질문"],
-      writer: "김신한",
-      date: "2024.02.19",
-    },
-    {
-      title: "안녕하세용 오늘부터 시작이죠?",
-      comment: 3,
-      tag: ["잡담", "질문"],
-      writer: "김투자",
-      date: "2024.02.19",
-    },
-    {
-      title: "이거 그냥 쓰면 되나요?",
-      comment: 1,
-      tag: ["질문"],
-      writer: "김신한",
-      date: "2024.02.19",
-    },
-    {
-      title: "안녕하세용 오늘부터 시작이죠?",
-      comment: 3,
-      tag: ["잡담", "질문"],
-      writer: "김투자",
-      date: "2024.02.19",
-    },
-    {
-      title: "이거 그냥 쓰면 되나요?",
-      comment: 1,
-      tag: ["질문"],
-      writer: "김신한",
-      date: "2024.02.19",
-    },
-    {
-      title: "안녕하세용 오늘부터 시작이죠?",
-      comment: 3,
-      tag: ["잡담", "질문"],
-      writer: "김투자",
-      date: "2024.02.19",
-    },
-    {
-      title: "이거 그냥 쓰면 되나요?",
-      comment: 1,
-      tag: ["질문"],
-      writer: "김신한",
-      date: "2024.02.19",
-    },
-    {
-      title: "안녕하세용 오늘부터 시작이죠?",
-      comment: 3,
-      tag: ["잡담", "질문"],
-      writer: "김투자",
-      date: "2024.02.19",
-    },
-    {
-      title: "이거 그냥 쓰면 되나요?",
-      comment: 1,
-      tag: ["질문"],
-      writer: "김신한",
-      date: "2024.02.19",
-    },
-    {
-      title: "안녕하세용 오늘부터 시작이죠?",
-      comment: 3,
-      tag: ["잡담", "질문"],
-      writer: "김투자",
-      date: "2024.02.19",
-    },
-    {
-      title: "이거 그냥 쓰면 되나요?",
-      comment: 1,
-      tag: ["질문"],
-      writer: "김신한",
-      date: "2024.02.19",
-    },
-  ];
-  const [filteredBoardData, setFilteredBoardData] = useState(boardData);
+  const navigate = useNavigate();
+
+  const callCommentData = async (boardId) => {
+    try {
+      const response = await fetchBoardCommentList(boardId);
+      return response.comments.length ? response.comments.length : 0;
+    } catch (error) {
+      console.error("댓글 데이터 호출 중 에러:", error);
+    }
+  };
+  const callBoardData = async () => {
+    try {
+      const response = await fetchBoardList();
+      const boardDataWithComments = await Promise.all(
+        response.map(async (board) => {
+          const commentCount = await callCommentData(board._id);
+          return { ...board, commentCount };
+        })
+      );
+      setBoardData(boardDataWithComments);
+      setFilteredBoardData(boardDataWithComments);
+    } catch (error) {
+      console.error("보드 데이터 호출 중 에러:", error);
+    }
+  };
+
+  useEffect(() => {
+    callBoardData();
+    callCommentData();
+  }, []);
 
   const handleSearch = () => {
-    return boardData.filter((data) =>
-      data.title.toLowerCase().includes(search.toLowerCase())
+    const filteredData = boardData.filter((data) =>
+      data.boardTitle.toLowerCase().includes(search.toLowerCase())
     );
+
+    setFilteredBoardData(filteredData);
+    setPage(1);
   };
 
   function onKeyUp(e) {
     if (e.key == "Enter") {
-      setFilteredBoardData(handleSearch);
+      handleSearch();
       setPage(1);
     }
   }
@@ -270,7 +81,7 @@ export default function BoardWritePage() {
         <Button
           className="search-btn"
           onClick={() => {
-            setFilteredBoardData(handleSearch);
+            handleSearch();
             setPage(1);
           }}
         >
@@ -285,15 +96,25 @@ export default function BoardWritePage() {
 
       <div className="board-list">
         {currentPosts.map((data, index) => (
-          <div key={index} className="board">
-            <div className="board-title-tag">
-              <div className="board-title-comment">
-                {data.title} ({data.comment})
+          <div>
+            <Link
+              to={`/board/${data._id}`}
+              key={data._id}
+              preventScrollReset
+              className="text-decoration-none"
+            >
+              <div key={index} className="board">
+                <div className="board-title-tag">
+                  <div className="board-title-comment">
+                    {data.boardTitle}{" "}
+                    {data.commentCount ? "(" + data.commentCount + ")" : null}
+                  </div>
+                  {data.tag.map((boardTag) => (
+                    <div className="board-tag">{boardTag}</div>
+                  ))}
+                </div>
               </div>
-              {data.tag.map((boardTag) => (
-                <div className="board-tag">{boardTag}</div>
-              ))}
-            </div>
+            </Link>
           </div>
         ))}
       </div>
