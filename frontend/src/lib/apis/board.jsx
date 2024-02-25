@@ -11,8 +11,8 @@ export async function fetchBoardDetail(boardId) {
   return response;
 }
 
-export async function fetchBoardWrite() {
-  const response = await instance.post(`/board`); // TODO
+export async function fetchBoardWrite(newBoardData) {
+  const response = await instance.post(`/board`, newBoardData);
   return response;
 }
 
