@@ -8,7 +8,7 @@ const Comment = require("../models/Comment");
 //모든 게시글 조회하기
 
 router.get("/", (req, res, next) => {
-  Board.find({ boardType: "board" })
+  Board.find({ boardType: "notice" })
     .then((data) => {
       res.send(data);
     })
@@ -21,7 +21,7 @@ router.get("/", (req, res, next) => {
 //게시글 작성하기
 router.post("/", (req, res, next) => {
   //userId: req.user._id
-  Board.create({ ...req.body, boardType: "board" })
+  Board.create({ ...req.body, boardType: "notice" })
     .then((data) => {
       res.send(data);
     })

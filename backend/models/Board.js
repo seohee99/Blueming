@@ -6,11 +6,12 @@ const boardSchema = new mongoose.Schema({
   boardFile: { type: String },
   isAnonymous: { type: Number, required: true },
   tag: [{ type: String, required: true }],
-  userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-  },
+  boardType: { type: String, required: true },
+  // userId: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: "User",
+  //   required: true,
+  // },
 });
 
 boardSchema.set("timestamps", {
