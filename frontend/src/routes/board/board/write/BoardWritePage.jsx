@@ -21,10 +21,20 @@ export default function BoardWritePage() {
     boardContent: "",
     boardFile: "",
     isAnonymous: 0,
-    tag: [],
+    tag: "",
+    userId: "",
   });
 
-  const { boardTitle, boardContent, boardFile, isAnonymous } = newBoard;
+  const { boardTitle, boardContent, boardFile, isAnonymous, tag, userId } =
+    newBoard;
+  const [anoymous, setAnoymous] = useState(0); // TODO
+
+  useEffect(() => {
+    // url에 boardId 있으면 board data 가져옴
+    if (boardId) {
+      fetchBoardData(boardId);
+    }
+  }, [boardId]);
 
   const fetchBoardData = async (boardId) => {
     try {
@@ -35,11 +45,8 @@ export default function BoardWritePage() {
     }
   };
 
-  const toggleAnoymous = () => {
-    setNewBoard((prev) => ({
-      ...prev,
-      isAnonymous: prev.isAnonymous ? 0 : 1,
-    }));
+  const onChangeAnoymous = (e) => {
+    setAnoymous(e.target.checked);
   };
 
   const handleInputChange = (e) => {
@@ -77,20 +84,6 @@ export default function BoardWritePage() {
     }
   };
 
-  useEffect(() => {
-    // url에 boardId 있으면 board data 가져옴
-    if (boardId) {
-      fetchBoardData(boardId);
-    }
-  }, [boardId]);
-
-  useEffect(() => {
-    setNewBoard((prev) => ({
-      ...prev,
-      tag: selectedTags,
-    }));
-  }, [selectedTags]);
-
   return (
     <Container className="min-vh-100">
       <h1>{boardId ? "게시글 수정" : "게시글 등록"}</h1>
@@ -107,7 +100,7 @@ export default function BoardWritePage() {
             <Col sm={11}>
               <Form.Control
                 type="text"
-                name="boardTitle"
+                name="title"
                 value={boardTitle}
                 placeholder="제목을 입력해주세요."
                 onChange={handleInputChange}
@@ -141,7 +134,7 @@ export default function BoardWritePage() {
             <Form.Control
               as="textarea"
               rows={3}
-              name="boardContent"
+              name="content"
               value={boardContent}
               placeholder="내용을 입력해주세요."
               onChange={handleInputChange}
@@ -154,8 +147,8 @@ export default function BoardWritePage() {
             <Form.Check
               type="checkbox"
               label="익명"
-              checked={isAnonymous === 1}
-              onChange={toggleAnoymous}
+              checked={anoymous}
+              onChange={onChangeAnoymous}
               size="sm"
               style={{ width: "60px" }}
             />
