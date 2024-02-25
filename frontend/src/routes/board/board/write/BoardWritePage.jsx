@@ -52,6 +52,15 @@ export default function BoardWritePage() {
 
   const handleWriteBoard = async () => {
     try {
+      if (boardTitle.trim() === "") {
+        alert("제목을 입력해주세요.");
+        return;
+      } else if (boardContent.trim() === "") {
+        alert("내용을 입력해주세요.");
+      } else if (selectedTags.length === 0) {
+        alert("태그를 선택해주세요.");
+        return;
+      }
       if (!boardId) {
         // 게시글 등록
         await BoardApi.fetchBoardWrite(newBoard);
