@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { Container, Form, Button } from "react-bootstrap";
-import { fetchBoardDetail, fetchBoardCommentList } from "~/lib/apis/board";
-import { useParams } from "react-router-dom";
+import {
+  fetchBoardDetail,
+  fetchBoardCommentList,
+  fetchBoardDelete,
+} from "~/lib/apis/board";
+import { useParams, Link, useNavigate } from "react-router-dom";
+import { timeAgo } from "../BoardPage";
 
 export default function BoardDetailPage() {
   const [commentData, setCommentData] = useState([]);
   const [writeComment, setWriteComment] = useState("");
   const [boardData, setBoardData] = useState([]);
   const params = useParams();
+  const navigate = useNavigate();
 
   const callCommentData = async () => {
     try {
@@ -27,35 +33,15 @@ export default function BoardDetailPage() {
     }
   };
 
-  function timeAgo(updatedAt) {
-    const now = new Date();
-    const updatedTime = new Date(updatedAt);
-
-    const secondsPast = (now.getTime() - updatedTime.getTime()) / 1000;
-
-    if (secondsPast < 60) {
-      return parseInt(secondsPast) + "초 전";
+  const handleDelete = async () => {
+    try {
+      fetchBoardDelete(params.boardId);
+      navigate(-1);
+      alert("삭제 완료");
+    } catch (error) {
+      console.error("글 삭제 중 에러 발생:", error);
     }
-    if (secondsPast < 3600) {
-      return parseInt(secondsPast / 60) + "분 전";
-    }
-    if (secondsPast <= 86400) {
-      return parseInt(secondsPast / 3600) + "시간 전";
-    }
-    if (secondsPast > 86400) {
-      let month = (updatedTime.getMonth() + 1).toString();
-      let date = updatedTime.getDate().toString();
-      let hours = updatedTime.getHours().toString();
-      let minutes = updatedTime.getMinutes().toString();
-
-      month = month.length < 2 ? "0" + month : month;
-      date = date.length < 2 ? "0" + date : date;
-      hours = hours.length < 2 ? "0" + hours : hours;
-      minutes = minutes.length < 2 ? "0" + minutes : minutes;
-
-      return `${month}/${date} ${hours}:${minutes}`;
-    }
-  }
+  };
 
   useEffect(() => {
     callBoardData();
@@ -82,10 +68,19 @@ export default function BoardDetailPage() {
             {boardData.updatedAt !== boardData.createdAt ? "(수정)" : null}
           </div>
           <div className="board-detail-btns">
-            <button className="board-btn-edit" onClick={() => {}}>
-              수정
-            </button>
-            <button className="board-btn-del" onClick={() => {}}>
+            <Link
+              to={`/board/${params.boardId}/edit`}
+              preventScrollReset
+              className="text-decoration-none"
+            >
+              <button className="board-btn-edit">수정</button>
+            </Link>
+            <button
+              className="board-btn-del"
+              onClick={() => {
+                handleDelete();
+              }}
+            >
               삭제
             </button>
           </div>
@@ -95,10 +90,7 @@ export default function BoardDetailPage() {
       <hr className="line"></hr>
       <div className="board-comment-all">
         <div className="board-comment-num">
-          <h5>
-            {commentData.filter((comment) => comment.depth === 0).length}개의
-            댓글
-          </h5>
+          <h5>{commentData.length}개의 댓글</h5>
         </div>
         <div className="board-comment-write">
           <Form.Control
