@@ -2,17 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Container, Form, Button } from "react-bootstrap";
 import { PaginationControl } from "react-bootstrap-pagination-control";
 import { fetchBoardList, fetchBoardCommentList } from "~/lib/apis/board";
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function BoardWritePage() {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
   const [boardData, setBoardData] = useState([]);
   const [filteredBoardData, setFilteredBoardData] = useState([]);
-  const [commentData, setCommentData] = useState([]);
   const postsPerPage = 5;
-
-  const navigate = useNavigate();
 
   const callCommentData = async (boardId) => {
     try {
@@ -26,7 +23,7 @@ export default function BoardWritePage() {
     try {
       const response = await fetchBoardList();
       const boardDataWithComments = await Promise.all(
-        response.map(async (board) => {
+        response.reverse().map(async (board) => {
           const commentCount = await callCommentData(board._id);
           return { ...board, commentCount };
         })
