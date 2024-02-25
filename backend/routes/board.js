@@ -20,8 +20,8 @@ router.get("/", (req, res, next) => {
 
 //게시글 작성하기
 router.post("/", (req, res, next) => {
-  userId: req.user._id;
-  Board.create({ ...req.body })
+  // userId: req.user._id;
+  Board.create({ ...req.body, boardType: "board" })
     .then((data) => {
       res.send(data);
     })
