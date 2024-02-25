@@ -3,17 +3,17 @@ import instance from "./base";
 // 게시글
 export async function fetchBoardList() {
   const response = await instance.get(`/board`);
-  return response.data;
+  return response;
 }
 
 export async function fetchBoardDetail(boardId) {
   const response = await instance.get(`/board/${boardId}`);
-  return response.data;
+  return response;
 }
 
 export async function fetchBoardWrite() {
   const response = await instance.post(`/board/write`);
-  return response.data;
+  return response;
 }
 
 export async function fetchBoardEdit(boardId, newBoardData) {
@@ -30,7 +30,7 @@ export async function fetchBoardDelete(boardId) {
 // TODO
 export async function fetchBoardCommentList(boardId) {
   const response = await instance.get(`/board/${boardId}/comment`);
-  return response.data;
+  return response;
 }
 
 export async function fetchBoardCommentWrite(boardId) {

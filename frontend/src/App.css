@@ -40,3 +40,13 @@
 .read-the-docs {
   color: #888;
 }
+
+@font-face {
+  font-family: "nanum-square";
+  src: url("./assets/fonts/NanumSquareRoundB.ttf") format("truetype");
+}
+
+body {
+  font-family: "nanum-square" !important;
+  margin: 0;
+}
