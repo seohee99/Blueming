@@ -112,9 +112,9 @@ export default function BoardDetailPage() {
     }
   }
 
-  function onKeyUpReply(e) {
+  function onKeyUpReply(e, data_id) {
     if (e.key == "Enter") {
-      handleCommentReplyWrite();
+      handleCommentReplyWrite(data_id);
     }
   }
 
@@ -254,7 +254,7 @@ export default function BoardDetailPage() {
                         placeholder="대댓글을 작성하세요"
                         value={writeCommentReply}
                         onChange={(e) => setWriteCommentReply(e.target.value)}
-                        onKeyUp={(e) => onKeyUpReply(e)}
+                        onKeyUp={(e) => onKeyUpReply(e, data._id)}
                       />
                       <Button
                         className="comment-write-btn comment-reply-write-btn"
