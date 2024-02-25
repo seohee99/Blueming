@@ -33,19 +33,41 @@ export async function fetchBoardCommentList(boardId) {
   return response;
 }
 
-export async function fetchBoardCommentWrite(boardId) {
-  const response = await instance.post(`/board/${boardId}/comment`);
-  return response.data;
-}
-
-export async function fetchBoardCommentEdit(boardId) {
-  const response = await instance.put(`/board/${boardId}/comment`);
+export async function fetchBoardCommentWrite(boardId, commentData) {
+  const response = await instance.post(
+    `/board/${boardId}/comment`,
+    commentData
+  );
   return response.data;
 }
 
 export async function fetchBoardCommentDelete(boardId, commentId) {
   const response = await instance.delete(
     `/board/${boardId}/comment/${commentId}`
+  );
+  return response.data;
+}
+
+//대댓글
+export async function fetchBoardCommentReplyWrite(
+  boardId,
+  commentId,
+  commentReplyData
+) {
+  const response = await instance.post(
+    `/board/${boardId}/comment/${commentId}`,
+    commentReplyData
+  );
+  return response.data;
+}
+
+export async function fetchBoardCommentReplyDelete(
+  boardId,
+  commentId,
+  commentReplyId
+) {
+  const response = await instance.delete(
+    `/board/${boardId}/comment/${commentId}/commentReply/${commentReplyId}`
   );
   return response.data;
 }
@@ -58,6 +80,7 @@ export default {
   fetchBoardDelete,
   fetchBoardCommentList,
   fetchBoardCommentWrite,
-  fetchBoardCommentEdit,
   fetchBoardCommentDelete,
+  fetchBoardCommentReplyWrite,
+  fetchBoardCommentReplyDelete,
 };
