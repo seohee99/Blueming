@@ -51,21 +51,12 @@ const Header = () => {
           />
         </Form>
 
-        {!user.isLoggedIn ? (
-          <>
-            <Nav.Link
-              href="/users/login"
-              className="text-center border border-info border-end-0"
-            >
-              로그인
-            </Nav.Link>
-          </>
-        ) : (
+        {user.isLoggedIn && user.userInfo ? (
           <>
             <Nav>{user.userInfo.name}님</Nav>
             <Nav.Link
               href="/users/mypage"
-              className=" text-center border border-info"
+              className="text-center border border-info"
             >
               <i className="bi bi-person-fill"></i>
             </Nav.Link>
@@ -76,6 +67,13 @@ const Header = () => {
               <i className="bi bi-door-open"></i>
             </Nav.Link>
           </>
+        ) : (
+          <Nav.Link
+            href="/users/login"
+            className="text-center border border-info border-end-0"
+          >
+            로그인
+          </Nav.Link>
         )}
       </Navbar.Collapse>
     </Navbar>
