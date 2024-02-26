@@ -2,8 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Board = require("../models/Board");
 const Comment = require("../models/Comment");
-
-//user관리 된 후 authenticate 추가 필요
+const { authenticate } = require("../middlewares/auth_middleware");
 
 //모든 게시글 조회하기
 router.get("/", (req, res, next) => {
@@ -18,7 +17,7 @@ router.get("/", (req, res, next) => {
 });
 
 //게시글 작성하기
-router.post("/", (req, res, next) => {
+router.post("/", authenticate, (req, res, next) => {
   // userId: req.user._id;
   Board.create({ ...req.body, boardType: "board" })
     .then((data) => {
@@ -30,7 +29,7 @@ router.post("/", (req, res, next) => {
 });
 
 //게시글 수정하기
-router.put("/:boardId/edit", (req, res, next) => {
+router.put("/:boardId/edit", authenticate, (req, res, next) => {
   Board.findByIdAndUpdate(req.params.boardId, {
     ...req.body,
   })
@@ -43,7 +42,7 @@ router.put("/:boardId/edit", (req, res, next) => {
 });
 
 //게시글 삭제하기
-router.delete("/:boardId", function (req, res, next) {
+router.delete("/:boardId", authenticate, function (req, res, next) {
   Board.findByIdAndDelete(req.params.boardId)
     .then(() => {
       //res.json(data);
@@ -93,7 +92,7 @@ router.get("/:boardId/boardAndComment", async function (req, res, next) {
 });
 
 //게시글 댓글 달기
-router.post("/:boardId/comment", (req, res, next) => {
+router.post("/:boardId/comment", authenticate, (req, res, next) => {
   const { boardId } = req.params;
   //console.log(req.body);
 
@@ -110,69 +109,78 @@ router.post("/:boardId/comment", (req, res, next) => {
 });
 
 //게시글 댓글 삭제하기
-router.delete("/:boardId/comment/:commentId", function (req, res, next) {
-  const { commentId } = req.params;
+router.delete(
+  "/:boardId/comment/:commentId",
+  authenticate,
+  function (req, res, next) {
+    const { commentId } = req.params;
 
-  Comment.findOne({ _id: commentId })
-    .then((comment) => {
-      if (comment.commentReplys.length > 0) {
-        // commentReplys의 length가 0보다 크면 내용을 "삭제된 댓글입니다."로 변경
-        Comment.updateOne(
-          { _id: commentId },
-          { $set: { commentContent: "삭제된 댓글입니다." } }
-        )
-          .then(() => {
-            res.json({ message: "댓글 내용 변경 완료" });
-          })
-          .catch((err) => {
-            next(err);
-          });
-      } else {
-        // commentReplys의 length가 0이면 댓글을 삭제
-        Comment.deleteOne({ _id: commentId })
-          .then(() => {
-            res.json({ message: "삭제 완료" });
-          })
-          .catch((err) => {
-            next(err);
-          });
-      }
-    })
-    .catch((err) => {
-      next(err);
-    });
-});
+    Comment.findOne({ _id: commentId })
+      .then((comment) => {
+        if (comment.commentReplys.length > 0) {
+          // commentReplys의 length가 0보다 크면 내용을 "삭제된 댓글입니다."로 변경
+          Comment.updateOne(
+            { _id: commentId },
+            { $set: { commentContent: "삭제된 댓글입니다." } }
+          )
+            .then(() => {
+              res.json({ message: "댓글 내용 변경 완료" });
+            })
+            .catch((err) => {
+              next(err);
+            });
+        } else {
+          // commentReplys의 length가 0이면 댓글을 삭제
+          Comment.deleteOne({ _id: commentId })
+            .then(() => {
+              res.json({ message: "삭제 완료" });
+            })
+            .catch((err) => {
+              next(err);
+            });
+        }
+      })
+      .catch((err) => {
+        next(err);
+      });
+  }
+);
 
 //게시글 대댓글 달기
-router.post("/:boardId/comment/:commentId", function (req, res, next) {
-  const { boardId, commentId } = req.params;
-  let createdCommentId; // 추가된 댓글의 ID를 저장하기 위한 변수
+router.post(
+  "/:boardId/comment/:commentId",
+  authenticate,
+  function (req, res, next) {
+    const { boardId, commentId } = req.params;
+    let createdCommentId; // 추가된 댓글의 ID를 저장하기 위한 변수
 
-  Comment.create({
-    ...req.body,
-    boardId: boardId,
-    commentReplys: [],
-  })
-    .then((data) => {
-      createdCommentId = data._id; // 추가된 댓글의 ID 저장
-      return Comment.findByIdAndUpdate(
-        commentId,
-        { $push: { commentReplys: createdCommentId } },
-        { new: true }
-      );
+    Comment.create({
+      ...req.body,
+      boardId: boardId,
+      commentReplys: [],
     })
-    .then((data2) => {
-      return res.json(data2);
-    })
+      .then((data) => {
+        createdCommentId = data._id; // 추가된 댓글의 ID 저장
+        return Comment.findByIdAndUpdate(
+          commentId,
+          { $push: { commentReplys: createdCommentId } },
+          { new: true }
+        );
+      })
+      .then((data2) => {
+        return res.json(data2);
+      })
 
-    .catch((err) => {
-      next(err);
-    });
-});
+      .catch((err) => {
+        next(err);
+      });
+  }
+);
 
 //게시글 대댓글 삭제하기
 router.delete(
   "/:boardId/comment/:commentId/commentReply/:commentReplyId",
+  authenticate,
   async (req, res, next) => {
     const { commentId, commentReplyId } = req.params;
 
