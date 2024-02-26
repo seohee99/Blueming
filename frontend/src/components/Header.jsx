@@ -14,6 +14,9 @@ const Header = () => {
   const handleLogout = () => {
     if (window.confirm('로그아웃 하시겠습니까?')) {
       try {
+        fetchLogout().then((resp) => {
+          navigate("/users/login");
+        });
         dispatch(logout());
         alert('로그아웃 되었습니다.');
         navigate('/');
