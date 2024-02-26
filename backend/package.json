@@ -16,7 +16,7 @@
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
     "jsonwebtoken": "^9.0.2",
-    "validator": "^13.11.0"
+    "validator": "^13.11.0",
   },
   "devDependencies": {
     "mongoose": "^8.1.3",
