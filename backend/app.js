@@ -12,7 +12,6 @@ var usersRouter = require("./routes/users");
 const boardRouter = require("./routes/board");
 const noticeRouter = require("./routes/notice");
 const assignmentRouter = require("./routes/assignment");
-var proxy = require("./routes/proxy");
 
 var app = express();
 connectDB();
@@ -32,7 +31,6 @@ app.use("/api/users", usersRouter);
 app.use("/api/board", boardRouter);
 app.use("/api/notice", noticeRouter);
 app.use("/api/assignment", assignmentRouter);
-app.use(proxy()); // proxy 미들웨어 설정
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
