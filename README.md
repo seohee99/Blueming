@@ -2,7 +2,7 @@
 <div align="center">
 <h1>Bluming(블루밍) - Be Blue, Be Bloom!</h1>
 <br /><br />
-<img src="https://github.com/Blueming-PDA/Blueming/assets/63188042/c3222ee0-401a-4bc5-8845-e0d9c7c4c82f" alt="logo-image" width="30%"><br /><br />
+<img src="https://github.com/Blueming-PDA/Blueming/assets/63188042/0b09c233-4704-4b7f-88a1-765b38f18bb7" alt="logo-image" width="20%"><br /><br />
 
 블루밍은 학습 보조 도구 역할의 웹 서비스입니다. <br />
 학생과 선생님은 블루밍을 통해 원활한 양방향 소통이 가능합니다.
