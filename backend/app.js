@@ -11,7 +11,10 @@ var usersRouter = require("./routes/users");
 const boardRouter = require("./routes/board");
 const noticeRouter = require("./routes/notice");
 const assignmentRouter = require("./routes/assignment");
+<<<<<<< HEAD
 
+=======
+>>>>>>> d81636d1af308eae1375cfd637b7f90f760467df
 
 var app = express();
 connectDB();
