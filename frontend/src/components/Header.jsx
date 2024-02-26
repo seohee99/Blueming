@@ -47,7 +47,7 @@ const Header = () => {
             type="text"
             placeholder={TEXT}
             className="mr-2"
-            style={{ backgroundColor: "lightblue" }}
+            style={{ backgroundColor: "white", border: "2px solid #9CBEFF" }}
           />
         </Form>
 
