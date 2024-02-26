@@ -4,6 +4,7 @@ import { PaginationControl } from "react-bootstrap-pagination-control";
 import { fetchBoardList, fetchBoardCommentList } from "~/lib/apis/board";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export function timeAgo(updatedAt) {
   const now = new Date();
@@ -43,6 +44,12 @@ export default function BoardWritePage() {
   const navigate = useNavigate();
   const postsPerPage = 5;
   const boardType = "board";
+
+  const userObj = useSelector((state) => {
+    return state.user.userInfo;
+  });
+
+  console.log(userObj);
 
   const callCommentData = async (boardId) => {
     try {
@@ -131,7 +138,11 @@ export default function BoardWritePage() {
           preventScrollReset
           className="text-decoration-none"
         >
-          <Button className="write-board-btn">등록</Button>
+          {userObj !== null ? (
+            <Button className="write-board-btn">등록</Button>
+          ) : (
+            ""
+          )}
         </Link>
       </div>
 

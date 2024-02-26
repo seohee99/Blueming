@@ -7,11 +7,11 @@ const boardSchema = new mongoose.Schema({
   isAnonymous: { type: Number, required: true },
   tag: [{ type: String, required: true }],
   boardType: { type: String, required: true },
-  // userId: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: "User",
-  //   required: true,
-  // },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
 });
 
 boardSchema.set("timestamps", {
