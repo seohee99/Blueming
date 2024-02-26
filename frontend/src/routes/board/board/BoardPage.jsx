@@ -5,6 +5,7 @@ import { fetchBoardList, fetchBoardCommentList } from "~/lib/apis/board";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import point from "/point.png";
 
 export function timeAgo(updatedAt) {
   const now = new Date();
@@ -111,6 +112,13 @@ export default function BoardWritePage() {
 
   return (
     <Container className="board-page">
+      {/* <h1>자유 게시판</h1> */}
+      <img
+        src={point}
+        width="65"
+        className="d-inline-block align-top"
+        alt="Blueming point"
+      />
       <div className="search-bar">
         <Form.Control
           className="search-form"
