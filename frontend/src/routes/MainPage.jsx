@@ -13,7 +13,7 @@ export default function MainPage() {
   const [showQuestion, setShowQuestion] = useState(false);
 
   const handleShowCodeShare = () => {
-    // window.open(codelink, '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400");
+    window.open(codelink, '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400");
     setShowCodeShare(showCodeShare => !showCodeShare)
   };
   const handleShowLinkInput = () => {
@@ -28,9 +28,9 @@ export default function MainPage() {
   return (
     <div>
 
-      <h3>MainPage</h3>
       <div style={{ display: 'flex', gap: 50 }}>
         <Button onClick={handleShowQuestion}>🙋‍♀️ 질문하기</Button>
+        <Button>👀 질문보기</Button>
         <Button onClick={handleShowLinkInput}>🖥️ 화면공유 하기</Button>
         <Button onClick={handleShowCodeShare}>🖥️ 화면공유 보기</Button>
       </div>

@@ -10,11 +10,12 @@ export default function MainLayout() {
   return (
     <>
       <Sidebar />
-        <Header/>
-        <Container>
-          <Outlet />
-        </Container>
-        <Footer />
+      <Header />
+      <Container style={{ marginLeft: '200px' }}>
+
+        <Outlet />
+      </Container>
+      <Footer />
     </>
   )
 }
