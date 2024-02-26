@@ -77,6 +77,12 @@ export async function fetchBoardCommentReplyDelete(
   return response.data;
 }
 
+export async function fetchMypageBoardList(userId) {
+  const response = await instance.get(`users/${userId}/boards`);
+  // console.log(response);
+  return response.data;
+}
+
 export default {
   fetchBoardList,
   fetchBoardDetail,
@@ -88,4 +94,5 @@ export default {
   fetchBoardCommentDelete,
   fetchBoardCommentReplyWrite,
   fetchBoardCommentReplyDelete,
+  fetchMypageBoardList,
 };
