@@ -20,7 +20,9 @@ export default function BoardWritePage() {
   const userObj = useSelector((state) => {
     return state.user.userInfo;
   });
+
   const userId = userObj._id;
+  const userName = userObj.name;
 
   const [newBoard, setNewBoard] = useState({
     boardType: "board",
@@ -30,6 +32,7 @@ export default function BoardWritePage() {
     isAnonymous: 0,
     tag: [],
     userId: "",
+    userName: "",
   });
 
   const { boardType, boardTitle, boardContent, boardFile, isAnonymous } =
@@ -58,6 +61,7 @@ export default function BoardWritePage() {
       ...prev,
       [name]: value,
       userId: userId,
+      userName: userName,
     }));
   };
 

@@ -3,6 +3,7 @@ import { Container, Form, Button } from "react-bootstrap";
 import { PaginationControl } from "react-bootstrap-pagination-control";
 import { fetchBoardList, fetchBoardCommentList } from "~/lib/apis/board";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export function timeAgo(updatedAt) {
   const now = new Date();
@@ -41,6 +42,12 @@ export default function BoardWritePage() {
   const [filteredBoardData, setFilteredBoardData] = useState([]);
   const postsPerPage = 5;
   const boardType = "notice";
+
+  const userObj = useSelector((state) => {
+    return state.user.userInfo;
+  });
+  const userId = userObj._id;
+  const userName = userObj.name;
 
   const callCommentData = async (boardId) => {
     try {
@@ -124,13 +131,17 @@ export default function BoardWritePage() {
         </Button>
       </div>
       <div className="write-board">
-        <Link
-          to={`/notice/write`}
-          preventScrollReset
-          className="text-decoration-none"
-        >
-          <Button className="write-board-btn">등록</Button>
-        </Link>
+        {userObj.admin == 1 ? (
+          <Link
+            to={`/notice/write`}
+            preventScrollReset
+            className="text-decoration-none"
+          >
+            <Button className="write-board-btn">등록</Button>
+          </Link>
+        ) : (
+          ""
+        )}
       </div>
 
       <div className="board-list">
@@ -154,7 +165,7 @@ export default function BoardWritePage() {
                     ))}
                 </div>
                 <div className="writer-date">
-                  <strong>{data.isAnonymous ? "익명" : data.writer}</strong> /{" "}
+                  <strong>{data.isAnonymous ? "익명" : data.userName}</strong> /{" "}
                   {timeAgo(data.updatedAt)}{" "}
                 </div>
               </div>

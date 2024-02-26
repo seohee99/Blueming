@@ -50,7 +50,6 @@ export default function BoardWritePage() {
   });
 
   console.log(userObj);
-
   const callCommentData = async (boardId) => {
     try {
       if (boardId !== undefined) {
@@ -167,7 +166,7 @@ export default function BoardWritePage() {
                     ))}
                 </div>
                 <div className="writer-date">
-                  <strong>{data.isAnonymous ? "익명" : data.writer}</strong> /{" "}
+                  <strong>{data.isAnonymous ? "익명" : data.userName}</strong> /{" "}
                   {timeAgo(data.updatedAt)}{" "}
                 </div>
               </div>

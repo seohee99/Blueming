@@ -11,6 +11,7 @@ import {
 } from "~/lib/apis/board";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { timeAgo } from "../NoticePage";
+import { useSelector } from "react-redux";
 
 export default function BoardDetailPage() {
   const [commentData, setCommentData] = useState([]);
@@ -24,6 +25,12 @@ export default function BoardDetailPage() {
 
   const params = useParams();
   const navigate = useNavigate();
+
+  const userObj = useSelector((state) => {
+    return state.user.userInfo;
+  });
+  const userId = userObj._id;
+  const userName = userObj.name;
 
   const callCommentData = async () => {
     try {
@@ -67,6 +74,8 @@ export default function BoardDetailPage() {
         commentContent: writeComment,
         isAnonymous: anonymous,
         depth: 0,
+        userId: userId,
+        userName: userName,
       });
       window.location.reload(true);
     } catch (error) {
@@ -80,6 +89,8 @@ export default function BoardDetailPage() {
         commentContent: writeCommentReply,
         isAnonymous: replyAnonymous,
         depth: 1,
+        userId: userId,
+        userName: userName,
       });
 
       setWriteCommentReply("");
@@ -144,26 +155,34 @@ export default function BoardDetailPage() {
 
         <div className="board-writer-date-btns">
           <div className="board-writer-date">
-            <strong>{boardData.isAnonymous ? "익명" : boardData.writer}</strong>{" "}
+            <strong>
+              {boardData.isAnonymous ? "익명" : boardData.userName}
+            </strong>{" "}
             / {timeAgo(boardData.updatedAt)}{" "}
             {boardData.updatedAt !== boardData.createdAt ? "(수정)" : null}
           </div>
           <div className="board-detail-btns">
-            <Link
-              to={`/${boardType}/${params.boardId}/edit`}
-              preventScrollReset
-              className="text-decoration-none"
-            >
-              <button className="board-btn-edit">수정</button>
-            </Link>
-            <button
-              className="board-btn-del"
-              onClick={() => {
-                handleDelete();
-              }}
-            >
-              삭제
-            </button>
+            {boardData.userId === userId ? (
+              <>
+                <Link
+                  to={`/${boardType}/${params.boardId}/edit`}
+                  preventScrollReset
+                  className="text-decoration-none"
+                >
+                  <button className="board-btn-edit">수정</button>
+                </Link>
+                <button
+                  className="board-btn-del"
+                  onClick={() => {
+                    handleDelete();
+                  }}
+                >
+                  삭제
+                </button>
+              </>
+            ) : (
+              ""
+            )}
           </div>
         </div>
         <div className="board-content">{boardData.boardContent}</div>
@@ -214,7 +233,7 @@ export default function BoardDetailPage() {
             ) : (
               <div className="board-comment-each">
                 <div className="board-comment-writer">
-                  <strong>{data.isAnonymous ? "익명" : data.writer}</strong>
+                  <strong>{data.isAnonymous ? "익명" : data.userName}</strong>
 
                   <div className="comment-btns">
                     <button
@@ -226,15 +245,18 @@ export default function BoardDetailPage() {
                     >
                       답글
                     </button>
-
-                    <button
-                      className="comment-btn-del"
-                      onClick={() => {
-                        handleCommentDelete(data._id);
-                      }}
-                    >
-                      삭제
-                    </button>
+                    {data.userId === userId ? (
+                      <button
+                        className="comment-btn-del"
+                        onClick={() => {
+                          handleCommentDelete(data._id);
+                        }}
+                      >
+                        삭제
+                      </button>
+                    ) : (
+                      ""
+                    )}
                   </div>
                 </div>
                 <div className="board-comment-date">
@@ -282,20 +304,24 @@ export default function BoardDetailPage() {
                           <strong>
                             {commentReply.isAnonymous
                               ? "익명"
-                              : commentReply.writer}
+                              : commentReply.userName}
                           </strong>
                           <div className="comment-btns">
-                            <button
-                              className="comment-btn-del"
-                              onClick={() => {
-                                handleCommentReplyDelete(
-                                  data._id,
-                                  commentReply._id
-                                );
-                              }}
-                            >
-                              삭제
-                            </button>
+                            {commentReply.userId === userId ? (
+                              <button
+                                className="comment-btn-del"
+                                onClick={() => {
+                                  handleCommentReplyDelete(
+                                    data._id,
+                                    commentReply._id
+                                  );
+                                }}
+                              >
+                                삭제
+                              </button>
+                            ) : (
+                              ""
+                            )}
                           </div>
                         </div>
                         <div className="board-comment-date">
