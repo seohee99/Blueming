@@ -10,11 +10,19 @@ import {
 } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import BoardApi from "~/lib/apis/board";
+import { useSelector } from "react-redux";
 
 export default function BoardWritePage() {
   const navigate = useNavigate();
   const params = useParams();
   const boardId = params.boardId;
+
+  const userObj = useSelector((state) => {
+    return state.user.userInfo;
+  });
+
+  const userId = userObj._id;
+  const userName = userObj.name;
 
   const [newBoard, setNewBoard] = useState({
     boardType: "notice",
@@ -23,6 +31,8 @@ export default function BoardWritePage() {
     boardFile: "",
     isAnonymous: 0,
     tag: [],
+    userId: "",
+    userName: "",
   });
 
   const { boardType, boardTitle, boardContent, boardFile, isAnonymous } =
@@ -42,6 +52,8 @@ export default function BoardWritePage() {
     setNewBoard((prev) => ({
       ...prev,
       isAnonymous: prev.isAnonymous ? 0 : 1,
+      userId: userId,
+      userName: userName,
     }));
   };
 
@@ -50,6 +62,8 @@ export default function BoardWritePage() {
     setNewBoard((prev) => ({
       ...prev,
       [name]: value,
+      userId: userId,
+      userName: userName,
     }));
   };
 
