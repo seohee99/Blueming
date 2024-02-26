@@ -1,43 +1,57 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Button, Card, Container } from 'react-bootstrap';
 import axios from 'axios';
 
 export default function CodeShare({ link }) {
-    const [url, setUrl] = useState({});
-
-    const PROXY = 'https://cors-anywhere.herokuapp.com';
+    const [html, setHtml] = useState('');
+    const iframeRef = useRef(null);
 
     useEffect(() => {
-        const getContent = async () => {
-            try {
 
-                const response = await axios(`${PROXY}/${link}`);
-                const data = await response.data;
-                setUrl(data);
 
-                console.log("URL:::", url)
-            } catch (error) {
-                console.error("Error fetching data: ", error);
+        const cors_api_url = 'https://cors-anywhere.herokuapp.com/';
+        var x = new XMLHttpRequest();
+        x.open('GET', cors_api_url + link);
+        x.setRequestHeader('X-Requested-With', 'XMLHttpRequest'); // 헤더 설정
+        x.onreadystatechange = function () {
+            if (x.readyState === 4 && x.status === 200) {
+                setHtml(x.responseText);
             }
-        }
-        getContent();
+        };
+        x.send();
     }, [link])
 
-    const newWindow = () => {
-        window.open(link, '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400");
+    useEffect(() => {
+        if (html && iframeRef.current) {
+            const iframeDoc = iframeRef.current.contentWindow.document;
+            iframeDoc.open();
+            iframeDoc.write(html);
+            iframeDoc.close();
+        }
+    }, [html]);
 
+    const newWindow = () => {
+
+        const width = 400;
+        const height = 400;
+        const left = window.screen.width - width;
+        const top = window.screen.height - height;
+        window.open(link, '_blank', `toolbar=yes,scrollbars=yes,resizable=yes,top=${top},left=${left},width=${width},height=${height}`);
     }
 
     return (
-
         <>
-            <Container>
+            <Container fluid style={{ height: '100vh' }}>
                 <div>코드 화면을 공유합니다!</div>
-                {/* link :: {link} <br /> */}
-                {/* url :: url <br /> */}
                 <Button onClick={newWindow}>🖥️ 새창으로 보기</Button>
-                <div style={{ width: '80%', paddingBottom: '56.25%' }}>
-                    <iframe style={{ position: 'absolute', width: '80%', height: '80%' }} srcDoc={url} sandbox='allow-scripts allow-same-origin' title='codeShare' />
+                <div style={{
+                    width: '100%',
+                    height: '80%',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                }}>
+                    <iframe ref={iframeRef} style={{ width: '80%', height: '100%' }} title='codeShare' />
                 </div>
             </Container>
         </>
