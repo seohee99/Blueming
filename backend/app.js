@@ -3,6 +3,21 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+var indexRouter = require("./routes/index");
+var usersRouter = require("./routes/users");
+const mongoose = require("mongoose");
+require("dotenv").config();
+
+mongoose
+  .connect(
+    `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}/${process.env.DB_NAME}`,
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  )
+  .then(() => console.log("Connectd Successful"))
+  .catch((err) => console.log(err));
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
@@ -19,10 +34,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-app.use(proxy()); // proxy 미들웨어 설정
 
 app.use("/", indexRouter);
-app.use("/users", usersRouter);
+app.use("/api/users", usersRouter);
+app.use(proxy()); // proxy 미들웨어 설정
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
