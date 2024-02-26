@@ -6,7 +6,6 @@ const Comment = require("../models/Comment");
 //user관리 된 후 authenticate 추가 필요
 
 //모든 게시글 조회하기
-
 router.get("/", (req, res, next) => {
   Board.find({ boardType: "board" })
     .then((data) => {
@@ -22,6 +21,19 @@ router.get("/", (req, res, next) => {
 router.post("/", (req, res, next) => {
   // userId: req.user._id;
   Board.create({ ...req.body, boardType: "board" })
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      next(err);
+    });
+});
+
+//게시글 수정하기
+router.put("/:boardId/edit", (req, res, next) => {
+  Board.findByIdAndUpdate(req.params.boardId, {
+    ...req.body,
+  })
     .then((data) => {
       res.send(data);
     })

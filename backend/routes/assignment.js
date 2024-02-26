@@ -30,6 +30,19 @@ router.post("/", (req, res, next) => {
     });
 });
 
+//게시글 수정하기
+router.put("/:boardId/edit", (req, res, next) => {
+  Board.findByIdAndUpdate(req.params.boardId, {
+    ...req.body,
+  })
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      next(err);
+    });
+});
+
 //게시글 삭제하기
 router.delete("/:boardId", function (req, res, next) {
   Board.findByIdAndDelete(req.params.boardId)
