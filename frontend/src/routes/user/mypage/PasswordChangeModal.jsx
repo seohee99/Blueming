@@ -36,7 +36,7 @@ const PasswordChangeModal = ({ show, onHide }) => {
     const userId = userObj._id;
     fetchUpdatePassword({ newPassword, userId })
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         onHide();
       })
       .catch((error) => {

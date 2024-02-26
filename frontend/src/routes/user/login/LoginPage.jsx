@@ -19,7 +19,7 @@ export default function LoginPage() {
     (email, password) => {
       dispatch(fetchLogin({ email, password }))
         .then((resp) => {
-          console.log(resp);
+          // console.log(resp);
           if (resp.payload.token) {
             //resp.token = user
             // delete resp.payload.token;

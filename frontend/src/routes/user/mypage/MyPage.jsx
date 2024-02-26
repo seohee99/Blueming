@@ -28,12 +28,12 @@ const ProfilePage = () => {
   const userObj = useSelector((state) => {
     return state.user.userInfo;
   });
-  console.log(userObj);
+  // console.log(userObj);
 
   const [MypageBoardList, setMyPageBoardList] = useState([]);
   useEffect(() => {
     fetchMypageBoardList(userObj._id).then((data) => {
-      console.log(data);
+      // console.log(data);
       setMyPageBoardList(data);
     });
   }, []);
@@ -45,7 +45,7 @@ const ProfilePage = () => {
     setShowModal(true);
   };
 
-  // 모달을 숨기는 함수 (PasswordChangeModal 컴포넌트에 전달될 것이라 가정)
+  // 모달을 숨기는 함수 (PasswordChangeModal 컴포넌트에 전달)
   const handleCloseModal = () => {
     setShowModal(false);
   };
@@ -56,6 +56,9 @@ const ProfilePage = () => {
     });
     dispatch(logout());
   };
+
+  //보드 검색해서 띄우는 함수
+  const handleFindBoard = () => {};
 
   return (
     <Container className="mt-5">

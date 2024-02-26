@@ -18,7 +18,7 @@ export default function SignUpPage() {
   const onRegisterSubmit = useCallback(
     (email, password, name, phone, admin) => {
       fetchSignup({ email, password, name, phone, admin }).then((data) => {
-        console.log(data);
+        // console.log(data);
         navigate("/users/login");
       });
     },
