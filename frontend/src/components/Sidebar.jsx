@@ -14,7 +14,7 @@ const Sidebar = () => {
         left: '0',
         width: '200px',
         overflow: 'auto',
-        backgroundColor: 'light',
+        backgroundColor: 'white',
         color: 'black',
         // borderRight: '2px solid lightgray',
         boxShadow: '0px 4px 8px 0px rgba(0, 0, 0, 0.2)'
@@ -33,7 +33,7 @@ const Sidebar = () => {
       <Nav.Link href="/settings" className="nav-link" style={{ color: 'gray', fontWeight: 'bold', fontSize: '20px' }}>설정</Nav.Link>
     </Nav>
   )
-
+}
 
 
 export default Sidebar

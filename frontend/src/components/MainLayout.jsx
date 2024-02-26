@@ -11,10 +11,12 @@ export default function MainLayout() {
     <>
       <Sidebar />
       <Header />
-      <Container style={{ marginLeft: '200px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <Container style={{ marginTop: '100px', backgroundColor: 'ivory' }}>
 
-        <Outlet />
-      </Container>
+          <Outlet />
+        </Container>
+      </div>
       <Footer />
     </>
   )

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Container } from 'react-bootstrap';
+import { Button, Card, Container } from 'react-bootstrap';
 import axios from 'axios';
 
 export default function CodeShare({ link }) {
@@ -22,13 +22,20 @@ export default function CodeShare({ link }) {
         }
         getContent();
     }, [link])
+
+    const newWindow = () => {
+        window.open(link, '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400");
+
+    }
+
     return (
 
         <>
             <Container>
-                <div>CodeShare</div>
+                <div>코드 화면을 공유합니다!</div>
                 {/* link :: {link} <br /> */}
                 {/* url :: url <br /> */}
+                <Button onClick={newWindow}>🖥️ 새창으로 보기</Button>
                 <div style={{ width: '80%', paddingBottom: '56.25%' }}>
                     <iframe style={{ position: 'absolute', width: '80%', height: '80%' }} srcDoc={url} sandbox='allow-scripts allow-same-origin' title='codeShare' />
                 </div>
