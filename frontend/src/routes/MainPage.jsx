@@ -13,6 +13,10 @@ export default function MainPage() {
   const [showQuestion, setShowQuestion] = useState(false);
 
   const handleShowCodeShare = () => {
+    if (!codelink) {
+      alert('화면 공유 링크를 먼저 삽입해주세요');
+      return;
+    }
     setShowCodeShare(showCodeShare => !showCodeShare)
   };
   const handleShowLinkInput = () => {
