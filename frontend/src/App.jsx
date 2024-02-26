@@ -14,6 +14,7 @@ function App() {
           <RouterProvider router={router} />
         </PersistGate>
       </Provider>
+
     </>
   );
 }
