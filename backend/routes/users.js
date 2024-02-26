@@ -14,7 +14,7 @@ router.get("/", function (req, res, next) {
 //회원가입
 router.post("/signup", async (req, res, next) => {
   try {
-    console.log(req.body);
+    // console.log(req.body);
     const user = await User.signUp(req.body);
     res.status(201).json(user);
   } catch (error) {
@@ -39,12 +39,11 @@ router.post("/login", async (req, res, next) => {
       maxAge: tokenMaxAge * 1000,
     });
 
-    console.log(user);
+    // console.log(user);
     return res.status(201).json(user);
   } catch (error) {
     console.log(error.message);
     return res.status(401).send("UNAUTHORIZED");
-    next(error);
   }
 });
 
@@ -68,7 +67,7 @@ router.delete("/:userId", authenticate, async (req, res, next) => {
     });
 });
 
-//내 정보 보기 --> 필요한가..?
+//내 정보 보기
 router.get("/:userId/mypage", authenticate, async (req, res, next) => {
   const userId = req.params.userId;
   User.findById(userId)
@@ -91,7 +90,7 @@ router.put("/:userId", authenticate, async (req, res, next) => {
     password: hashedPassword,
   })
     .then((data) => {
-      console.log(data);
+      // console.log(data);
       res.json(data);
     })
     .catch((err) => {

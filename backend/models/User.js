@@ -30,7 +30,7 @@ const userSchema = new mongoose.Schema({
 userSchema.statics.signUp = async function (userInfo) {
   const { email, password, name, phone, admin } = userInfo;
   const salt = await bcrypt.genSalt();
-  console.log(salt);
+  // console.log(salt);
   try {
     const hashedPassword = await bcrypt.hash(password, salt);
     const user = await this.create({
@@ -52,9 +52,8 @@ userSchema.statics.login = async function (email, password) {
   const user = await this.findOne({ email });
   if (user) {
     const auth = await bcrypt.compare(password, user.password);
-    console.log("auth");
     if (auth) {
-      console.log(user);
+      // console.log(user);
       return user.visibleUser;
     }
     throw Error("잘못된 패스워드입니다.");
