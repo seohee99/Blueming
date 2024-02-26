@@ -1,57 +1,34 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { Button, Card, Container } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+import { Container } from 'react-bootstrap';
 import axios from 'axios';
 
 export default function CodeShare({ link }) {
-    const [html, setHtml] = useState('');
-    const iframeRef = useRef(null);
+    const [url, setUrl] = useState('');
 
     useEffect(() => {
-
-
-        const cors_api_url = 'https://cors-anywhere.herokuapp.com/';
-        var x = new XMLHttpRequest();
-        x.open('GET', cors_api_url + link);
-        x.setRequestHeader('X-Requested-With', 'XMLHttpRequest'); // 헤더 설정
-        x.onreadystatechange = function () {
-            if (x.readyState === 4 && x.status === 200) {
-                setHtml(x.responseText);
+        const getContent = async () => {
+            try {
+                const response = await axios.get(`/api/proxy/${encodeURIComponent(link)}`);
+                setUrl(response.data);
+                console.log("URL:::", response)
+            } catch (error) {
+                console.error("Error fetching data: ", error);
             }
-        };
-        x.send();
-    }, [link])
-
-    useEffect(() => {
-        if (html && iframeRef.current) {
-            const iframeDoc = iframeRef.current.contentWindow.document;
-            iframeDoc.open();
-            iframeDoc.write(html);
-            iframeDoc.close();
         }
-    }, [html]);
-
-    const newWindow = () => {
-
-        const width = 400;
-        const height = 400;
-        const left = window.screen.width - width;
-        const top = window.screen.height - height;
-        window.open(link, '_blank', `toolbar=yes,scrollbars=yes,resizable=yes,top=${top},left=${left},width=${width},height=${height}`);
-    }
+        getContent();
+    }, [link])
 
     return (
         <>
-            <Container fluid style={{ height: '100vh' }}>
-                <div>코드 화면을 공유합니다!</div>
-                <Button onClick={newWindow}>🖥️ 새창으로 보기</Button>
-                <div style={{
-                    width: '100%',
-                    height: '80%',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                }}>
-                    <iframe ref={iframeRef} style={{ width: '80%', height: '100%' }} title='codeShare' />
+            <Container>
+                <div>CodeShare</div>
+                <div style={{ width: '80%', paddingBottom: '56.25%' }}>
+                    <iframe 
+                        style={{ position: 'absolute', width: '80%', height: '80%' }} 
+                        srcDoc={url} 
+                        sandbox='allow-scripts allow-same-origin' 
+                        title='codeShare' 
+                    />
                 </div>
             </Container>
         </>
