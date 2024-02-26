@@ -11,6 +11,7 @@ export async function fetchLogin({ email, password }) {
     return response;
   } catch (error) {
     console.log(error.message);
+    throw error;
   }
 }
 
@@ -27,6 +28,7 @@ export async function fetchSignup({ email, password, name, phone }) {
     return response;
   } catch (error) {
     console.log(error.message);
+    throw error;
   }
 }
 
@@ -45,5 +47,6 @@ export async function fetchUpdatePassword({ newPassword, userId }) {
     return response;
   } catch (error) {
     console.log(error.message);
+    throw error;
   }
 }

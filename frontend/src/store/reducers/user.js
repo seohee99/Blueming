@@ -13,8 +13,8 @@ const fetchLogin = createAsyncThunk(
       const response = await reqFetchLogin(data);
       return response; //액션의 payload;
     } catch (error) {
-      console.log(error.message);
-      throw error;
+      alert("잘못된 로그인 정보입니다.");
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
