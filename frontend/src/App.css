@@ -40,3 +40,13 @@
 .read-the-docs {
   color: #888;
 }
+
+@font-face {
+  font-family: "yoon";
+  src: url("./assets/fonts/윤고딕330.ttf") format("truetype");
+}
+
+body {
+  font-family: "yoon" !important;
+  margin: 0;
+}
