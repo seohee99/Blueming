@@ -2,6 +2,7 @@
 import React from "react";
 import { Nav } from "react-bootstrap";
 import logo from "/b-logo.png";
+import ciLogo from "/ci-logo.png";
 import "./Sidebar.css";
 
 const Sidebar = () => {
@@ -26,38 +27,44 @@ const Sidebar = () => {
       <Nav.Link
         href="/"
         className="nav-link"
-        style={{ color: "gray", fontWeight: "bold", fontSize: "20px" }}
+        style={{ color: "#5D5D5D", fontWeight: "normal", fontSize: "19px" }}
       >
-        대시보드
+        메인화면
       </Nav.Link>
       <Nav.Link
         href="/board"
         className="nav-link"
-        style={{ color: "gray", fontWeight: "bold", fontSize: "20px" }}
+        style={{ color: "#5D5D5D", fontWeight: "normal", fontSize: "19px" }}
       >
         자유게시판
       </Nav.Link>
       <Nav.Link
         href="/assignment"
         className="nav-link"
-        style={{ color: "gray", fontWeight: "bold", fontSize: "20px" }}
+        style={{ color: "#5D5D5D", fontWeight: "normal", fontSize: "19px" }}
       >
         과제함
       </Nav.Link>
       <Nav.Link
         href="/notice"
         className="nav-link"
-        style={{ color: "gray", fontWeight: "bold", fontSize: "20px" }}
+        style={{ color: "#5D5D5D", fontWeight: "normal", fontSize: "19px" }}
       >
         공지사항
       </Nav.Link>
       <Nav.Link
         href="/settings"
         className="nav-link"
-        style={{ color: "gray", fontWeight: "bold", fontSize: "20px" }}
+        style={{ color: "#5D5D5D", fontWeight: "normal", fontSize: "19px" }}
       >
         설정
       </Nav.Link>
+      <img
+        src={ciLogo}
+        width="110"
+        className="ci-logo-img"
+        alt="Blueming logo"
+      />
     </Nav>
   );
 };
