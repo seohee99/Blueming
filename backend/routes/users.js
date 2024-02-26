@@ -5,6 +5,7 @@ const User = require("../models/User");
 const { createToken } = require("../utils/auth");
 const { authenticate } = require("../middlewares/auth_middleware");
 const bcrypt = require("bcrypt");
+const Board = require("../models/Board");
 
 /* GET users listing. */
 router.get("/", function (req, res, next) {
@@ -102,8 +103,10 @@ router.put("/:userId", authenticate, async (req, res, next) => {
 //내가 쓴 게시글 보기
 router.get("/:userId/boards", authenticate, async (req, res, next) => {
   const userId = req.params.userId;
-  User.find({ userId: userId }) //User를 Board로 바꾸기
+  console.log(userId);
+  Board.find({ userId: userId })
     .then((data) => {
+      console.log(data);
       res.json(data);
     })
     .catch((err) => {
