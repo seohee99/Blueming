@@ -68,8 +68,7 @@ const ProfilePage = () => {
     const filteredData = MypageBoardList.filter((data) =>
       data.boardTitle.toLowerCase().includes(search.toLowerCase())
     );
-    console.log("r검색");
-    console.log(filteredBoardData);
+    // console.log(filteredBoardData);
     setFilteredBoardData(filteredData);
     setPage(1);
   };
@@ -194,8 +193,9 @@ const ProfilePage = () => {
                       <Badge bg="primary" pill>
                         {/* 14 */}1{/* {item.commentCount} */}
                       </Badge>
-                      <div>작성일</div>
-                      {/* {item.createdAt} */}
+                      <div>
+                        {new Date(item.createdAt).toISOString().split("T")[0]}
+                      </div>
                     </div>
                   </ListGroup.Item>
                 </Link>
