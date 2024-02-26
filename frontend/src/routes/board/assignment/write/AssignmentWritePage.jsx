@@ -28,10 +28,11 @@ export default function BoardWritePage() {
   const { boardType, boardTitle, boardContent, boardFile, isAnonymous } =
     newBoard;
 
-  const fetchBoardData = async (boardId) => {
+  const fetchBoardData = async (boardType, boardId) => {
     try {
       const boardData = await BoardApi.fetchBoardDetail(boardType, boardId);
       setNewBoard(boardData);
+      setSelectedTags(boardData.tag);
     } catch (err) {
       console.error("Error fetching board data:", err);
     }

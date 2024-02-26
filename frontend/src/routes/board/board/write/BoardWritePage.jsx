@@ -32,6 +32,7 @@ export default function BoardWritePage() {
     try {
       const boardData = await BoardApi.fetchBoardDetail(boardType, boardId);
       setNewBoard(boardData);
+      setSelectedTags(boardData.tag);
     } catch (err) {
       console.error("Error fetching board data:", err);
     }

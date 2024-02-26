@@ -150,7 +150,7 @@ export default function BoardDetailPage() {
           </div>
           <div className="board-detail-btns">
             <Link
-              to={`/board/${params.boardId}/edit`}
+              to={`/${boardType}/${params.boardId}/edit`}
               preventScrollReset
               className="text-decoration-none"
             >
