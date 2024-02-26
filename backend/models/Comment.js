@@ -6,7 +6,11 @@ const commentSchema = new mongoose.Schema({
     required: true,
   },
   isAnonymous: { type: Number, required: true },
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" }, //required: true 추가해야함
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  userName: {
+    type: String,
+    required: true,
+  },
   depth: {
     type: Number,
     required: true,
