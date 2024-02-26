@@ -33,6 +33,7 @@ const Sidebar = () => {
       <Nav.Link href="/settings" className="nav-link" style={{ color: 'gray', fontWeight: 'bold', fontSize: '20px' }}>설정</Nav.Link>
     </Nav>
   )
-}
+
+
 
 export default Sidebar
