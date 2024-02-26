@@ -11,12 +11,11 @@ var usersRouter = require("./routes/users");
 const boardRouter = require("./routes/board");
 const noticeRouter = require("./routes/notice");
 const assignmentRouter = require("./routes/assignment");
-<<<<<<< HEAD
+const proxyRouter = require("./routes/proxy");
 
-=======
->>>>>>> d81636d1af308eae1375cfd637b7f90f760467df
 
 var app = express();
+
 connectDB();
 
 // view engine setup
@@ -29,11 +28,20 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// CORS headers 추가
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
+
 app.use("/api", indexRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/board", boardRouter);
 app.use("/api/notice", noticeRouter);
 app.use("/api/assignment", assignmentRouter);
+app.use("/api/proxy", proxyRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
