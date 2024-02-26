@@ -13,7 +13,6 @@ export default function MainPage() {
   const [showQuestion, setShowQuestion] = useState(false);
 
   const handleShowCodeShare = () => {
-    window.open(codelink, '_blank', "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400");
     setShowCodeShare(showCodeShare => !showCodeShare)
   };
   const handleShowLinkInput = () => {
