@@ -1,7 +1,7 @@
 // Sidebar.js
 import React from "react";
 import { Nav } from "react-bootstrap";
-import logo from "/bluemingLogo2.png";
+import logo from "/b-logo.png";
 import "./Sidebar.css";
 
 const Sidebar = () => {
@@ -22,12 +22,7 @@ const Sidebar = () => {
         boxShadow: "0px 4px 8px 0px rgba(0, 0, 0, 0.2)",
       }}
     >
-      <img
-        src={logo}
-        width="200"
-        className="d-inline-block align-top"
-        alt="Blueming logo"
-      />
+      <img src={logo} width="60" className="logo-img" alt="Blueming logo" />
       <Nav.Link
         href="/"
         className="nav-link"
