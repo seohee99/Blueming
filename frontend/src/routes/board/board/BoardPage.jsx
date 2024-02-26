@@ -111,7 +111,6 @@ export default function BoardWritePage() {
 
   return (
     <Container className="board-page">
-      <h1>자유 게시판</h1>
       <div className="search-bar">
         <Form.Control
           className="search-form"

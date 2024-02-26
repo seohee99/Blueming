@@ -9,11 +9,13 @@ import {
   ListGroup,
   Badge,
 } from "react-bootstrap";
+import { PaginationControl } from "react-bootstrap-pagination-control";
 import { Link, redirect, useNavigate } from "react-router-dom";
 import { fetchMypageBoardList } from "../../../lib/apis/board";
 import PasswordChangeModal from "./PasswordChangeModal";
 import { fetchLogout } from "../../../lib/apis/auth";
 import { logout } from "../../../store/reducers/user";
+import { Form } from "react-bootstrap";
 
 const ProfilePage = () => {
   // 사용자가 작성한 게시글 목록을 가정한 예시 데이터
@@ -23,6 +25,13 @@ const ProfilePage = () => {
     // 다른 게시글 데이터들...
   ];
 
+  const [showModal, setShowModal] = useState(false);
+  const [MypageBoardList, setMyPageBoardList] = useState([]);
+  const [filteredBoardData, setFilteredBoardData] = useState([]);
+  const [page, setPage] = useState(1);
+  const [search, setSearch] = useState("");
+  const postsPerPage = 5;
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userObj = useSelector((state) => {
@@ -30,15 +39,12 @@ const ProfilePage = () => {
   });
   // console.log(userObj);
 
-  const [MypageBoardList, setMyPageBoardList] = useState([]);
   useEffect(() => {
     fetchMypageBoardList(userObj._id).then((data) => {
-      // console.log(data);
       setMyPageBoardList(data);
+      setFilteredBoardData(data);
     });
   }, []);
-
-  const [showModal, setShowModal] = useState(false);
 
   // 모달을 표시하는 함수
   const handleShowModal = () => {
@@ -58,7 +64,29 @@ const ProfilePage = () => {
   };
 
   //보드 검색해서 띄우는 함수
-  const handleFindBoard = () => {};
+  const handleSearch = () => {
+    const filteredData = MypageBoardList.filter((data) =>
+      data.boardTitle.toLowerCase().includes(search.toLowerCase())
+    );
+    console.log("r검색");
+    console.log(filteredBoardData);
+    setFilteredBoardData(filteredData);
+    setPage(1);
+  };
+
+  function onKeyUp(e) {
+    if (e.key === "Enter") {
+      handleSearch();
+      setPage(1);
+    }
+  }
+
+  const indexOfLastPost = page * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = filteredBoardData.slice(
+    indexOfFirstPost,
+    indexOfLastPost
+  );
 
   return (
     <Container className="mt-5">
@@ -110,11 +138,10 @@ const ProfilePage = () => {
       <Row className="mt-4 justify-content-center">
         <Col xs={12} md={10}>
           <Container className="min-vh-100" style={{ width: "80%" }}>
-            <div
+            {/* <div
               className="d-flex mb-3 flex-row justify-content-between flex-wrap"
               style={{ marginTop: "10px" }}
             >
-              <h3>내가 쓴 글</h3>
               <div>
                 <input type="text" />
                 <Button
@@ -125,13 +152,33 @@ const ProfilePage = () => {
                   검색
                 </Button>
               </div>
+            </div> */}
+            <h3>내가 쓴 글</h3>
+            <div className="search-bar d-flex mb-3 flex-row justify-content-between flex-wrap">
+              <Form.Control
+                className="search-form"
+                type="search"
+                placeholder="Search"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                onKeyUp={(e) => onKeyUp(e)}
+              />
+              <Button
+                className="search-btn"
+                onClick={() => {
+                  handleSearch();
+                  setPage(1);
+                }}
+              >
+                검색
+              </Button>
             </div>
 
             <ListGroup as="ul" style={{ marginTop: "10px" }}>
-              {userPosts.map((item, index) => (
+              {currentPosts.map((item, index) => (
                 <Link
-                  key={item._id}
-                  to={`/board`}
+                  key={index}
+                  to={`/board/${item._id}`}
                   className="text-decoration-none"
                 >
                   <ListGroup.Item
@@ -141,7 +188,7 @@ const ProfilePage = () => {
                     className="d-flex justify-content-between align-items-start"
                   >
                     <div className="ms-2 me-auto text-truncate">
-                      <div className="fw-bold">{item.title}</div>
+                      <div className="fw-bold">{item.boardTitle}</div>
                     </div>
                     <div className="d-flex flex-column justify-content-center align-items-end">
                       <Badge bg="primary" pill>
@@ -154,6 +201,24 @@ const ProfilePage = () => {
                 </Link>
               ))}
             </ListGroup>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                marginTop: "10px",
+              }}
+            >
+              <PaginationControl
+                page={page}
+                between={4}
+                total={filteredBoardData.length}
+                limit={postsPerPage}
+                changePage={(page) => {
+                  setPage(page);
+                }}
+                ellipsis={1}
+              />
+            </div>
           </Container>
         </Col>
       </Row>

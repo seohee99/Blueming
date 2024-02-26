@@ -79,8 +79,9 @@ export async function fetchBoardCommentReplyDelete(
 
 export async function fetchMypageBoardList(userId) {
   const response = await instance.get(`users/${userId}/boards`);
-  // console.log(response);
-  return response.data;
+
+  console.log(response);
+  return response;
 }
 
 export default {
