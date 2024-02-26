@@ -11,6 +11,7 @@
 <br /><br /><br />
 
 
+<img src="https://github.com/Blueming-PDA/Blueming/assets/63188042/c3222ee0-401a-4bc5-8845-e0d9c7c4c82f" alt="logo-image" width=50><br />
 # Service Introduction
 <br />
 Be blue, Be bloom ~~
@@ -18,6 +19,7 @@ Be blue, Be bloom ~~
 <br /><br /><br />
 
 
+<img src="https://github.com/Blueming-PDA/Blueming/assets/63188042/c3222ee0-401a-4bc5-8845-e0d9c7c4c82f" alt="logo-image" width=50><br />
 # Project Structure 
 <br />
 프로젝트 구조 ~~
@@ -25,6 +27,7 @@ Be blue, Be bloom ~~
 <br /><br /><br />
 
 
+<img src="https://github.com/Blueming-PDA/Blueming/assets/63188042/c3222ee0-401a-4bc5-8845-e0d9c7c4c82f" alt="logo-image" width=50><br />
 ## Skills
 <br />
 스킬 ~~
@@ -32,7 +35,8 @@ Be blue, Be bloom ~~
 <br /><br /><br />
 
 
-## 👨‍👩‍👦‍👦 Team Member
+<img src="https://github.com/Blueming-PDA/Blueming/assets/63188042/c3222ee0-401a-4bc5-8845-e0d9c7c4c82f" alt="logo-image" width=50><br />
+## Team Member
 <br />
 
 |김미래|김시은|박서희|한다희|
