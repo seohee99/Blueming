@@ -8,6 +8,7 @@ import {
   Stack,
   Badge,
 } from "react-bootstrap";
+import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import BoardApi from "~/lib/apis/board";
 
@@ -16,6 +17,11 @@ export default function BoardWritePage() {
   const params = useParams();
   const boardId = params.boardId;
 
+  const userObj = useSelector((state) => {
+    return state.user.userInfo;
+  });
+  const userId = userObj._id;
+
   const [newBoard, setNewBoard] = useState({
     boardType: "board",
     boardTitle: "",
@@ -23,6 +29,7 @@ export default function BoardWritePage() {
     boardFile: "",
     isAnonymous: 0,
     tag: [],
+    userId: "",
   });
 
   const { boardType, boardTitle, boardContent, boardFile, isAnonymous } =
@@ -50,6 +57,7 @@ export default function BoardWritePage() {
     setNewBoard((prev) => ({
       ...prev,
       [name]: value,
+      userId: userId,
     }));
   };
 
