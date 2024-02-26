@@ -4,6 +4,7 @@ import { redirect, useNavigate, Link } from "react-router-dom";
 // import { fetchLogin } from "../../../lib/apis/auth";
 import { fetchLogin } from "../../../store/reducers/user";
 import { useDispatch, useSelector } from "react-redux";
+import {socket} from '../../question/alarm';
 
 export default function LoginPage() {
   const [userEmail, setUserEmail] = useState("");
@@ -23,6 +24,12 @@ export default function LoginPage() {
           if (resp.payload.token) {
             //resp.token = user
             // delete resp.payload.token;
+
+
+            socket.emit("login",email,(res) => {
+              console.log("Socket-Res",res)
+            })
+
             navigate("/");
           }
         })
