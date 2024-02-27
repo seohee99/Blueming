@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Card, Container } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import CodeShare from "./codeShare/CodeShare";
@@ -7,16 +7,33 @@ import Question from "./question/Question";
 import "bootstrap/dist/css/bootstrap.min.css";
 import point from "/point.png";
 import "./MainPage.css";
+import socket from "./socket/socket";
 
 export default function MainPage() {
   const [codelink, setCodelink] = useState("");
   const [showCodeShare, setShowCodeShare] = useState(false);
   const [showLinkInput, setshowLinkInput] = useState(false);
   const [showQuestion, setShowQuestion] = useState(false);
+  let [reload, setReload] = useState(0);
 
-  const userObj = useSelector((state) => {
+  let userObj = useSelector((state) => {
     return state.user.userInfo;
   });
+
+  useEffect(() => {
+    if (userObj) {
+      userObj = { ...userObj, sid: socket.id };
+
+      if (userObj.sid) {
+        socket.emit("setSid", userObj);
+        console.log(userObj.sid);
+      } else {
+        setReload(reload + 1);
+      }
+    }
+  }, [reload]);
+
+  console.log(userObj);
   const handleShowCodeShare = () => {
     window.open(
       codelink,
@@ -36,7 +53,7 @@ export default function MainPage() {
     setShowQuestion((showQuestion) => !showQuestion);
   };
 
-  console.log("code", codelink);
+  // console.log("code", codelink);
 
   // 정보
   const CLASS = "프로 디지털 아카데미";
