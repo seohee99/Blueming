@@ -14,10 +14,43 @@ export default function MainPage() {
   const [showCodeShare, setShowCodeShare] = useState(false);
   const [showLinkInput, setshowLinkInput] = useState(false);
   const [showQuestion, setShowQuestion] = useState(false);
+  const [sid, setSid] = useState('');
 
-  const userObj = useSelector((state) => {
+  const dispatch = useDispatch();
+
+  let userObj = useSelector((state) => {
     return state.user.userInfo;
   });
+
+
+  useEffect(() => {
+    socket.on('connect', () => {
+      if (userObj) {
+        let modifiedUserObj = { ...userObj, sid: socket.id };
+        console.log(socket.id)
+        socket.emit("setSid", modifiedUserObj);
+
+        // 필요하다면, 수정된 userObj를 Redux store에 저장하는 코드를 추가할 수 있습니다.
+        // dispatch(updateUserInfo(modifiedUserObj));
+      }
+    });
+  }, [userObj]);
+
+
+  // 새로고침할 때마다 socket id는 바뀌므로 useEffect 훅을 사용해서 user의 sid 값을 저장하도록 emit을 보냄
+  // useEffect(() => {
+  //   if (userObj) {
+  //     const updatedUserObj = { ...userObj, sid: socket.id };
+  //     setSid(socket.id); // socket.id로 sid 상태 업데이트
+  //     console.log(sid)
+  //     console.log(updatedUserObj.sid)
+  //     if (updatedUserObj.sid) {
+  //       socket.emit("setSid", updatedUserObj);
+  //       console.log("emit 보냄")
+  //     }
+  //   }
+  // }, [socket.id, userObj]); // socket.id를 의존성 배열에 추가
+
   const handleShowCodeShare = () => {
     // window.open(
     //   codelink,
