@@ -1,5 +1,6 @@
-import React, { useCallback, useState } from 'react'
-import { Modal, Button, Form } from 'react-bootstrap'
+import React, { useCallback, useState } from 'react';
+import { Modal, Button, Form } from 'react-bootstrap';
+import socket from "./alarm"
 
 export default function Question({ handleShowQuestion }) {
     const [question, setQuestion] = useState('');
