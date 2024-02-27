@@ -60,6 +60,7 @@ export default function BoardWritePage() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+
     setNewBoard((prev) => ({
       ...prev,
       [name]: value,

@@ -139,7 +139,7 @@ export default function BoardWritePage() {
         </Button>
       </div>
       <div className="write-board">
-        {userObj ? (
+        {userObj.admin === 1 ? (
           <Link
             to={`/notice/write`}
             preventScrollReset
