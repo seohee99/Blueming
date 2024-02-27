@@ -1,10 +1,10 @@
 import React, { useCallback, useContext, useState, useEffect } from "react";
 import { Button, Container, FloatingLabel, Form } from "react-bootstrap";
 import { redirect, useNavigate, Link } from "react-router-dom";
-// import { fetchLogin } from "../../../lib/apis/auth";
 import { fetchLogin } from "../../../store/reducers/user";
 import { useDispatch, useSelector } from "react-redux";
-import {socket} from '../../question/alarm';
+
+
 
 export default function LoginPage() {
   const [userEmail, setUserEmail] = useState("");
@@ -39,9 +39,9 @@ export default function LoginPage() {
             // delete resp.payload.token;
 
 
-            socket.emit("login",email,(res) => {
-              console.log("Socket-Res",res)
-            })
+            // socket.emit("login", email, (res) => {
+            //   console.log("Socket-Res", res)
+            // })
 
             navigate("/");
           }
