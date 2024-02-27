@@ -37,8 +37,6 @@ app.use(function (req, res, next) {
   next();
 });
 
-// app.use("/", indexRouter);
-// app.use("/users", usersRouter);
 app.use("/api", indexRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/board", boardRouter);
