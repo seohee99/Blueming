@@ -16,9 +16,19 @@ const alarmSchema = new mongoose.Schema({
 });
 
 alarmSchema.set("timestamps", {
-  createdAt: "commentCreatedAt",
-  updatedAt: "commentUpdatedAt",
+  createdAt: "alarmCreatedAt",
+  updatedAt: "alarmUpdatedAt",
 });
+
+alarmSchema.statics.saveAlarm = async function (alarmContent,user) {
+  const alarm = await this.create({
+    alarmTitle: alarmContent.title,
+    alarmContent :  alarmContent.content,
+    userId : user._id,
+    userName : user.name,
+  });
+  return alarm
+};
 
 const Alarm = mongoose.model("Alarm", alarmSchema);
 
