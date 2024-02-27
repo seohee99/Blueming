@@ -16,7 +16,7 @@ export default function MainLayout() {
           <Container
             style={{
               marginTop: "100px",
-              backgroundColor: "ivory",
+              // backgroundColor: "ivory",
               padding: "20px",
             }}
           >
