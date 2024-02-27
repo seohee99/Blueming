@@ -35,11 +35,11 @@ export default function MainPage() {
 
   // console.log(userObj);
   const handleShowCodeShare = () => {
-    window.open(
-      codelink,
-      "_blank",
-      "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400"
-    );
+    // window.open(
+    //   codelink,
+    //   "_blank",
+    //   "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400"
+    // );
     if (!codelink) {
       alert("화면 공유 링크를 먼저 삽입해주세요");
       return;
@@ -53,10 +53,18 @@ export default function MainPage() {
     setShowQuestion((showQuestion) => !showQuestion);
   };
 
-  // console.log("code", codelink);
-
   // 정보
   const CLASS = "프로 디지털 아카데미";
+
+  // socket 연결 확인
+  useEffect(() => {
+    console.log(socket);
+    // socket.on('connection', (io) => {
+    //   console.log('SocketID::', io.id);
+
+    // })
+  })
+
 
   return (
     <div className="main-container">

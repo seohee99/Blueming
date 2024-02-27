@@ -13,7 +13,7 @@ const Footer = () => {
     >
       <Container>
         <Navbar.Text className="footer-copyright-text">
-          &copy; 2024. Blueming Co. all rights reserved.
+          &copy; 2024. Blueming Co. All Rights Reserved.
         </Navbar.Text>
         <Navbar.Text className="footer-github-text">
           <a href="https://github.com/Blueming-PDA/Blueming" target="_blank">
