@@ -2,7 +2,7 @@
 import React from "react";
 import { Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import logo from "/b-logo-bloom.png";
+import logo from "/b-logo.png";
 import ciLogo from "/ci-logo.png";
 import "./Sidebar.css";
 

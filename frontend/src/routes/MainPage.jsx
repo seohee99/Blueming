@@ -30,6 +30,9 @@ export default function MainPage() {
 
   console.log("code", codelink);
 
+  // 정보
+  const CLASS = "프로 디지털 아카데미";
+
   return (
     <div className="main-container">
       <div className="btn-group">
@@ -48,7 +51,7 @@ export default function MainPage() {
       <img className="point-img" src={point} width="75" alt="Blueming point" />
       <div className="week-board">
         {/* TODO */}
-        <p>나의 수업: 프로 디지털 아카데미</p>
+        <p>나의 수업: {CLASS}</p>
         <div className="week-card-container">
           <Card className="custom-card c1">
             <div className="circle"></div>
