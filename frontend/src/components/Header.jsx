@@ -56,43 +56,39 @@ const Header = () => {
         backgroundColor: "white",
       }}
     >
-      <Navbar.Collapse
-        className="justify-content-end"
-        style={{ gap: 20, marginRight: 10 }}
-      >
-        <Form className="mr-2" onSubmit={(e) => e.preventDefault()}>
+      <Navbar.Collapse className="justify-content-end" style={{}}>
+        <Form
+          className="mr-2"
+          style={{ marginRight: "20px" }}
+          onSubmit={(e) => e.preventDefault()}
+        >
           <FormControl
             className="write-message"
             type="text"
             placeholder={message}
             onKeyUp={(e) => onKeyUp(e)}
-            style={{ backgroundColor: "white", border: "2px solid #9CBEFF" }}
+            style={{
+              backgroundColor: "white",
+              border: "thin solid lightgray",
+            }}
           />
         </Form>
 
         {user.isLoggedIn && user.userInfo ? (
-          <>
-            <Nav>{user.userInfo.name}님</Nav>
-            <Nav.Link
-              href="/users/mypage"
-              className="text-center border border-info"
-            >
-              <i className="bi bi-person-fill"></i>
+          <div style={{ display: "flex", marginRight: "20px" }}>
+            <Nav.Link href="/users/mypage">
+              <div style={{ fontSize: "17px" }}>✌️ {user.userInfo.name}님</div>
             </Nav.Link>
-            <Nav.Link
-              onClick={handleLogout}
-              className="flex-grow text-center border border-info"
-            >
-              <i className="bi bi-door-open"></i>
+            <Nav.Link onClick={handleLogout}>
+              <div style={{ fontSize: "17px" }}>🚪 로그아웃</div>
             </Nav.Link>
-          </>
+          </div>
         ) : (
-          <Nav.Link
-            href="/users/login"
-            className="login-btn text-center border border-info border-end-0"
-          >
-            로그인
-          </Nav.Link>
+          <div style={{ marginRight: "20px" }}>
+            <Nav.Link href="/users/login">
+              <div style={{ fontSize: "17px" }}>👋 로그인</div>
+            </Nav.Link>
+          </div>
         )}
       </Navbar.Collapse>
     </Navbar>
