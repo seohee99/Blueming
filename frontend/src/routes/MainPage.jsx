@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Card, Container } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import CodeShare from "./codeShare/CodeShare";
@@ -15,7 +15,7 @@ export default function MainPage() {
   const [showCodeShare, setShowCodeShare] = useState(false);
   const [showLinkInput, setshowLinkInput] = useState(false);
   const [showQuestion, setShowQuestion] = useState(false);
-
+  let [reload, setReload] = useState(0);
 
   let userObj = useSelector((state) => {
     return state.user.userInfo;

@@ -122,6 +122,17 @@ export default function BoardDetailPage() {
       console.error("대댓글 삭제 중 에러 발생:", error);
     }
   };
+  const convertNewlinesToHtml = (text) => {
+    console.log(text);
+    return text
+      ? text.split("\n").map((line, index) => (
+          <React.Fragment key={index}>
+            {line}
+            <br />
+          </React.Fragment>
+        ))
+      : null;
+  };
 
   function onKeyUp(e) {
     if (e.key == "Enter") {
@@ -185,7 +196,10 @@ export default function BoardDetailPage() {
             )}
           </div>
         </div>
-        <div className="board-content">{boardData.boardContent}</div>
+        <div className="board-content">
+          {" "}
+          {convertNewlinesToHtml(boardData.boardContent)}
+        </div>
       </div>
       <hr className="line"></hr>
       <div className="board-comment-all">
