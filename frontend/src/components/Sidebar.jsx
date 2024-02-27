@@ -39,7 +39,7 @@ const Sidebar = () => {
         className="nav-link"
         style={{ color: "#5D5D5D", fontWeight: "normal", fontSize: "19px" }}
       >
-        자유게시판
+        게시판
       </Nav.Link>
       <Nav.Link
         href="/assignment"
