@@ -63,8 +63,7 @@ export default function MainPage() {
     //   console.log('SocketID::', io.id);
 
     // })
-  })
-
+  });
 
   return (
     <div className="main-container">

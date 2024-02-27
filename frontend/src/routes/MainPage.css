@@ -3,13 +3,12 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: auto 0px;
+  margin-top: 10px;
 }
 
 .btn-group {
-  margin-top: 70px;
   display: flex;
-  gap: 80px;
+  gap: 60px;
 }
 
 .main-btn {
