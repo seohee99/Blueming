@@ -8,7 +8,7 @@ import Footer from "./Footer";
 
 export default function MainLayout() {
   return (
-    <>
+    <div className="grid-container">
       <Header />
       <div style={{ display: "flex" }}>
         <Sidebar />
@@ -16,7 +16,7 @@ export default function MainLayout() {
           <Container
             style={{
               marginTop: "100px",
-              backgroundColor: "ivory",
+              backgroundColor: "white",
               padding: "20px",
             }}
           >
@@ -25,6 +25,6 @@ export default function MainLayout() {
         </div>
       </div>
       <Footer />
-    </>
+    </div>
   );
 }

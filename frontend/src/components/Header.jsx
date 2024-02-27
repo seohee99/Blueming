@@ -30,11 +30,12 @@ const Header = () => {
 
   return (
     <Navbar
+      className="header-top"
       fixed="top"
       style={{
         height: 80,
-        marginLeft: "201px",
-        boxShadow: "0px 4px 0px 0px rgba(0, 0, 0, 0.2)",
+        marginLeft: "200px",
+        boxShadow: "0px 1px 1px 0px rgba(0, 0, 0.3, 0.2)",
         backgroundColor: "white",
       }}
     >
@@ -47,25 +48,16 @@ const Header = () => {
             type="text"
             placeholder={TEXT}
             className="mr-2"
-            style={{ backgroundColor: "lightblue" }}
+            style={{ backgroundColor: "white", border: "2px solid #9CBEFF" }}
           />
         </Form>
 
-        {!user.isLoggedIn ? (
-          <>
-            <Nav.Link
-              href="/users/login"
-              className="text-center border border-info border-end-0"
-            >
-              로그인
-            </Nav.Link>
-          </>
-        ) : (
+        {user.isLoggedIn && user.userInfo ? (
           <>
             <Nav>{user.userInfo.name}님</Nav>
             <Nav.Link
               href="/users/mypage"
-              className=" text-center border border-info"
+              className="text-center border border-info"
             >
               <i className="bi bi-person-fill"></i>
             </Nav.Link>
@@ -76,6 +68,13 @@ const Header = () => {
               <i className="bi bi-door-open"></i>
             </Nav.Link>
           </>
+        ) : (
+          <Nav.Link
+            href="/users/login"
+            className="login-btn text-center border border-info border-end-0"
+          >
+            로그인
+          </Nav.Link>
         )}
       </Navbar.Collapse>
     </Navbar>
