@@ -134,6 +134,17 @@ export default function BoardDetailPage() {
       handleCommentReplyWrite(data_id);
     }
   }
+  const convertNewlinesToHtml = (text) => {
+    console.log(text);
+    return text
+      ? text.split("\n").map((line, index) => (
+          <React.Fragment key={index}>
+            {line}
+            <br />
+          </React.Fragment>
+        ))
+      : null;
+  };
 
   useEffect(() => {
     callBoardData();
@@ -183,7 +194,10 @@ export default function BoardDetailPage() {
             )}
           </div>
         </div>
-        <div className="board-content">{boardData.boardContent}</div>
+        <div className="board-content">
+          {" "}
+          {convertNewlinesToHtml(boardData.boardContent)}
+        </div>
       </div>
       <hr className="line"></hr>
       <div className="board-comment-all">
