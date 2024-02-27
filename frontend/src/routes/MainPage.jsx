@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Button, Card, Container } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
 import CodeShare from "./codeShare/CodeShare";
 import SetLink from "./codeShare/SetLink";
 import Question from "./question/Question";
@@ -13,12 +14,19 @@ export default function MainPage() {
   const [showLinkInput, setshowLinkInput] = useState(false);
   const [showQuestion, setShowQuestion] = useState(false);
 
+  const userObj = useSelector((state) => {
+    return state.user.userInfo;
+  });
   const handleShowCodeShare = () => {
     window.open(
       codelink,
       "_blank",
       "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400"
     );
+    if (!codelink) {
+      alert("화면 공유 링크를 먼저 삽입해주세요");
+      return;
+    }
     setShowCodeShare((showCodeShare) => !showCodeShare);
   };
   const handleShowLinkInput = () => {
