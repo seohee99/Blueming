@@ -36,7 +36,7 @@ export function timeAgo(updatedAt) {
   }
 }
 
-export default function BoardWritePage() {
+export default function AssignmentPage() {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
   const [boardData, setBoardData] = useState([]);
@@ -47,8 +47,12 @@ export default function BoardWritePage() {
   const userObj = useSelector((state) => {
     return state.user.userInfo;
   });
-  const userId = userObj._id;
-  const userName = userObj.name;
+  let userId;
+  if (userObj) {
+    userId = userObj._id;
+  } else {
+    userId = "trash";
+  }
 
   const callCommentData = async (boardId) => {
     try {
@@ -155,7 +159,7 @@ export default function BoardWritePage() {
       <div className="board-list">
         {currentPosts.map((data, index) => (
           <div>
-            {userId === data.userId ? (
+            {userId === (data.userId || "trash") ? (
               <Link
                 to={`/assignment/${data._id}`}
                 key={data._id}
@@ -191,7 +195,7 @@ export default function BoardWritePage() {
             ) : (
               <div
                 className="assignment-btn"
-                onClick={() => alert("비밀 글입니다!")}
+                onClick={() => alert("작성자만 볼 수 있는 글입니다!")}
               >
                 <div key={index} className="board">
                   <div className="board-tags">

@@ -29,8 +29,15 @@ export default function BoardDetailPage() {
   const userObj = useSelector((state) => {
     return state.user.userInfo;
   });
-  const userId = userObj._id;
-  const userName = userObj.name;
+  let userId;
+  let userName;
+  if (userObj) {
+    userId = userObj._id;
+    userName = userObj.name;
+  } else {
+    userId = "trash";
+    userName = "trash";
+  }
 
   const callCommentData = async () => {
     try {
@@ -211,33 +218,69 @@ export default function BoardDetailPage() {
             개의 댓글
           </h5>
         </div>
-        <Form.Check
-          type="checkbox"
-          label="익명"
-          className="comment-anonymous-check"
-          checked={anonymous}
-          onChange={handleAnonymous}
-          size="sm"
-          style={{ width: "60px" }}
-        />
 
-        <div className="board-comment-write">
-          <Form.Control
-            className="comment-write-form"
-            placeholder="댓글을 작성하세요"
-            value={writeComment}
-            onChange={(e) => setWriteComment(e.target.value)}
-            onKeyUp={(e) => onKeyUp(e)}
-          />
-          <Button
-            className="comment-write-btn"
-            onClick={() => {
-              handleCommentWrite();
-            }}
-          >
-            작성
-          </Button>
-        </div>
+        {userObj ? (
+          <>
+            <Form.Check
+              type="checkbox"
+              label="익명"
+              className="comment-anonymous-check"
+              checked={anonymous}
+              onChange={handleAnonymous}
+              size="sm"
+              style={{ width: "60px" }}
+            />
+            <div className="board-comment-write">
+              <Form.Control
+                className="comment-write-form"
+                placeholder="댓글을 작성하세요"
+                value={writeComment}
+                onChange={(e) => setWriteComment(e.target.value)}
+                onKeyUp={(e) => onKeyUp(e)}
+              />
+              <Button
+                className="comment-write-btn"
+                onClick={() => {
+                  handleCommentWrite();
+                }}
+              >
+                작성
+              </Button>
+            </div>
+          </>
+        ) : (
+          <>
+            <Form.Check
+              type="checkbox"
+              label="익명"
+              className="comment-anonymous-check"
+              checked={anonymous}
+              onChange={handleAnonymous}
+              size="sm"
+              style={{ width: "60px" }}
+              disabled
+            />
+            <div className="board-comment-write">
+              <Form.Control
+                className="comment-write-form"
+                placeholder="로그인 후 댓글을 작성하세요"
+                value={writeComment}
+                onChange={(e) => setWriteComment(e.target.value)}
+                onKeyUp={(e) => onKeyUp(e)}
+                disabled
+              />
+              <Button
+                className="comment-write-btn"
+                onClick={() => {
+                  handleCommentWrite();
+                }}
+              >
+                작성
+              </Button>
+            </div>
+          </>
+        )}
+
         <div className="board-comment-view">
           {commentData.map((data) =>
             data.depth !== 0 ? (

@@ -36,7 +36,7 @@ export function timeAgo(updatedAt) {
   }
 }
 
-export default function BoardWritePage() {
+export default function NoticePage() {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
   const [boardData, setBoardData] = useState([]);
@@ -47,8 +47,15 @@ export default function BoardWritePage() {
   const userObj = useSelector((state) => {
     return state.user.userInfo;
   });
-  const userId = userObj._id;
-  const userName = userObj.name;
+  let userId;
+  let userAdmin;
+  if (userObj) {
+    userId = userObj._id;
+    userAdmin = userObj.userAdmin;
+  } else {
+    userId = "trash";
+    userAdmin = "trash";
+  }
 
   const callCommentData = async (boardId) => {
     try {
@@ -139,7 +146,7 @@ export default function BoardWritePage() {
         </Button>
       </div>
       <div className="write-board">
-        {userObj.admin === 1 ? (
+        {userAdmin === 1 ? (
           <Link
             to={`/notice/write`}
             preventScrollReset
