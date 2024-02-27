@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const alaramSchema = new mongoose.Schema({
+const alarmSchema = new mongoose.Schema({
   alarmTitle: {
     type: String,
     required: true,
@@ -12,14 +12,14 @@ const alaramSchema = new mongoose.Schema({
   userName: {
     type: String,
     required: true,
-  }
+  },
 });
 
-alaramSchema.set("timestamps", {
+alarmSchema.set("timestamps", {
   createdAt: "commentCreatedAt",
   updatedAt: "commentUpdatedAt",
 });
 
-const Alarm = mongoose.model("Alarm", alaramSchema);
+const Alarm = mongoose.model("Alarm", alarmSchema);
 
 module.exports = Alarm;

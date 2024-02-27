@@ -25,9 +25,10 @@ const userSchema = new mongoose.Schema({
     type: Number,
     default: 0, // default: 일반 사용자 (관리자가 아님)
   },
-  token : { // socket 통신을 위한 id
-    type : String, 
-  }
+  sid: {
+    // socket 통신을 위한 id
+    type: String,
+  },
 });
 
 userSchema.statics.signUp = async function (userInfo) {
@@ -63,16 +64,25 @@ userSchema.statics.login = async function (email, password) {
   throw Error("잘못된 이메일입니다.");
 };
 
-userSchema.statics.socket = async function (email, token) {
-  const user = await this.findOne({email})
+// socket
+userSchema.statics.setSid = async function (email, sid) {
+  const user = await this.findOne({ email });
+
   if (user) {
-    user.token = token;
-
+    user.sid = sid;
     await user.save();
-
+    // console.log("USER.SID", user.sid);
     return user.visibleUser;
   }
-}
+};
+
+userSchema.statics.checkUserBySid = async function (sid) {
+  const user = await this.findOne({ sid });
+  if (user) {
+    console.log("찾았습니다.", sid, user.sid);
+    return user.visibleUser;
+  }
+};
 
 const visibleUser = userSchema.virtual("visibleUser");
 visibleUser.get(function (values, virtual, doc) {
@@ -82,6 +92,7 @@ visibleUser.get(function (values, virtual, doc) {
     name: doc.name,
     phone: doc.phone,
     admin: doc.admin,
+    sid: doc.sid,
   };
 });
 
