@@ -20,20 +20,20 @@ export default function MainPage() {
     return state.user.userInfo;
   });
 
-  useEffect(() => {
-    if (userObj) {
-      userObj = { ...userObj, sid: socket.id };
+  // useEffect(() => {
+  //   if (userObj) {
+  //     userObj = { ...userObj, sid: socket.id };
 
-      if (userObj.sid) {
-        socket.emit("setSid", userObj);
-        console.log(userObj.sid);
-      } else {
-        setReload(reload + 1);
-      }
-    }
-  }, [reload]);
+  //     if (userObj.sid) {
+  //       socket.emit("setSid", userObj);
+  //       console.log(userObj.sid);
+  //     } else {
+  //       setReload(reload + 1);
+  //     }
+  //   }
+  // }, [reload]);
 
-  console.log(userObj);
+  // console.log(userObj);
   const handleShowCodeShare = () => {
     window.open(
       codelink,

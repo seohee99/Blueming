@@ -1,16 +1,20 @@
 // Header.js
-import React from "react";
+import React, { useState } from "react";
 import { Navbar, Nav, Form, FormControl, Button } from "react-bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../store/reducers/user";
 import { fetchLogout } from "../lib/apis/auth";
+import socket from "../routes/socket/socket";
+import { setMessage } from "../store/reducers/message";
 
 const Header = () => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const message = useSelector((state) => state.message.message);
+  console.log("aptpwl", message);
 
   const handleLogout = async () => {
     if (window.confirm("로그아웃 하시겠습니까?")) {
@@ -25,7 +29,21 @@ const Header = () => {
     }
   };
 
-  const TEXT = "오늘도 화이팅!!";
+  const handleWriteMessage = (newMessage) => {
+    dispatch(setMessage(newMessage));
+    socket.emit("setHeaderMessage", newMessage);
+  };
+
+  function onKeyUp(e) {
+    if (e.key === "Enter") {
+      handleWriteMessage(e.target.value);
+    }
+  }
+
+  socket.on("setHeaderMessageBack", async (data) => {
+    console.log("message2 :: ", data);
+    dispatch(setMessage(data)); // Redux 상태 업데이트
+  });
 
   return (
     <Navbar
@@ -42,11 +60,12 @@ const Header = () => {
         className="justify-content-end"
         style={{ gap: 20, marginRight: 10 }}
       >
-        <Form className="mr-2">
+        <Form className="mr-2" onSubmit={(e) => e.preventDefault()}>
           <FormControl
+            className="write-message"
             type="text"
-            placeholder={TEXT}
-            className="mr-2"
+            placeholder={message}
+            onKeyUp={(e) => onKeyUp(e)}
             style={{ backgroundColor: "white", border: "2px solid #9CBEFF" }}
           />
         </Form>
