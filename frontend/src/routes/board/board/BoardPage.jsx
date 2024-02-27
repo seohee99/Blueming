@@ -5,6 +5,7 @@ import { fetchBoardList, fetchBoardCommentList } from "~/lib/apis/board";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import point from "/point.png";
 
 export function timeAgo(updatedAt) {
   const now = new Date();
@@ -119,7 +120,6 @@ export default function BoardWritePage() {
       />
 
       <div className="board-name">게시판</div>
-
       <div className="search-bar">
         <Form.Control
           className="search-form"

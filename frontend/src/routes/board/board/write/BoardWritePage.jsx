@@ -116,6 +116,14 @@ export default function BoardWritePage() {
     }));
   }, [selectedTags]);
 
+  // 파일 업로드
+  const FileUpload = (e) => {
+    const formData = new FormData();
+    formData.append("file", e.target.files[0]);
+    console.log("키키");
+    for (const key of formData) console.log(key);
+  };
+
   return (
     <Container className="min-vh-100">
       <img
@@ -166,8 +174,19 @@ export default function BoardWritePage() {
                 ))}
               </Stack>
             </div>
+
+            {/* 파일 업로드 */}
             <Form.Group controlId="formFile" className="mb-0">
-              <Form.Control type="file" size="sm" style={{ width: "200px" }} />
+              <Form.Control
+                type="file"
+                className="shadow-none"
+                accept="image/*"
+                size="sm"
+                style={{ width: "200px" }}
+                onChange={(e) => {
+                  FileUpload(e);
+                }}
+              />
             </Form.Group>
           </div>
 
