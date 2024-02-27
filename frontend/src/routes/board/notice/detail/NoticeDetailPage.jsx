@@ -29,8 +29,16 @@ export default function BoardDetailPage() {
   const userObj = useSelector((state) => {
     return state.user.userInfo;
   });
-  const userId = userObj._id;
-  const userName = userObj.name;
+
+  let userId;
+  let userName;
+  if (userObj) {
+    userId = userObj._id;
+    userName = userObj.name;
+  } else {
+    userId = "trash";
+    userName = "trash";
+  }
 
   const callCommentData = async () => {
     try {
