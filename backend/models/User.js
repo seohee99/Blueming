@@ -25,9 +25,11 @@ const userSchema = new mongoose.Schema({
     type: Number,
     default: 0, // default: 일반 사용자 (관리자가 아님)
   },
-  token : { // socket 통신을 위한 id
-    type : String, 
-  }
+  sid: {
+    // socket 통신을 위한 id
+    type: String,
+    default: "default",
+  },
 });
 
 userSchema.statics.signUp = async function (userInfo) {
@@ -64,7 +66,7 @@ userSchema.statics.login = async function (email, password) {
 };
 
 userSchema.statics.socket = async function (email, token) {
-  const user = await this.findOne({email})
+  const user = await this.findOne({ email });
   if (user) {
     user.token = token;
 
@@ -72,7 +74,7 @@ userSchema.statics.socket = async function (email, token) {
 
     return user.visibleUser;
   }
-}
+};
 
 const visibleUser = userSchema.virtual("visibleUser");
 visibleUser.get(function (values, virtual, doc) {
@@ -82,8 +84,20 @@ visibleUser.get(function (values, virtual, doc) {
     name: doc.name,
     phone: doc.phone,
     admin: doc.admin,
+    sid: doc.sid,
   };
 });
+
+userSchema.statics.setSid = async function (email, sid) {
+  const user = await this.findOne({ email });
+  if (user) {
+    user.sid = sid;
+
+    await user.save();
+    console.log("저장완료", user.sid);
+    return user.visibleUser;
+  }
+};
 
 const User = mongoose.model("User", userSchema);
 
