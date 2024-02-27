@@ -56,7 +56,6 @@ userSchema.statics.login = async function (email, password) {
   if (user) {
     const auth = await bcrypt.compare(password, user.password);
     if (auth) {
-      // console.log(user);
       return user.visibleUser;
     }
     throw Error("잘못된 패스워드입니다.");
@@ -82,6 +81,7 @@ visibleUser.get(function (values, virtual, doc) {
     email: doc.email,
     name: doc.name,
     phone: doc.phone,
+    admin: doc.admin,
   };
 });
 
