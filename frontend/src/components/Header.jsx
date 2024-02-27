@@ -30,11 +30,12 @@ const Header = () => {
 
   return (
     <Navbar
+      className="header-top"
       fixed="top"
       style={{
         height: 80,
-        marginLeft: "201px",
-        boxShadow: "0px 4px 0px 0px rgba(0, 0, 0, 0.2)",
+        marginLeft: "200px",
+        boxShadow: "0px 1px 1px 0px rgba(0, 0, 0.3, 0.2)",
         backgroundColor: "white",
       }}
     >
@@ -70,7 +71,7 @@ const Header = () => {
         ) : (
           <Nav.Link
             href="/users/login"
-            className="text-center border border-info border-end-0"
+            className="login-btn text-center border border-info border-end-0"
           >
             로그인
           </Nav.Link>
