@@ -15,7 +15,7 @@ export default function MainLayout() {
         <div style={{ marginLeft: "200px", flex: 1 }}>
           <Container
             style={{
-              marginTop: "100px",
+              marginTop: "60px",
               backgroundColor: "white",
               padding: "20px",
             }}
