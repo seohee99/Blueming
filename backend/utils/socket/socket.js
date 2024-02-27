@@ -1,4 +1,6 @@
 const { Server } = require("socket.io");
+const socketConnection = require("./socketEvents");
+
 const io = new Server({
   cors: {
     origin: "http://localhost:5173",
@@ -6,12 +8,6 @@ const io = new Server({
   },
 });
 
-io.on("connection", (socket) => {
-  console.log("a user connected");
-
-  socket.on("disconnect", function () {
-    console.log("user disconnected");
-  });
-});
+io.on("connection", socketConnection);
 
 module.exports = io;
