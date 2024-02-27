@@ -3,6 +3,7 @@ const Alarm = require("../../models/Alarm");
 module.exports = function (io) {
   io.on("connection", async (socket) => {
     console.log("a user connected", socket.id);
+
     console.log("===============");
     // 로직 작성
     //.... (유저가 로그인 하면 socketId를 token에 업데이트) 등등
@@ -28,6 +29,7 @@ module.exports = function (io) {
       // console.log("user :: ", user);
     });
     socket.on("disconnect", () => {
+
       console.log("user disconnected");
     });
   });
