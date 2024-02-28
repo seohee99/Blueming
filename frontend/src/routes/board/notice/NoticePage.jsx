@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import point from "/point.png";
 import { timeAgo } from "../board/BoardPage";
+import { setSid } from "../../socket/socketEvents";
+
 
 export default function NoticePage() {
   const [search, setSearch] = useState("");
@@ -15,9 +17,10 @@ export default function NoticePage() {
   const postsPerPage = 5;
   const boardType = "notice";
 
-  const userObj = useSelector((state) => {
+  let userObj = useSelector((state) => {
     return state.user.userInfo;
   });
+
   let userId;
   let userAdmin;
   if (userObj) {
@@ -29,6 +32,13 @@ export default function NoticePage() {
   }
 
   console.log(userAdmin);
+
+  useEffect(() => {
+    if(userObj) {
+      setSid(userObj);
+    }
+  }, []); 
+
 
   const callCommentData = async (boardId) => {
     try {
