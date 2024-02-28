@@ -26,7 +26,8 @@ export default function Question({ handleShowQuestion }) {
                 </Modal.Header>
                 <Form onSubmit={(e) => {
                     e.preventDefault();
-                    onSubmit(question); }}>
+                    onSubmit(question);
+                }}>
                     <Modal.Body>
 
                         <Button onClick={() => {
