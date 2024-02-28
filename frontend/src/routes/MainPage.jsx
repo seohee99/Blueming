@@ -85,7 +85,7 @@ export default function MainPage() {
         <div className="btn-group">
           {userObj.admin === 1 ? (
             <Button className="main-btn" onClick={handleShowAlarmList}>
-              👀 질문보기
+              🔔 알림보기
             </Button>
           ) : (
             <Button className="main-btn " onClick={handleShowQuestion}>
@@ -96,7 +96,7 @@ export default function MainPage() {
             🔗 화면공유하기
           </Button>
           <Button className="main-btn" onClick={handleShowCodeShare}>
-            🖥️ 화면공유 보기
+            🖥️ 화면공유보기
           </Button>
         </div>
       )}
