@@ -21,13 +21,11 @@ export default function MainPage() {
     return state.user.userInfo;
   });
 
-
   useEffect(() => {
     if (userObj) {
       setSid(userObj);
     }
   }, []);
-
 
   const handleShowCodeShare = () => {
     setShowCodeShare((showCodeShare) => !showCodeShare);
@@ -61,24 +59,19 @@ export default function MainPage() {
     // })
   });
 
-
   return (
     <div className="main-container">
-
-      {userObj &&
+      {userObj && (
         <div className="btn-group">
-
-          {userObj.admin === 1 ?
-
+          {userObj.admin === 1 ? (
             <Button className="main-btn" onClick={handleShowAlarmList}>
               👀 질문보기
             </Button>
-            :
-
+          ) : (
             <Button className="main-btn " onClick={handleShowQuestion}>
               🙋 질문하기
             </Button>
-          }
+          )}
           <Button className="main-btn" onClick={handleShowLinkInput}>
             🔗 화면공유하기
           </Button>
@@ -86,12 +79,11 @@ export default function MainPage() {
             🖥️ 화면공유 보기
           </Button>
         </div>
-      }
+      )}
       {showCodeShare && <CodeShare />}
       {showQuestion && <Question handleShowQuestion={handleShowQuestion} />}
       {showAlarmList && <AlarmList handleShowAlarmList={handleShowAlarmList} />}
       {showLinkInput && <SetLink handleShowLinkInput={handleShowLinkInput} />}
-
 
       <img className="point-img" src={point} width="75" alt="Blueming point" />
       <div className="week-board">
@@ -140,8 +132,6 @@ export default function MainPage() {
           </Card>
         </div>
       </div>
-
-
     </div>
   );
 }
