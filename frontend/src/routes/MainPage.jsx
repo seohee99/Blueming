@@ -17,7 +17,22 @@ export default function MainPage() {
   const [showLinkInput, setshowLinkInput] = useState(false);
   const [showQuestion, setShowQuestion] = useState(false);
   const [showAlarmList, setShowAlarmList] = useState(false);
-  const [weekIndex, setWeekIndex] = useState(false);
+
+  const today = new Date();
+  const todayString = `${today.getFullYear()}-${String(
+    // 날짜 형식 YYYY-MM-DD으로 변경
+    today.getMonth() + 1
+  ).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
+
+  const [weekIndex, setWeekIndex] = useState(() => {
+    // 초기 index는 오늘자 날짜가 속한 주로 설정
+    const todayIndex = data.findIndex(
+      (dayData) => dayData.date === todayString
+    );
+    return Math.floor(todayIndex / 5);
+  });
+
+  const CLASS = "프로 디지털 아카데미";
 
   let userObj = useSelector((state) => {
     return state.user.userInfo;
@@ -67,9 +82,6 @@ export default function MainPage() {
       setWeekIndex(weekIndex + 1);
     }
   };
-
-  // 정보
-  const CLASS = "프로 디지털 아카데미";
 
   // socket 연결 확인
   useEffect(() => {
