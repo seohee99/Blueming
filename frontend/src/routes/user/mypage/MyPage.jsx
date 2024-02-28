@@ -59,6 +59,7 @@ const ProfilePage = () => {
     });
 
     fetchGetProfileImage(userObj._id).then((data) => {
+      console.log(data);
       setSelectedImage(data);
     });
   }, []);

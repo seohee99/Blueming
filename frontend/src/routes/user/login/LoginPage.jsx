@@ -34,8 +34,9 @@ export default function LoginPage() {
         .then((resp) => {
           // console.log(resp);
           if (resp.payload.token) {
+            navigate("/main");
             //resp.token = user
-            // delete resp.payload.token;
+            delete resp.payload.token;
             // socket.emit("login", email, (res) => {
             //   console.log("Socket-Res", res)
             // })

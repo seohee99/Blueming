@@ -14,6 +14,7 @@ import socket from "../routes/socket/socket";
 
 import logo from "/b-logo.png";
 import { Link } from "react-router-dom";
+import { fetchGetProfileImage } from "../lib/apis/profile";
 
 const Header = () => {
   const user = useSelector((state) => state.user);
@@ -24,6 +25,12 @@ const Header = () => {
   let userObj = useSelector((state) => {
     return state.user.userInfo;
   });
+
+  // useEffect(() => {
+  //   fetchGetProfileImage(user.userInfo._id).then((data) => {
+  //     setSelectedImage(data);
+  //   });
+  // }, []);
 
   const handleLogout = async () => {
     if (window.confirm("로그아웃 하시겠습니까?")) {
