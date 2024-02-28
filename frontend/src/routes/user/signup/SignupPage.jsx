@@ -68,7 +68,7 @@ export default function SignUpPage() {
         </FloatingLabel>
         <FloatingLabel
           controlId="floatingNickname"
-          label="nickname"
+          label="Name"
           className="mb-3"
         >
           <Form.Control
@@ -82,7 +82,7 @@ export default function SignUpPage() {
         </FloatingLabel>
         <FloatingLabel
           controlId="floatingNickname"
-          label="phone"
+          label="Phone"
           className="mb-3"
         >
           <Form.Control
