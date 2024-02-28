@@ -1,9 +1,9 @@
 
 <div align="center">
 <h1>Bluming(블루밍) - Be Blue, Be Bloom!</h1>
-<br />
+<br /><br />
   
-<img src="https://github.com/Blueming-PDA/Blueming/assets/63188042/29b29117-3e04-4a5a-b6d3-1bc8383592e2" alt="logo-image" width="28%"><br /><br />
+<img src="https://github.com/Blueming-PDA/Blueming/assets/63188042/29b29117-3e04-4a5a-b6d3-1bc8383592e2" alt="logo-image" width="35%"><br /><br />
 블루밍은 학생과 선생님 간의 원활한 소통을 위한 학습 보조 도구입니다. <br />
 더 이상의 한계 없는 학습의 정원, 함께 우리의 정원을 가꾸어 나가요! 🌱🌼
 
