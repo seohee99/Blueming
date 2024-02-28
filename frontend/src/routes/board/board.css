@@ -328,3 +328,8 @@
   min-height: 0vh !important;
   margin-top: 8%;
 }
+
+.tag-write {
+  text-align: left;
+  font-size: small;
+}

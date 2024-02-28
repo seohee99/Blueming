@@ -184,7 +184,7 @@ export default function NoticeWritePage() {
               rows={7}
               name="boardContent"
               value={boardContent}
-              placeholder="내용을 입력해주세요."
+              placeholder="상단의 태그를 선택하고 내용을 입력해주세요."
               onChange={handleInputChange}
             />
           </Form.Group>
