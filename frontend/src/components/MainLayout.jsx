@@ -25,7 +25,8 @@ export default function MainLayout() {
           <Container
             style={{
               backgroundColor: "white",
-              maxWidth: "1120px",
+              // maxWidth: "1120px",
+              // maxWidth: "100%",
             }}
           >
             <Outlet />
@@ -33,8 +34,7 @@ export default function MainLayout() {
           <Footer />
         </div>
       </div>
-<Alarm />
+      <Alarm />
     </>
-
   );
 }
