@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Button, Card, Container } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
+import { Button, Card, Carousel } from "react-bootstrap";
+import { useSelector } from "react-redux";
 import CodeShare from "./codeShare/CodeShare";
 import SetLink from "./codeShare/SetLink";
 import Question from "./question/Question";
@@ -10,12 +10,29 @@ import point from "/point.png";
 import "./MainPage.css";
 import socket from "./socket/socket";
 import { setSid } from "./socket/socketEvents";
+import data from "../assets/data/ curriculum.json";
 
 export default function MainPage() {
   const [showCodeShare, setShowCodeShare] = useState(false);
   const [showLinkInput, setshowLinkInput] = useState(false);
   const [showQuestion, setShowQuestion] = useState(false);
   const [showAlarmList, setShowAlarmList] = useState(false);
+
+  const today = new Date();
+  const todayString = `${today.getFullYear()}-${String(
+    // 날짜 형식 YYYY-MM-DD으로 변경
+    today.getMonth() + 1
+  ).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
+
+  const [weekIndex, setWeekIndex] = useState(() => {
+    // 초기 index는 오늘자 날짜가 속한 주로 설정
+    const todayIndex = data.findIndex(
+      (dayData) => dayData.date === todayString
+    );
+    return Math.floor(todayIndex / 5);
+  });
+
+  const CLASS = "프로 디지털 아카데미";
 
   let userObj = useSelector((state) => {
     return state.user.userInfo;
@@ -46,8 +63,25 @@ export default function MainPage() {
     setShowAlarmList((showAlarmList) => !showAlarmList);
   };
 
-  // 정보
-  const CLASS = "프로 디지털 아카데미";
+  // 주별 데이터 가져오는 함수
+  const getWeekData = (idx) => {
+    const weekData = data.slice(idx * 5, (idx + 1) * 5);
+    return weekData;
+  };
+
+  // 이전 주 이동 버튼
+  const handlePrevWeek = () => {
+    if (weekIndex > 0) {
+      setWeekIndex(weekIndex - 1);
+    }
+  };
+
+  // 다음 주 이동 버튼
+  const handleNextWeek = () => {
+    if (weekIndex < data.length / 5 - 1) {
+      setWeekIndex(weekIndex + 1);
+    }
+  };
 
   // socket 연결 확인
   useEffect(() => {
@@ -87,50 +121,52 @@ export default function MainPage() {
 
       <img className="point-img" src={point} width="75" alt="Blueming point" />
       <div className="week-board">
-        {/* TODO */}
         <p>나의 수업: {CLASS}</p>
-        <div className="week-card-container">
-          <Card className="custom-card c1">
-            <div className="circle"></div>
-            <p className="week-text">MON</p>
-            <p className="week-num">2/26</p>
-            <p className="week-curriculum">
-              클라우드 기반 프론트엔드 개발(React) 프로그래밍
-            </p>
-          </Card>
-          <Card className="custom-card c2">
-            <div className="circle"></div>
-            <p className="week-text">TUE</p>
-            <p className="week-num">2/27</p>
-            <p className="week-curriculum">
-              클라우드 기반 프론트엔드 개발(React) 프로그래밍
-            </p>
-          </Card>
-          <Card className="custom-card c3">
-            <div className="circle"></div>
-            <p className="week-text">WED</p>
-            <p className="week-num">2/28</p>
-            <p className="week-curriculum">
-              클라우드 기반 프론트엔드 개발(React) 프로그래밍
-            </p>
-          </Card>
-          <Card className="custom-card c4">
-            <div className="circle"></div>
-            <p className="week-text">THU</p>
-            <p className="week-num">2/29</p>
-            <p className="week-curriculum">
-              클라우드 기반 프론트엔드 개발(React) 프로그래밍
-            </p>
-          </Card>
-          <Card className="custom-card c5">
-            <div className="circle"></div>
-            <p className="week-text">FRI</p>
-            <p className="week-num red">3/1</p>
-            <p className="week-curriculum">
-              클라우드 기반 프론트엔드 개발(React) 프로그래밍
-            </p>
-          </Card>
-        </div>
+        <Carousel
+          activeIndex={weekIndex}
+          onSelect={setWeekIndex}
+          interval={null}
+        >
+          {Array(Math.ceil(data.length / 5))
+            .fill()
+            .map((_, index) => (
+              <Carousel.Item key={index}>
+                <div className="week-card-container">
+                  {getWeekData(index).map((dayData, dayIndex) => (
+                    <Card
+                      key={dayIndex}
+                      className={`custom-card c${dayIndex + 1}`}
+                    >
+                      <div className="circle"></div>
+                      <p className="week-text">{dayData.day}</p>
+                      <p
+                        className={`week-num ${
+                          dayData.holiday ? "holiday" : ""
+                        }`}
+                      >
+                        {dayData.date.substring(5).replace("-", "/")}
+                      </p>
+                      <p className="week-curriculum">{dayData.content}</p>
+                    </Card>
+                  ))}
+                </div>
+              </Carousel.Item>
+            ))}
+        </Carousel>
+        {/* <div className="week-card-container">
+          {getWeekData(weekIndex).map((dayData, idx) => (
+            <Card key={idx} className={`custom-card c${idx + 1}`}>
+              <div className="circle"></div>
+              <p className="week-text">{dayData.day}</p>
+              <p className={`week-num ${dayData.holiday ? "holiday" : ""}`}>
+                {dayData.date.substring(5).replace("-", "/")}
+              </p>
+              <p className="week-curriculum">{dayData.content}</p>
+            </Card>
+          ))}
+        </div> */}
+        <Button onClick={handlePrevWeek}>⇦</Button>
+        <Button onClick={handleNextWeek}>⇨</Button>
       </div>
     </div>
   );

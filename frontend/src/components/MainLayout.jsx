@@ -24,9 +24,8 @@ export default function MainLayout() {
 
           <Container
             style={{
-              backgroundColor: "white",
-              // maxWidth: "1120px",
-              // maxWidth: "100%",
+              backgroundColor: "#f5f6ff",
+              maxWidth: "1120px",
             }}
           >
             <Outlet />
