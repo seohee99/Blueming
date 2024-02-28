@@ -1,5 +1,5 @@
 // Header.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Navbar, Nav, Form, FormControl, Button } from "react-bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { useSelector, useDispatch } from "react-redux";
@@ -10,13 +10,23 @@ import socket from "../routes/socket/socket";
 import { setMessage } from "../store/reducers/message";
 import logo from "/b-logo.png";
 import { Link } from "react-router-dom";
+import { fetchGetProfileImage } from "../lib/apis/profile";
 
 const Header = () => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const message = useSelector((state) => state.message.message);
+  const [selectedImage, setSelectedImage] = useState(
+    "../public/profile/9334178.jpg"
+  );
   console.log("aptpwl", message);
+
+  useEffect(() => {
+    fetchGetProfileImage(user.userInfo._id).then((data) => {
+      setSelectedImage(data);
+    });
+  }, []);
 
   const handleLogout = async () => {
     if (window.confirm("로그아웃 하시겠습니까?")) {
@@ -87,10 +97,19 @@ const Header = () => {
         {user.isLoggedIn && user.userInfo ? (
           <div style={{ display: "flex", marginRight: "50px" }}>
             <Nav.Link href="/users/mypage">
-              <div style={{ fontSize: "17px" }}>✌️ {user.userInfo.name}님</div>
-            </Nav.Link>
-            <Nav.Link onClick={handleLogout}>
-              <div style={{ fontSize: "17px" }}>🚪 로그아웃</div>
+              <div style={{ fontSize: "17px" }}>
+                <img
+                  src={selectedImage} // 여기에 원하는 이미지의 경로를 넣어주세요
+                  className="rounded-image" // 앞서 정의한 클래스 이름을 사용
+                  style={{
+                    width: "35px",
+                    height: "35px",
+                    borderRadius: "50%",
+                    marginRight: "10px",
+                  }}
+                />
+                {user.userInfo.name}님
+              </div>
             </Nav.Link>
           </div>
         ) : (
