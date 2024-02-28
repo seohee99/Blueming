@@ -21,9 +21,12 @@ app.set("port", port);
 
 var server = http.createServer(app);
 
+const io = require("../utils/socket/socket");
+
 /**
  * Listen on provided port, on all network interfaces.
  */
+io.attach(server);
 
 server.listen(port);
 server.on("error", onError);

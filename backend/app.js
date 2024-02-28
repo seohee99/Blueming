@@ -3,11 +3,6 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
-
-<<<<<<< HEAD
-
-=======
->>>>>>> db06269d61c9667018190d2c75d8e5c5863fb29a
 const { connectDB } = require("./routes/dbConnect");
 
 var indexRouter = require("./routes/index");
@@ -15,12 +10,10 @@ var usersRouter = require("./routes/users");
 const boardRouter = require("./routes/board");
 const noticeRouter = require("./routes/notice");
 const assignmentRouter = require("./routes/assignment");
-<<<<<<< HEAD
-
-=======
->>>>>>> db06269d61c9667018190d2c75d8e5c5863fb29a
+const proxyRouter = require("./routes/proxy");
 
 var app = express();
+
 connectDB();
 
 // view engine setup
@@ -33,22 +26,22 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-<<<<<<< HEAD
+// CORS headers 추가
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
 
-=======
->>>>>>> db06269d61c9667018190d2c75d8e5c5863fb29a
 app.use("/api", indexRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/board", boardRouter);
 app.use("/api/notice", noticeRouter);
 app.use("/api/assignment", assignmentRouter);
-<<<<<<< HEAD
-
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-
-=======
->>>>>>> db06269d61c9667018190d2c75d8e5c5863fb29a
+app.use("/api/proxy", proxyRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
