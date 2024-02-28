@@ -1,3 +1,4 @@
+
 import React, { useCallback, useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { emitMessage } from '../socket/socketEvents';
@@ -25,7 +26,8 @@ export default function Question({ handleShowQuestion }) {
                 </Modal.Header>
                 <Form onSubmit={(e) => {
                     e.preventDefault();
-                    onSubmit(question); }}>
+                    onSubmit(question);
+                }}>
                     <Modal.Body>
 
                         <Button onClick={() => {
@@ -60,4 +62,5 @@ export default function Question({ handleShowQuestion }) {
             </Modal>
         </>
     )
+
 }
