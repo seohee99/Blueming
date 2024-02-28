@@ -8,6 +8,8 @@ import { logout } from "../store/reducers/user";
 import { fetchLogout } from "../lib/apis/auth";
 import socket from "../routes/socket/socket";
 import { setMessage } from "../store/reducers/message";
+import logo from "/b-logo.png";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const user = useSelector((state) => state.user);
@@ -50,12 +52,19 @@ const Header = () => {
       className="header-top"
       fixed="top"
       style={{
-        height: 80,
-        marginLeft: "200px",
-        boxShadow: "0px 1px 1px 0px rgba(0, 0, 0.3, 0.2)",
+        height: "80px",
         backgroundColor: "white",
       }}
     >
+      <Link to="/">
+        <img
+          src={logo}
+          width="200px"
+          className="logo-img"
+          alt="Blueming logo"
+          style={{ marginLeft: "20px" }}
+        />
+      </Link>
       <Navbar.Collapse className="justify-content-end" style={{}}>
         <Form
           className="mr-2"

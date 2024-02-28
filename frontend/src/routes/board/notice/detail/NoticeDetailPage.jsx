@@ -33,7 +33,7 @@ export default function NoticeDetailPage() {
   let userAdmin;
   if (userObj) {
     userId = userObj._id;
-    userAdmin = userObj.userAdmin;
+    userAdmin = userObj.admin;
   } else {
     userId = "trash";
     userAdmin = "trash";
@@ -162,7 +162,7 @@ export default function NoticeDetailPage() {
   return (
     <>
       {boardData ? (
-        <Container className="board-detail-page">
+        <Container className="board-detail-page" style={{ marginTop: "80px" }}>
           <div className="board-detail-all">
             <div className="board-detail-tag-container">
               {boardData.tag &&

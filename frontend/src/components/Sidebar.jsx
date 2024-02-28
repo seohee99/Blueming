@@ -2,21 +2,21 @@
 import React from "react";
 import { Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import logo from "/b-logo.png";
 import ciLogo from "/ci-logo.png";
 import "./Sidebar.css";
 
 const Sidebar = () => {
   return (
-    <div style={{ position: "relative" }}>
+    <div style={{ position: "relative", marginLeft: "3%" }}>
       <Nav
         defaultActiveKey="/home"
-        className="flex-column"
+        className=" flex-column"
         style={{
-          position: "fixed",
-          top: "0",
+          position: "sticky",
+          top: "15%",
           bottom: "0",
           left: "0",
+          height: "330px",
           width: "200px",
           overflow: "auto",
           backgroundColor: "white",
@@ -24,11 +24,13 @@ const Sidebar = () => {
           // borderRight: '2px solid lightgray',
           boxShadow: "0px 4px 8px 0px rgba(0, 0, 0, 0.2)",
           zIndex: 1,
+          margin: "100% 0",
+          borderRadius: "15px",
         }}
       >
-        <Link to="/">
+        {/* <Link to="/">
           <img src={logo} width="60" className="logo-img" alt="Blueming logo" />
-        </Link>
+        </Link> */}
         <Nav.Link
           href="/"
           className="nav-link"
@@ -58,26 +60,13 @@ const Sidebar = () => {
           공지사항
         </Nav.Link>
         <Nav.Link
-          href="/settings"
+          href="https://github.com/Blueming-PDA/Blueming/blob/docs/README.md"
           className="nav-link"
           style={{ color: "#5D5D5D", fontWeight: "normal", fontSize: "19px" }}
         >
-          설정
+          소개
         </Nav.Link>
       </Nav>
-      <img
-        src={ciLogo}
-        width="110"
-        className="ci-logo-img"
-        alt="Blueming logo"
-        style={{
-          position: "fixed",
-          bottom: "0",
-          left: "0",
-          marginBottom: "20px", // 필요에 따라 조절
-          marginLeft: "40px", // 필요에 따라 조절
-        }}
-      />
     </div>
   );
 };

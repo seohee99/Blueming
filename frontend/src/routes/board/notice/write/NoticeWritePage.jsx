@@ -127,7 +127,7 @@ export default function NoticeWritePage() {
   }, []);
 
   return (
-    <Container className="min-vh-100">
+    <Container className="min-vh-100" style={{ marginTop: "80px" }}>
       <img
         src={point}
         width="65"

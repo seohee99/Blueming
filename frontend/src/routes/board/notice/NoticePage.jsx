@@ -22,11 +22,13 @@ export default function NoticePage() {
   let userAdmin;
   if (userObj) {
     userId = userObj._id;
-    userAdmin = userObj.userAdmin;
+    userAdmin = userObj.admin;
   } else {
     userId = "trash";
     userAdmin = "trash";
   }
+
+  console.log(userAdmin);
 
   const callCommentData = async (boardId) => {
     try {
