@@ -18,7 +18,7 @@ export async function fetchGetProfileImage(userId) {
   try {
     const response = await instance.get(`users/${userId}/profile`);
     console.log(response);
-    return response;
+    return response.profile;
   } catch (error) {
     console.log(error.message);
     throw error;

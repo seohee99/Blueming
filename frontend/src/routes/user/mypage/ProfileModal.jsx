@@ -1,11 +1,13 @@
 // ProfileModal.jsx
 import React from "react";
 import { Modal, Image, Row, Col } from "react-bootstrap";
-import profile1 from "/profile/9334178.jpg";
-import profile2 from "/profile/9334183.jpg";
-import profile3 from "/profile/9334240.jpg";
-import profile4 from "/profile/9334407.jpg";
-const ProfilePictures = [profile1, profile2, profile3, profile4];
+
+const ProfilePictures = [
+  "/profile/9334178.jpg",
+  "/profile/9334183.jpg",
+  "/profile/9334240.jpg",
+  "/profile/9334407.jpg",
+];
 
 const ProfileModal = ({ show, onHide, onSelectPicture }) => {
   return (
