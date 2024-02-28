@@ -13,6 +13,10 @@ const alarmSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  checked: {
+    type: Boolean,
+    default: false, //
+  },
 });
 
 alarmSchema.set("timestamps", {
@@ -20,14 +24,14 @@ alarmSchema.set("timestamps", {
   updatedAt: "alarmUpdatedAt",
 });
 
-alarmSchema.statics.saveAlarm = async function (alarmContent,user) {
+alarmSchema.statics.saveAlarm = async function (alarmContent, user) {
   const alarm = await this.create({
     alarmTitle: alarmContent.title,
-    alarmContent :  alarmContent.content,
-    userId : user._id,
-    userName : user.name,
+    alarmContent: alarmContent.content,
+    userId: user._id,
+    userName: user.name,
   });
-  return alarm
+  return alarm;
 };
 
 const Alarm = mongoose.model("Alarm", alarmSchema);
