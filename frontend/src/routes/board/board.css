@@ -1,5 +1,5 @@
 .board-page {
-  margin-top: 80px;
+  margin-top: 8%;
 }
 
 .search-bar {
@@ -111,6 +111,10 @@
 .pages {
   color: #0048ff !important;
   border-color: #0048ff !important;
+}
+
+.board-detail-page {
+  margin-top: 11% !important;
 }
 
 .board-detail-title {
@@ -317,4 +321,5 @@
 
 .min-vh-100 {
   min-height: 0vh !important;
+  margin-top: 8%;
 }

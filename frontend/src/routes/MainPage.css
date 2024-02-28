@@ -15,8 +15,13 @@
   width: 250px;
   height: 125px;
   border-radius: 15px !important;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-  background-color: #ebf1ff;
+  backdrop-filter: blur(5px);
+  background-color: #fff;
+  border-radius: 29px;
+  box-shadow: -1px 12px 20px 0px rgb(174 195 223 / 50%),
+    inset 1px 0px 16px 0px rgb(192 204 220 / 60%),
+    inset 0px 11px 28px 0px #ffffff;
+
   color: #474747;
   border: none;
   font-size: 20px;
@@ -32,9 +37,11 @@
 .week-board {
   width: 1000px;
   height: 380px;
-  background-color: #ebf1ff;
+  background-color: #fff;
   border-radius: 20px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: -1px 12px 20px 0px rgb(174 195 223 / 50%),
+    inset 1px 0px 16px 0px rgb(192 204 220 / 60%),
+    inset 0px 11px 28px 0px #ffffff;
   position: relative;
   margin: 0 auto;
   bottom: -20px;
