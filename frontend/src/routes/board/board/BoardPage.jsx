@@ -57,7 +57,7 @@ export default function BoardWritePage() {
     }
   }, []);
 
-  console.log(userObj);
+  // console.log(userObj);
   const callCommentData = async (boardId) => {
     try {
       if (boardId !== undefined) {
