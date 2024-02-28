@@ -95,7 +95,10 @@ export default function Question({ handleShowQuestion }) {
         </Modal.Body>
 
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleShowQuestion}>
+          <Button
+            style={{ backgroundColor: "white" }}
+            onClick={handleShowQuestion}
+          >
             취소
           </Button>
         </Modal.Footer>

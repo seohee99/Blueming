@@ -83,7 +83,7 @@
   margin: 20px;
   padding: 30px;
   border-radius: 10px;
-  border: thin solid lightgray;
+  background-color: #ffffff;
   align-items: center;
   gap: 20px;
   display: block; /* flex 대신 block 속성을 적용 */
