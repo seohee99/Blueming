@@ -32,13 +32,16 @@ Be blue, Be bloom ~~
 # Main Features
 
 ### 알람 기능
-학생은 수업에 관한 피드백 혹은 질문을 알람 기능을 통해 익명으로 전달할 수 있습니다. 강사는 알람을 통해 학생들의 이해정도를 알 수 있고 질문을 받을 수 있어 최적화된 수업이 가능합니다.
+학생은 수업에 관한 피드백 혹은 질문을 알람 기능을 통해 익명으로 전달할 수 있습니다. <br />
+강사는 알람을 통해 학생들의 이해정도를 알 수 있고 질문을 받을 수 있어 최적화된 수업이 가능합니다.
 
 ### 보드 기능
-게시판, 과제함, 공지사항 세개의 게시판이 존재합니다. 게시판에는 익명으로 글을 적을 수 있으며, 과제함은 자신이 올린 글만 접근 할 수 있습니다.
+게시판, 과제함, 공지사항 세개의 게시판이 존재합니다. <br />
+게시판에는 익명으로 글을 적을 수 있으며, 과제함은 자신이 올린 글만 접근 할 수 있습니다.
 
 ### 코드 공유 기능
-강사 혹은 학생의 코드를 각자의 화면에 띄워 모두 함께 공유할 수 있습니다. 스크린과 멀어 강사의 화면이 안보이거나, 학생의 코드를 보며 설명해야 하는 경우에 해당 기능을을 사용함으로써 보다 질 높은 수업이 가능합니다
+강사 혹은 학생의 코드를 각자의 화면에 띄워 모두 함께 공유할 수 있습니다. <br />
+스크린과 멀어 강사의 화면이 안보이거나, 학생의 코드를 보며 설명해야 하는 경우에 해당 기능을을 사용함으로써 보다 질 높은 수업이 가능합니다
 <br /><br /><br />
 
 
@@ -51,7 +54,7 @@ Be blue, Be bloom ~~
 |<img src = "https://avatars.githubusercontent.com/u/86925185?v=4" width=150>|<img src = "https://avatars.githubusercontent.com/u/63188042?v=4" width=150>|<img src = "https://avatars.githubusercontent.com/u/53520867?v=4" width=150>|<img src = "https://avatars.githubusercontent.com/u/52192706?v=4" width=150>|
 |[@allllfo](https://github.com/allllfo)|[@lvolzdev](https://github.com/lvolzdev)|[@seohee99](https://github.com/seohee99)|[@ekgus9701](https://github.com/ekgus9701)|
 |Full-stack|Full-stack|Full-stack|Full-stack|
-|✔️ | ✔️ AWS EC2 배포 및 CICD 구현<br> ✔️ 메인페이지 UI 및 커리큘럼 기능 구현<br> ✔️ 메인페이지 UI 및 커리큘럼 기능 구현<br> ✔️ 로고 디자인 포함 기타 문서 작업 | ✔️ 기본 레이아웃 설계 및 구현<br> ✔️ Iframe, VSCode Liveshare Extension을 활용한 화면 공유 기능 구현<br> ✔️ Socket.io를 활용한 질문, 알림 기능 구현<br> | ✔️ 게시판 리스트 페이지 구현 <br> ✔️ 게시글 상세 페이지 구현<br> ✔️ 소켓을 활용한 헤더 문구 변경 기능 구현<br> ✔️ 기타 UI 구현|
+|✔️ | ✔️ AWS EC2 배포 및 CICD 구현<br> ✔️ 메인페이지 UI 및 커리큘럼 기능 구현<br> ✔️ 게시글 작성/수정 페이지 구현<br> ✔️ 로고 디자인 포함 기타 문서 작업 | ✔️ 기본 레이아웃 설계 및 구현<br> ✔️ Iframe, VSCode Liveshare Extension을 활용한 화면 공유 기능 구현<br> ✔️ Socket.io를 활용한 질문, 알림 기능 구현<br> | ✔️ 게시판 리스트 페이지 구현 <br> ✔️ 게시글 상세 페이지 구현<br> ✔️ 소켓을 활용한 헤더 문구 변경 기능 구현<br> ✔️ 기타 UI 구현|
 
 <br /><br /><br />
 
