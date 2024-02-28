@@ -21,6 +21,7 @@ export default function MainPage() {
     return state.user.userInfo;
   });
 
+
   useEffect(() => {
     if (userObj) {
       setSid(userObj);
@@ -28,7 +29,6 @@ export default function MainPage() {
   }, []);
 
 
-  // 화면 공유 보기 버튼
   const handleShowCodeShare = () => {
     setShowCodeShare((showCodeShare) => !showCodeShare);
   };
@@ -54,7 +54,12 @@ export default function MainPage() {
   // socket 연결 확인
   useEffect(() => {
     console.log(socket);
-  })
+
+    // socket.on('connection', (io) => {
+    //   console.log('SocketID::', io.id);
+
+    // })
+  });
 
 
   return (
