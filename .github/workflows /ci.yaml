@@ -22,7 +22,7 @@ jobs:
           timeout: 300s
           script: |
             cd /home/ubuntu/Blueming
-            git pull origin release
+            git pull origin main
             pm2 kill
             cd /home/ubuntu/Blueming/frontend/
             npm run build
