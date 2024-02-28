@@ -35,6 +35,10 @@
   top: 45px;
 }
 
+.carousel .carousel-item {
+  transition: transform 1s ease-in-out;
+}
+
 .week-board {
   width: 1000px;
   height: 380px;

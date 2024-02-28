@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Button, Card, Container } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
+import { Button, Card, Carousel } from "react-bootstrap";
+import { useSelector } from "react-redux";
 import CodeShare from "./codeShare/CodeShare";
 import SetLink from "./codeShare/SetLink";
 import Question from "./question/Question";
@@ -122,7 +122,38 @@ export default function MainPage() {
       <img className="point-img" src={point} width="75" alt="Blueming point" />
       <div className="week-board">
         <p>나의 수업: {CLASS}</p>
-        <div className="week-card-container">
+        <Carousel
+          activeIndex={weekIndex}
+          onSelect={setWeekIndex}
+          interval={null}
+        >
+          {Array(Math.ceil(data.length / 5))
+            .fill()
+            .map((_, index) => (
+              <Carousel.Item key={index}>
+                <div className="week-card-container">
+                  {getWeekData(index).map((dayData, dayIndex) => (
+                    <Card
+                      key={dayIndex}
+                      className={`custom-card c${dayIndex + 1}`}
+                    >
+                      <div className="circle"></div>
+                      <p className="week-text">{dayData.day}</p>
+                      <p
+                        className={`week-num ${
+                          dayData.holiday ? "holiday" : ""
+                        }`}
+                      >
+                        {dayData.date.substring(5).replace("-", "/")}
+                      </p>
+                      <p className="week-curriculum">{dayData.content}</p>
+                    </Card>
+                  ))}
+                </div>
+              </Carousel.Item>
+            ))}
+        </Carousel>
+        {/* <div className="week-card-container">
           {getWeekData(weekIndex).map((dayData, idx) => (
             <Card key={idx} className={`custom-card c${idx + 1}`}>
               <div className="circle"></div>
@@ -133,7 +164,7 @@ export default function MainPage() {
               <p className="week-curriculum">{dayData.content}</p>
             </Card>
           ))}
-        </div>
+        </div> */}
         <Button onClick={handlePrevWeek}>⇦</Button>
         <Button onClick={handleNextWeek}>⇨</Button>
       </div>
