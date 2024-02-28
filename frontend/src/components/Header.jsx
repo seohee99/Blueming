@@ -26,7 +26,6 @@ const Header = () => {
 
         alert("로그아웃 되었습니다.");
         navigate("/users/login");
-
       } catch (error) {
         console.error("로그아웃 처리 중 오류가 발생했습니다:", error);
       }
@@ -54,7 +53,7 @@ const Header = () => {
       className="header-top"
       fixed="top"
       style={{
-        height: "80px",
+        height: "12%",
         backgroundColor: "white",
       }}
     >
@@ -64,7 +63,7 @@ const Header = () => {
           width="200px"
           className="logo-img"
           alt="Blueming logo"
-          style={{ marginLeft: "20px" }}
+          style={{ marginLeft: "50px" }}
         />
       </Link>
       <Navbar.Collapse className="justify-content-end" style={{}}>
@@ -86,7 +85,7 @@ const Header = () => {
         </Form>
 
         {user.isLoggedIn && user.userInfo ? (
-          <div style={{ display: "flex", marginRight: "20px" }}>
+          <div style={{ display: "flex", marginRight: "50px" }}>
             <Nav.Link href="/users/mypage">
               <div style={{ fontSize: "17px" }}>✌️ {user.userInfo.name}님</div>
             </Nav.Link>
