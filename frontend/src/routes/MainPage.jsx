@@ -10,24 +10,24 @@ import point from "/point.png";
 import "./MainPage.css";
 import socket from "./socket/socket";
 import { setSid } from "./socket/socketEvents";
+import data from "../assets/data/ curriculum.json";
 
 export default function MainPage() {
   const [showCodeShare, setShowCodeShare] = useState(false);
   const [showLinkInput, setshowLinkInput] = useState(false);
   const [showQuestion, setShowQuestion] = useState(false);
   const [showAlarmList, setShowAlarmList] = useState(false);
+  const [weekIndex, setWeekIndex] = useState(false);
 
   let userObj = useSelector((state) => {
     return state.user.userInfo;
   });
-
 
   useEffect(() => {
     if (userObj) {
       setSid(userObj);
     }
   }, []);
-
 
   const handleShowCodeShare = () => {
     setShowCodeShare((showCodeShare) => !showCodeShare);
@@ -48,6 +48,26 @@ export default function MainPage() {
     setShowAlarmList((showAlarmList) => !showAlarmList);
   };
 
+  // 주별 데이터 가져오는 함수
+  const getWeekData = (idx) => {
+    const weekData = data.slice(idx * 5, (idx + 1) * 5);
+    return weekData;
+  };
+
+  // 이전 주 이동 버튼
+  const handlePrevWeek = () => {
+    if (weekIndex > 0) {
+      setWeekIndex(weekIndex - 1);
+    }
+  };
+
+  // 다음 주 이동 버튼
+  const handleNextWeek = () => {
+    if (weekIndex < data.length / 5 - 1) {
+      setWeekIndex(weekIndex + 1);
+    }
+  };
+
   // 정보
   const CLASS = "프로 디지털 아카데미";
 
@@ -61,24 +81,19 @@ export default function MainPage() {
     // })
   });
 
-
   return (
     <div className="main-container">
-
-      {userObj &&
+      {userObj && (
         <div className="btn-group">
-
-          {userObj.admin === 1 ?
-
+          {userObj.admin === 1 ? (
             <Button className="main-btn" onClick={handleShowAlarmList}>
               👀 질문보기
             </Button>
-            :
-
+          ) : (
             <Button className="main-btn " onClick={handleShowQuestion}>
               🙋 질문하기
             </Button>
-          }
+          )}
           <Button className="main-btn" onClick={handleShowLinkInput}>
             🔗 화면공유하기
           </Button>
@@ -86,62 +101,30 @@ export default function MainPage() {
             🖥️ 화면공유 보기
           </Button>
         </div>
-      }
+      )}
       {showCodeShare && <CodeShare />}
       {showQuestion && <Question handleShowQuestion={handleShowQuestion} />}
       {showAlarmList && <AlarmList handleShowAlarmList={handleShowAlarmList} />}
       {showLinkInput && <SetLink handleShowLinkInput={handleShowLinkInput} />}
 
-
       <img className="point-img" src={point} width="75" alt="Blueming point" />
       <div className="week-board">
-        {/* TODO */}
         <p>나의 수업: {CLASS}</p>
         <div className="week-card-container">
-          <Card className="custom-card c1">
-            <div className="circle"></div>
-            <p className="week-text">MON</p>
-            <p className="week-num">2/26</p>
-            <p className="week-curriculum">
-              클라우드 기반 프론트엔드 개발(React) 프로그래밍
-            </p>
-          </Card>
-          <Card className="custom-card c2">
-            <div className="circle"></div>
-            <p className="week-text">TUE</p>
-            <p className="week-num">2/27</p>
-            <p className="week-curriculum">
-              클라우드 기반 프론트엔드 개발(React) 프로그래밍
-            </p>
-          </Card>
-          <Card className="custom-card c3">
-            <div className="circle"></div>
-            <p className="week-text">WED</p>
-            <p className="week-num">2/28</p>
-            <p className="week-curriculum">
-              클라우드 기반 프론트엔드 개발(React) 프로그래밍
-            </p>
-          </Card>
-          <Card className="custom-card c4">
-            <div className="circle"></div>
-            <p className="week-text">THU</p>
-            <p className="week-num">2/29</p>
-            <p className="week-curriculum">
-              클라우드 기반 프론트엔드 개발(React) 프로그래밍
-            </p>
-          </Card>
-          <Card className="custom-card c5">
-            <div className="circle"></div>
-            <p className="week-text">FRI</p>
-            <p className="week-num red">3/1</p>
-            <p className="week-curriculum">
-              클라우드 기반 프론트엔드 개발(React) 프로그래밍
-            </p>
-          </Card>
+          {getWeekData(weekIndex).map((dayData, idx) => (
+            <Card key={idx} className={`custom-card c${idx + 1}`}>
+              <div className="circle"></div>
+              <p className="week-text">{dayData.day}</p>
+              <p className={`week-num ${dayData.holiday ? "holiday" : ""}`}>
+                {dayData.date.substring(5).replace("-", "/")}
+              </p>
+              <p className="week-curriculum">{dayData.content}</p>
+            </Card>
+          ))}
         </div>
+        <Button onClick={handlePrevWeek}>⇦</Button>
+        <Button onClick={handleNextWeek}>⇨</Button>
       </div>
-
-
     </div>
   );
 }

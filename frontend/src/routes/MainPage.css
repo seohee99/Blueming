@@ -49,7 +49,7 @@
 }
 
 .week-board p {
-  font-size: 23px;
+  font-size: 22px;
   font-weight: 400;
   margin-top: 35px;
   color: #474747;
@@ -76,15 +76,15 @@
   background-color: gray;
   border-radius: 50%;
   position: absolute;
-  top: 15px;
+  top: 17px;
   left: 72.5px;
 }
 
 p.week-text {
   color: #474747;
-  font-weight: 400;
-  font-size: 20px;
-  margin-top: -5px;
+  font-weight: 500;
+  font-size: 15px;
+  margin-top: 0px;
 }
 
 p.week-num {
@@ -94,13 +94,12 @@ p.week-num {
   margin-top: -15px;
 }
 
-p.week-num.red {
-  color: #ff3d00;
-  font-weight: 500;
+p.week-num.holiday {
+  color: #ff3d50;
 }
 
 p.week-curriculum {
   color: #474747;
   font-size: 14px;
-  margin-top: -5px;
+  margin-top: -3px;
 }
