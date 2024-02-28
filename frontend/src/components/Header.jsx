@@ -53,7 +53,7 @@ const Header = () => {
       className="header-top"
       fixed="top"
       style={{
-        height: "12%",
+        height: "9%",
         backgroundColor: "white",
       }}
     >
