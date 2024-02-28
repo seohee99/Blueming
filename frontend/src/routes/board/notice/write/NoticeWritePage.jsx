@@ -10,11 +10,20 @@ import {
 } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import BoardApi from "~/lib/apis/board";
+import { useSelector } from "react-redux";
+import point from "/point.png";
 
 export default function BoardWritePage() {
   const navigate = useNavigate();
   const params = useParams();
   const boardId = params.boardId;
+
+  const userObj = useSelector((state) => {
+    return state.user.userInfo;
+  });
+
+  const userId = userObj._id;
+  const userName = userObj.name;
 
   const [newBoard, setNewBoard] = useState({
     boardType: "notice",
@@ -23,6 +32,8 @@ export default function BoardWritePage() {
     boardFile: "",
     isAnonymous: 0,
     tag: [],
+    userId: "",
+    userName: "",
   });
 
   const { boardType, boardTitle, boardContent, boardFile, isAnonymous } =
@@ -42,6 +53,8 @@ export default function BoardWritePage() {
     setNewBoard((prev) => ({
       ...prev,
       isAnonymous: prev.isAnonymous ? 0 : 1,
+      userId: userId,
+      userName: userName,
     }));
   };
 
@@ -50,6 +63,8 @@ export default function BoardWritePage() {
     setNewBoard((prev) => ({
       ...prev,
       [name]: value,
+      userId: userId,
+      userName: userName,
     }));
   };
 
@@ -112,7 +127,13 @@ export default function BoardWritePage() {
 
   return (
     <Container className="min-vh-100">
-      <h1>{boardId ? "공지 수정" : "공지 등록"}</h1>
+      <img
+        src={point}
+        width="65"
+        className="d-inline-block align-top-img"
+        alt="Blueming point"
+      />
+      <div className="board-name">{boardId ? "공지 수정" : "공지 작성"}</div>
       <Form>
         <fieldset>
           <Form.Group
@@ -159,7 +180,7 @@ export default function BoardWritePage() {
           <Form.Group className="mb-3" controlId="writeForm.content.input">
             <Form.Control
               as="textarea"
-              rows={3}
+              rows={7}
               name="boardContent"
               value={boardContent}
               placeholder="내용을 입력해주세요."
@@ -181,20 +202,8 @@ export default function BoardWritePage() {
           </Form.Group>
 
           <div className="d-flex justify-content-end mb-3">
-            <Button
-              onClick={(e) => {
-                navigate(-1);
-              }}
-              className="me-2 custom-btn"
-            >
-              ◀◀️
-            </Button>
-            <Button
-              type="button"
-              onClick={handleWriteBoard}
-              className="me-2 custom-btn"
-            >
-              {boardId ? "수정" : "등록"}
+            <Button type="button" onClick={handleWriteBoard}>
+              {boardId ? "수정" : "작성"}
             </Button>
           </div>
         </fieldset>

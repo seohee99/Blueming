@@ -1,9 +1,10 @@
-import React, { useCallback, useContext, useState } from "react";
+import React, { useCallback, useContext, useState, useEffect } from "react";
 import { Button, Container, FloatingLabel, Form } from "react-bootstrap";
 import { redirect, useNavigate, Link } from "react-router-dom";
-// import { fetchLogin } from "../../../lib/apis/auth";
 import { fetchLogin } from "../../../store/reducers/user";
 import { useDispatch, useSelector } from "react-redux";
+
+
 
 export default function LoginPage() {
   const [userEmail, setUserEmail] = useState("");
@@ -15,14 +16,33 @@ export default function LoginPage() {
     setFn(inputText);
   }, []);
 
+  const userObj = useSelector((state) => {
+    return state.user;
+  });
+  console.log(userObj);
+
+  useEffect(() => {
+    if (userObj.isLoggedIn === true) {
+      alert("이미 로그인 되었습니다!");
+      navigate("/");
+    }
+  }, []);
+
   const onSubmitLogin = useCallback(
     (email, password) => {
       dispatch(fetchLogin({ email, password }))
         .then((resp) => {
-          // console.log(resp);
+          console.log("hello");
+          console.log(resp);
           if (resp.payload.token) {
             //resp.token = user
             // delete resp.payload.token;
+
+
+            // socket.emit("login", email, (res) => {
+            //   console.log("Socket-Res", res)
+            // })
+
             navigate("/");
           }
         })
