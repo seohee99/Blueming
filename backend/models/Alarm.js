@@ -13,7 +13,7 @@ const alarmSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  checked: {
+  confirmed: {
     type: Boolean,
     default: false, //
   },
