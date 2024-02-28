@@ -57,7 +57,7 @@ const Header = () => {
         backgroundColor: "white",
       }}
     >
-      <Link to="/">
+      <Link to="/main">
         <img
           src={logo}
           width="200px"

@@ -4,6 +4,7 @@ import { redirect, useNavigate, Link } from "react-router-dom";
 import { fetchLogin } from "../../../store/reducers/user";
 import { useDispatch, useSelector } from "react-redux";
 import "./LoginPage.css";
+import point from "/point.png";
 
 export default function LoginPage() {
   const [userEmail, setUserEmail] = useState("");
@@ -23,7 +24,7 @@ export default function LoginPage() {
   useEffect(() => {
     if (userObj.isLoggedIn === true) {
       alert("이미 로그인 되었습니다!");
-      navigate("/");
+      navigate("/main");
     }
   }, []);
 
@@ -35,11 +36,9 @@ export default function LoginPage() {
           if (resp.payload.token) {
             //resp.token = user
             // delete resp.payload.token;
-
             // socket.emit("login", email, (res) => {
             //   console.log("Socket-Res", res)
             // })
-            navigate("/");
           }
         })
         .catch((error) => {
@@ -52,7 +51,7 @@ export default function LoginPage() {
   return (
     <Container className="appContainer">
       <div style={{ width: "100%", maxWidth: 640 }}>
-        <img className="logo" alt="point" src="../public/point.png" />
+        <img className="logo" alt="point" src={point} />
         <h1
           className="title"
           style={{ fontWeight: "bold", alignSelf: "start" }}
