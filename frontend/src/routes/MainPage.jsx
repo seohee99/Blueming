@@ -21,11 +21,13 @@ export default function MainPage() {
     return state.user.userInfo;
   });
 
+
   useEffect(() => {
     if(userObj) {
       setSid(userObj);
     }
   }, []); 
+
 
   const handleShowCodeShare = () => {
     if (!codelink) {
@@ -47,7 +49,12 @@ export default function MainPage() {
   // socket 연결 확인
   useEffect(() => {
     console.log(socket);
-  })
+
+    // socket.on('connection', (io) => {
+    //   console.log('SocketID::', io.id);
+
+    // })
+  });
 
 
   return (
