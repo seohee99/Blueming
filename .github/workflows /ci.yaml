@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout release
+        uses: actions/checkout@v4
+
+      - name: excuting remote ssh commands
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.REMOTE_IP }}
+          username: ${{ secrets.REMOTE_USER }}
+          key: ${{ secrets.REMOTE_PRIVATE_KEY }}
+          port: ${{ secrets.REMOTE_SSH_PORT }}
+          timeout: 300s
+          script: |
+            cd /home/ubuntu/Blueming
+            git pull origin release
+            pm2 kill
+            cd /home/ubuntu/Blueming/frontend/
+            npm run build
+            cd /home/ubuntu/Blueming/backend/
+            pm2 start bin/www
