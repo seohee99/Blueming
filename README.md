@@ -1,6 +1,6 @@
 
 <div align="center">
-<h1>Bluming(블루밍) - Be Blue, Be Bloom!</h1>
+<h1>Bluming - Be Blue, Be Bloom!</h1>
 <br /><br />
   
 <img src="https://github.com/Blueming-PDA/Blueming/assets/63188042/af7c8f7f-f3b9-4930-9ca3-6864825fad1d" alt="logo-image" width="35%"><br /><br />
@@ -21,27 +21,43 @@ Be blue, Be bloom ~~
 
 
 <img src="https://github.com/Blueming-PDA/Blueming/assets/63188042/c3222ee0-401a-4bc5-8845-e0d9c7c4c82f" alt="logo-image" width=50><br />
-# Project Structure 
+# Project Architecture 
 
-![image](https://github.com/Blueming-PDA/Blueming/assets/52192706/69680bd5-4583-4a69-86a7-1c56e204d985)
+<img src="https://github.com/Blueming-PDA/Blueming/assets/52192706/69680bd5-4583-4a69-86a7-1c56e204d985" alt="architecture-image" width=800><br />
+  
+<br /><br /><br />
 
 
 <img src="https://github.com/Blueming-PDA/Blueming/assets/63188042/c3222ee0-401a-4bc5-8845-e0d9c7c4c82f" alt="logo-image" width=50><br />
-## Skills
+# Main Features
 <br />
-스킬 ~~
+핵심 기능 소개
 
 <br /><br /><br />
 
 
 <img src="https://github.com/Blueming-PDA/Blueming/assets/63188042/c3222ee0-401a-4bc5-8845-e0d9c7c4c82f" alt="logo-image" width=50><br />
-## Team Member
+# Team Member
 <br />
 
-|김미래|김시은|박서희|한다현|
+|김미래|김시은|박서희|한다희|
 |:----:|:----:|:-----:|:----:|
 |<img src = "https://avatars.githubusercontent.com/u/114224237?s=120&v=4" width=150>|<img src = "https://avatars.githubusercontent.com/u/114224237?s=120&v=4" width=150>|<img src = "https://avatars.githubusercontent.com/u/114224237?s=120&v=4" width=150>|<img src = "https://avatars.githubusercontent.com/u/114224237?s=120&v=4" width=150>|
 |[@allllfo](https://github.com/allllfo)|[@lvolzdev](https://github.com/lvolzdev)|[@seohee99](https://github.com/seohee99)|[@ekgus9701](https://github.com/ekgus9701)|
 |Full-stack|Full-stack|Full-stack|Full-stack|
-|✔️ | ✔️ | ✔️ | ✔️ 게시판 리스트 페이지 구현 <br> ✔️ 게시글 상세 페이지 구현<br> ✔️ 소켓을 활용한 헤더 문구 변경 기능 구현<br> ✔️ 기타 UI 구현|
 
+<br /><br /><br />
+
+
+<img src="https://github.com/Blueming-PDA/Blueming/assets/63188042/c3222ee0-401a-4bc5-8845-e0d9c7c4c82f" alt="logo-image" width=50><br />
+# Case Study
+<br />
+케이스 스터디 ~~
+
+<br /><br /><br />
+
+
+<img src="https://github.com/Blueming-PDA/Blueming/assets/63188042/c3222ee0-401a-4bc5-8845-e0d9c7c4c82f" alt="logo-image" width=50><br />
+# Folder Structure
+<br />
+폴더 구조 ~~
