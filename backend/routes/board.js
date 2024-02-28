@@ -4,10 +4,7 @@ const Board = require("../models/Board");
 const Comment = require("../models/Comment");
 const { authenticate } = require("../middlewares/auth_middleware");
 
-//user관리 된 후 authenticate 추가 필요
-
 //모든 게시글 조회하기
-
 router.get("/", (req, res, next) => {
   Board.find({ boardType: "board" })
     .then((data) => {

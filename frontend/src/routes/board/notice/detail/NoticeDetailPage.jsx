@@ -29,6 +29,7 @@ export default function NoticeDetailPage() {
   const userObj = useSelector((state) => {
     return state.user.userInfo;
   });
+
   let userId;
   let userAdmin;
   if (userObj) {
