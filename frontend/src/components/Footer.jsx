@@ -2,6 +2,7 @@
 import React from "react";
 import { Container, Navbar } from "react-bootstrap";
 import "./Footer.css";
+import github from "/github.svg"
 
 const Footer = () => {
   return (
@@ -12,6 +13,7 @@ const Footer = () => {
         </Navbar.Text>
         <Navbar.Text className="footer-github-text">
           <a href="https://github.com/Blueming-PDA/Blueming" target="_blank">
+            <img className="github-img" src={github} width="25" alt="github icon" />
             Github Link
           </a>
         </Navbar.Text>
