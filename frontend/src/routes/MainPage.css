@@ -63,15 +63,34 @@
   display: flex;
   flex-wrap: nowrap;
   justify-content: space-evenly;
+  margin-bottom: 10px;
 }
 
 .custom-card {
   width: 155px;
-  height: 230px;
+  height: 220px;
   border: none;
-  box-shadow: 0px 0px 7px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 6px 3px rgba(0, 0, 0, 0.1);
   position: relative;
-  margin-top: 5px;
+  margin-top: 10px;
+  z-index: 2;
+}
+
+.custom-card:hover {
+  transform: scale(1.03);
+  transition: transform 0.5s;
+}
+
+/* TODO */
+.carousel-control-next,
+.carousel-control-prev {
+  filter: invert(100%);
+  opacity: 1 !important;
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+  opacity: 1 !important;
 }
 
 .circle {

@@ -69,20 +69,6 @@ export default function MainPage() {
     return weekData;
   };
 
-  // 이전 주 이동 버튼
-  const handlePrevWeek = () => {
-    if (weekIndex > 0) {
-      setWeekIndex(weekIndex - 1);
-    }
-  };
-
-  // 다음 주 이동 버튼
-  const handleNextWeek = () => {
-    if (weekIndex < data.length / 5 - 1) {
-      setWeekIndex(weekIndex + 1);
-    }
-  };
-
   // socket 연결 확인
   useEffect(() => {
     console.log(socket);
@@ -153,20 +139,6 @@ export default function MainPage() {
               </Carousel.Item>
             ))}
         </Carousel>
-        {/* <div className="week-card-container">
-          {getWeekData(weekIndex).map((dayData, idx) => (
-            <Card key={idx} className={`custom-card c${idx + 1}`}>
-              <div className="circle"></div>
-              <p className="week-text">{dayData.day}</p>
-              <p className={`week-num ${dayData.holiday ? "holiday" : ""}`}>
-                {dayData.date.substring(5).replace("-", "/")}
-              </p>
-              <p className="week-curriculum">{dayData.content}</p>
-            </Card>
-          ))}
-        </div> */}
-        <Button onClick={handlePrevWeek}>⇦</Button>
-        <Button onClick={handleNextWeek}>⇨</Button>
       </div>
     </div>
   );
