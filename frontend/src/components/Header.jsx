@@ -101,10 +101,24 @@ const Header = () => {
         {user.isLoggedIn && user.userInfo ? (
           <div style={{ display: "flex", marginRight: "50px" }}>
             <Nav.Link href="/users/mypage">
-              <div style={{ fontSize: "17px" }}>✌️ {user.userInfo.name}님</div>
+              <div style={{ fontSize: "17px" }}>
+                <img
+                  src={user.userInfo.profile} // 여기에 원하는 이미지의 경로를 넣어주세요
+                  className="rounded-image" // 앞서 정의한 클래스 이름을 사용
+                  style={{
+                    width: "35px",
+                    height: "35px",
+                    borderRadius: "50%",
+                    marginRight: "10px",
+                  }}
+                />
+                {user.userInfo.name}님
+              </div>
             </Nav.Link>
             <Nav.Link onClick={handleLogout}>
-              <div style={{ fontSize: "17px" }}>🚪 로그아웃</div>
+              <div style={{ fontSize: "17px", marginTop: "6px" }}>
+                🚪 로그아웃
+              </div>
             </Nav.Link>
           </div>
         ) : (

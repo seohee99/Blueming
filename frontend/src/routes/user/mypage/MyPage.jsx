@@ -23,6 +23,7 @@ import {
   fetchChangeProfileImage,
   fetchGetProfileImage,
 } from "../../../lib/apis/profile";
+import { fetchProfile } from "../../../store/reducers/user";
 
 const ProfilePage = () => {
   const [showModal, setShowModal] = useState(false);
@@ -59,7 +60,7 @@ const ProfilePage = () => {
     });
 
     fetchGetProfileImage(userObj._id).then((data) => {
-      setSelectedImage(data);
+      setSelectedImage(data.profile);
     });
   }, []);
 
@@ -97,6 +98,9 @@ const ProfilePage = () => {
     setSelectedImage(newImage); // 선택한 이미지로 세팅
     setShowProfileModal(false); // 모달 닫기
     fetchChangeProfileImage(userObj._id, newImage);
+    dispatch(fetchProfile(userObj._id)).then((data) => {
+      setSelectedImage(data.payload.profile);
+    });
   };
 
   function onKeyUp(e) {
