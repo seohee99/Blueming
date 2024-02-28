@@ -9,6 +9,7 @@ import { timeAgo } from "../board/BoardPage";
 import { setSid } from "../../socket/socketEvents";
 
 
+
 export default function AssignmentPage() {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
@@ -27,14 +28,6 @@ export default function AssignmentPage() {
   } else {
     userId = "trash";
   }
-
-  
-
-  useEffect(() => {
-    if(userObj) {
-      setSid(userObj);
-    }
-  }, []); 
 
 
   const callCommentData = async (boardId) => {
