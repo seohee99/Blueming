@@ -19,6 +19,10 @@ import { logout } from "../../../store/reducers/user";
 import { Form } from "react-bootstrap";
 import "./MyPage.css";
 import { setSid } from "../../socket/socketEvents";
+import {
+  fetchChangeProfileImage,
+  fetchGetProfileImage,
+} from "../../../lib/apis/profile";
 
 const ProfilePage = () => {
   const [showModal, setShowModal] = useState(false);
@@ -39,16 +43,23 @@ const ProfilePage = () => {
   });
 
   useEffect(() => {
+    console.log("userObj" + userObj);
     if (userObj) {
       setSid(userObj);
     }
   }, []);
   // console.log(userObj);
 
+  //페이지 초기 세팅
   useEffect(() => {
+    console.log(userObj);
     fetchMypageBoardList(userObj._id).then((data) => {
       setMyPageBoardList(data);
       setFilteredBoardData(data);
+    });
+
+    fetchGetProfileImage(userObj._id).then((data) => {
+      setSelectedImage(data);
     });
   }, []);
 
@@ -85,6 +96,7 @@ const ProfilePage = () => {
   const handleSelectPicture = (newImage) => {
     setSelectedImage(newImage); // 선택한 이미지로 세팅
     setShowProfileModal(false); // 모달 닫기
+    fetchChangeProfileImage(userObj._id, newImage);
   };
 
   function onKeyUp(e) {
