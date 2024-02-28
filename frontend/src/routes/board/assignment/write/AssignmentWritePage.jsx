@@ -13,7 +13,7 @@ import BoardApi from "~/lib/apis/board";
 import { useSelector } from "react-redux";
 import point from "/point.png";
 
-export default function BoardWritePage() {
+export default function AssignmentWritePage() {
   const navigate = useNavigate();
   const params = useParams();
   const boardId = params.boardId;

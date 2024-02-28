@@ -1,3 +1,12 @@
+.my-sidebar {
+  backdrop-filter: blur(5px);
+  background-color: #fff;
+  border-radius: 26px;
+  box-shadow: -1px 12px 20px 0px rgb(174 195 223 / 50%),
+    inset 1px 0px 16px 0px rgb(192 204 220 / 60%),
+    inset 0px 11px 28px 0px #ffffff;
+}
+
 .nav-link {
   background-color: white;
   border: 2px solid lightgray;
@@ -5,7 +14,6 @@
   padding: 5px;
   width: 200;
   color: black;
-
   font-size: 36px;
 }
 

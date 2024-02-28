@@ -1,3 +1,7 @@
+.board-page {
+  margin-top: 8%;
+}
+
 .search-bar {
   display: flex;
   justify-content: center;
@@ -22,7 +26,9 @@
   margin: auto;
   background: #ebf1ff;
   border-radius: 15px;
-  box-shadow: 5px 5px 7px lightgray;
+  box-shadow: -1px 12px 20px 0px rgb(174 195 223 / 50%),
+    inset 1px 0px 16px 0px rgb(192 204 220 / 60%),
+    inset 0px 11px 28px 0px #ffffff;
   font-size: 25px;
   margin-bottom: 20px;
   font-weight: 500;
@@ -107,6 +113,10 @@
 .pages {
   color: #0048ff !important;
   border-color: #0048ff !important;
+}
+
+.board-detail-page {
+  margin-top: 11% !important;
 }
 
 .board-detail-title {
@@ -313,4 +323,5 @@
 
 .min-vh-100 {
   min-height: 0vh !important;
+  margin-top: 8%;
 }
