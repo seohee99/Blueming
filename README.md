@@ -22,10 +22,8 @@ Be blue, Be bloom ~~
 
 <img src="https://github.com/Blueming-PDA/Blueming/assets/63188042/c3222ee0-401a-4bc5-8845-e0d9c7c4c82f" alt="logo-image" width=50><br />
 # Project Structure 
-<br />
-프로젝트 구조 ~~
 
-<br /><br /><br />
+![image](https://github.com/Blueming-PDA/Blueming/assets/52192706/69680bd5-4583-4a69-86a7-1c56e204d985)
 
 
 <img src="https://github.com/Blueming-PDA/Blueming/assets/63188042/c3222ee0-401a-4bc5-8845-e0d9c7c4c82f" alt="logo-image" width=50><br />
