@@ -30,8 +30,6 @@ Be blue, Be bloom ~~
 
 <img src="https://github.com/Blueming-PDA/Blueming/assets/63188042/c3222ee0-401a-4bc5-8845-e0d9c7c4c82f" alt="logo-image" width=50><br />
 # Main Features
-<br />
-핵심 기능 소개
 
 ### 알람 기능
 학생은 수업에 관한 피드백 혹은 질문을 알람 기능을 통해 익명으로 전달할 수 있습니다. 강사는 알람을 통해 학생들의 이해정도를 알 수 있고 질문을 받을 수 있어 최적화된 수업이 가능합니다.
