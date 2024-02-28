@@ -187,6 +187,11 @@ const ProfilePage = () => {
                 as="ul"
                 style={{ marginTop: "10px" }}
               >
+                {currentPosts.length === 0 ? (
+                  <span>작성한 글이 없습니다.</span>
+                ) : (
+                  <></>
+                )}
                 {currentPosts.map((item, index) => (
                   <Link
                     key={index}
