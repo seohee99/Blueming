@@ -16,17 +16,24 @@ module.exports = function (io) {
       //   console.log("User.setSid를 보내고 받아온 USER !!!!!!!", user);
     });
 
-    socket.on("message", async (alarm) => {
-      console.log("alarm :: ", alarm);
-      try {
-        const user = await User.checkUserBySid(socket.id);
-        if (user) {
-        }
-      } catch (error) {
-        console.error(error);
-      }
-      // console.log("user :: ", user);
+    socket.on("setHeaderMessage", async (message) => {
+      console.log("message :: ", message);
+
+      await socket.emit("setHeaderMessageBack", message);
     });
+
+    // socket.on("message", async (alarm) => {
+    //   console.log("alarm :: ", alarm);
+    //   try {
+    //     const user = await User.checkUserBySid(socket.id);
+    //     if (user) {
+    //     }
+    //   } catch (error) {
+    //     console.error(error);
+    //   }
+    //   // console.log("user :: ", user);
+    // });
+
     socket.on("disconnect", () => {
       console.log("user disconnected");
     });
