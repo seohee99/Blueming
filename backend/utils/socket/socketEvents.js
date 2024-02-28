@@ -11,14 +11,20 @@ module.exports = function (io) {
       console.log("User.setSid를 보내고 받아온 USER !!!!!!!", user);
     });
 
+    socket.on("message", async (alarmContent) => {
+      console.log("alarm :: ", alarmContent);
 
-    socket.on("setHeaderMessage", async (message) => {
-      console.log("message :: ", message);
+      try {
+        const user = await User.checkUserBySid(socket.id);
+        const alarm = await Alarm.saveAlarm(alarmContent, user);
+        console.log("alarm저장완료", alarm);
 
-      await socket.emit("setHeaderMessageBack", message);
+        io.emit("message", alarm);
+      } catch (error) {
+        console.error(error);
+      }
     });
 
-    
     socket.on("disconnect", () => {
       console.log("user disconnected");
     });
