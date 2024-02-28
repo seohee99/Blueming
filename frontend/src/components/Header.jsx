@@ -23,8 +23,10 @@ const Header = () => {
       try {
         await fetchLogout();
         dispatch(logout());
+
         alert("로그아웃 되었습니다.");
         navigate("/users/login");
+
       } catch (error) {
         console.error("로그아웃 처리 중 오류가 발생했습니다:", error);
       }
