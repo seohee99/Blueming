@@ -8,6 +8,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import point from "/point.png";
 import "./MainPage.css";
 import socket from "./socket/socket";
+import { setSid } from "./socket/socketEvents";
 
 export default function MainPage() {
   const [codelink, setCodelink] = useState("");
@@ -21,25 +22,12 @@ export default function MainPage() {
   });
 
   useEffect(() => {
-    if (userObj) {
-      userObj = { ...userObj, sid: socket.id };
-
-      if (userObj.sid) {
-        socket.emit("setSid", userObj);
-        console.log(userObj.sid);
-      } else {
-        setReload(reload + 1);
-      }
+    if(userObj) {
+      setSid(userObj);
     }
-  }, [reload]);
+  }, []); 
 
-  console.log(userObj);
   const handleShowCodeShare = () => {
-    // window.open(
-    //   codelink,
-    //   "_blank",
-    //   "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400"
-    // );
     if (!codelink) {
       alert("화면 공유 링크를 먼저 삽입해주세요");
       return;
@@ -59,10 +47,6 @@ export default function MainPage() {
   // socket 연결 확인
   useEffect(() => {
     console.log(socket);
-    // socket.on('connection', (io) => {
-    //   console.log('SocketID::', io.id);
-
-    // })
   })
 
 

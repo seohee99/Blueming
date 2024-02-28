@@ -18,7 +18,7 @@ export default function LoginPage() {
   const userObj = useSelector((state) => {
     return state.user;
   });
-  console.log(userObj);
+  // console.log(userObj);
 
   useEffect(() => {
     if (userObj.isLoggedIn === true) {
@@ -31,17 +31,17 @@ export default function LoginPage() {
     (email, password) => {
       dispatch(fetchLogin({ email, password }))
         .then((resp) => {
-          console.log("hello");
-          console.log(resp);
+          // console.log("hello");
+          // console.log(resp);
           if (resp.payload.token) {
             //resp.token = user
             // delete resp.payload.token;
-
+            
             // socket.emit("login", email, (res) => {
             //   console.log("Socket-Res", res)
             // })
-
             navigate("/");
+
           }
         })
         .catch((error) => {

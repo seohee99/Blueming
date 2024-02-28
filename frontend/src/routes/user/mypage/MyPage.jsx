@@ -17,6 +17,8 @@ import { fetchLogout } from "../../../lib/apis/auth";
 import { logout } from "../../../store/reducers/user";
 import { Form } from "react-bootstrap";
 import "./MyPage.css";
+import { setSid } from "../../socket/socketEvents";
+
 const ProfilePage = () => {
   // 사용자가 작성한 게시글 목록을 가정한 예시 데이터
   const userPosts = [
@@ -34,9 +36,15 @@ const ProfilePage = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const userObj = useSelector((state) => {
+  let userObj = useSelector((state) => {
     return state.user.userInfo;
   });
+
+  useEffect(() => {
+    if(userObj) {
+      setSid(userObj);
+    }
+  }, []); 
   // console.log(userObj);
 
   useEffect(() => {
