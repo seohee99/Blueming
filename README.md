@@ -61,8 +61,46 @@ Be blue, Be bloom ~~
 
 <img src="https://github.com/Blueming-PDA/Blueming/assets/63188042/c3222ee0-401a-4bc5-8845-e0d9c7c4c82f" alt="logo-image" width=50><br />
 # Case Study
+
+
+## 문제 1, 화면 공유 기능 : Iframe에 링크 삽입 시 CORS 에러
+
+### 상황 
+vscode 코드 공유를 위해 live share extension을 설치해서 Iframe의 src 속성에 화면 공유 링크를 삽입 <br>
+
+### 문제 
+부모(blueming), 자식(vscode~~.com) 은 같은 출처가 아니기 때문에 CORS 에러가 발생 <br>
+<details>
+  <summary> CORS </summary>
+  <br>
+- CORS : cross origin resource sharing, 동일한 출처(프로토콜, 호스트명, 포트)의 리소스에만 접근하도록 제한하는 정책 <br><br>
+- 따라서 CORS는 서로 다른 출처(Origin) 간에 리소스를 전달하는 방식을 제어하는 체제이며,CORS 요청이 가능하려면 서버에서 특정 헤더인 Access-Control-Allow-Origin과 함께 응답할 필요가 있다!
+</details>
+
+### 해결 
+#### 해결 방법 1 <br>
+iframe 에 다른 출처의 사이트를 넣었다는 글을 참고하여 같은 방법을 사용<br>
+다른 사람이 만든 프록시 서버(대표적인 예:https://cors-anywhere/herokuapp.com)를 사용하는 것 :: 요청해야하는 url 앞에 프록시 서버 url을 붙여 요청하면 해결할 수 있음 <br>
+하지만 이 방법은 사용자가 직접 프록시 서버 사이트에 들어가서 잠시 사용하겠다는 요청 버튼을 눌러야만 가능하기에 이건 임시적인 방법이었고, 개발용으로만 가능해서 배포했을 때는 사용하지 못한다는 단점으로 사용하지 않음 <br><br>
+#### 해결 방법 2 <br>
+서버에서 직접 Access-Control-Origin 헤더를 세팅 <br>
+Iframe에 넣고 싶은 링크를 서버로 보내서 서버에서 헤더를 넣어 응답을 보내주었고, 그 응답받은 데이터 자체를 iframe에서 srcDoc 속성에 넣어주었다. (srcDoc은 html같은 형태를 넣을 수 있는 속성) <br>
+서버, 프론트 사이의 프록시는 이미 설정해두었기때문에 위 방법을 사용해서 다른 출처의 사이트를 iframe에 넣을 수 있게 되었다! <br>
+
+## 문제 2, 배포 :  CORS 에러
+### 상황
+AWS EC2 인스턴스에 Socket 통신 구현한 버전의 배포 시도.
+### 문제
+로컬에서는 문제없이 작동됐지만, 배포하자 cors에러 발생하며 소켓 통신 작동하지 않음.
+서버는 3000번 포트, 클라이언트는 5173번 포트 사용 중.
+따라서 기존 파일의 경우,
+프론트엔드 socket 파일에서는 http://elasicIP:3000 서버 포트로 소켓을 보내게끔 구현.
+마찬가지로 백엔드 socket 파일에서는 Server를 새로 만들 때 cors origin에 http://elasicIP:5173 추가해줬음.
+### 해결방법
+EC2 인스턴스 내에서 nginx를 통해서 백이랑 프론트랑 통신하는거니까 서버에서 프론트로 보낼 때 프론트 포트로 보내주고, 프론트에서 서버로 보낼 때 서버 포트로 보내면 안 되는 것임.!!!! nginx 통해서 가니까 ㅇㅇ. 그래서 null 값을 보내줘야 하는 것.
+
 <br />
-케이스 스터디 ~~
+
 
 <br /><br /><br />
 
