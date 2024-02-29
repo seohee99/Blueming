@@ -11,24 +11,7 @@ module.exports = function (io) {
       console.log("User.setSid를 보내고 받아온 USER !!!!!!!", user);
     });
 
-    socket.on("setHeaderMessage", async ({ userObj, newMessage }) => {
-      const user = await User.setSid(userObj.email, socket.id);
-      console.log("User.setSid를 보내고 받아온 USER2 !!!!!!!", user);
-
-      await Message.create({
-        userId: user._id,
-        userName: user.name,
-        messageContent: newMessage,
-      });
-    });
-
-    socket.on("getRecentMessage", async () => {
-      const recentMessage = await Message.findOne().sort({
-        messageCreatedAt: -1,
-      });
-      socket.emit("setHeaderMessageBack", recentMessage.messageContent);
-    });
-
+    
     socket.on("message", async (alarmContent) => {
       console.log("alarm :: ", alarmContent);
 
