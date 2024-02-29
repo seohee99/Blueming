@@ -101,6 +101,7 @@ visibleUser.get(function (values, virtual, doc) {
     phone: doc.phone,
     admin: doc.admin,
     sid: doc.sid,
+    profile: doc.profile,
   };
 });
 
