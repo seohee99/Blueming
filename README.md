@@ -70,4 +70,66 @@ Be blue, Be bloom ~~
 <img src="https://github.com/Blueming-PDA/Blueming/assets/63188042/c3222ee0-401a-4bc5-8845-e0d9c7c4c82f" alt="logo-image" width=50><br />
 # Folder Structure
 <br />
-폴더 구조 ~~
+폴더 구조
+
+```
+📂 frontend
+├─ .eslintrc.cjs
+├─ .gitignore //  .gitignore 파일
+├─ package-lock.json
+├─ package.json // package 관리 파일
+├─ public // image 관리 폴더
+├─ README.md
+├─ src
+│  ├─ App.css
+│  ├─ App.jsx
+│  ├─ assets // 데이터, 폰트 등 관리 폴더
+│  │  ├─ data
+│  │  ├─ fonts
+│  ├─ components // 레이아웃 관리 폴더
+│  ├─ lib
+│  │  ├─ apis // 백엔드와 통신을 위한 폴더
+│  │  └─ hooks
+│  ├─ main.jsx
+│  ├─ routers // 라우터 관리 폴더
+│  ├─ routes
+│  │  ├─ board // 메인 기능 1. board
+│  │  │  ├─ assignment // 1-1. 과제함
+│  │  │  │  ├─ detail
+│  │  │  │  └─ write
+│  │  │  ├─ board // 1-2. 자유게시판
+│  │  │  │  ├─ detail
+│  │  │  │  └─ write
+│  │  │  └─ notice // 1-3. 공지사항
+│  │  │     ├─ detail
+│  │  │     └─ write
+│  │  ├─ codeShare // 메인 기능 2. 화면 공유
+│  │  ├─ question // 메인 기능 3. 질문/알림
+│  │  ├─ socket // 소켓 통신을 위한 폴더
+│  │  └─ user // 유저 기능 관리를 위한 폴더
+│  │     ├─ login
+│  │     ├─ mypage
+│  │     └─ signup
+│  └─ store
+│     ├─ reducers // redux 상태 관리를 위한 폴더
+│     └─ store.js
+└─ vite.config.js
+
+```
+
+```
+📂 backend
+├─ .gitignore
+├─ app.js
+├─ bin // 서버 시작 파일
+│  └─ www
+├─ middlewares // 로그인 관리 미들웨어
+├─ models // DB 모델
+├─ package.json
+├─ routes // 라우터 관리 폴더
+├─ utils // 인증, 소켓 관리 폴더
+│  ├─ auth.js
+│  └─ socket
+└─ views
+
+```
