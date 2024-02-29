@@ -31,6 +31,10 @@ const userSchema = new mongoose.Schema({
     default: "default",
 
   },
+  profile: {
+    type: String,
+    default: "/profile/9334178.jpg",
+  },
 });
 
 userSchema.statics.signUp = async function (userInfo) {
