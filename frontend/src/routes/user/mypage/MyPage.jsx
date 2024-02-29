@@ -23,15 +23,14 @@ import {
   fetchChangeProfileImage,
   fetchGetProfileImage,
 } from "../../../lib/apis/profile";
+import profile1 from "/profile/9334178.jpg";
 
 const ProfilePage = () => {
   const [showModal, setShowModal] = useState(false);
   const [showProfileModal, setShowProfileModal] = useState(false);
   const [MypageBoardList, setMyPageBoardList] = useState([]);
   const [filteredBoardData, setFilteredBoardData] = useState([]);
-  const [selectedImage, setSelectedImage] = useState(
-    "https://via.placeholder.com/150"
-  );
+  const [selectedImage, setSelectedImage] = useState("");
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
   const postsPerPage = 5;
@@ -57,8 +56,9 @@ const ProfilePage = () => {
       setMyPageBoardList(data);
       setFilteredBoardData(data);
     });
-
+    console.log("hello");
     fetchGetProfileImage(userObj._id).then((data) => {
+      console.log("data입");
       console.log(data);
       setSelectedImage(data);
     });

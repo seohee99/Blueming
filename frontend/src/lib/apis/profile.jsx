@@ -15,8 +15,10 @@ export async function fetchChangeProfileImage(userId, profile) {
 
 //프로필 이미지 가져옴
 export async function fetchGetProfileImage(userId) {
+  console.log("ttttt");
   try {
     const response = await instance.get(`users/${userId}/profile`);
+    console.log("ddddd");
     console.log(response);
     return response.profile;
   } catch (error) {
